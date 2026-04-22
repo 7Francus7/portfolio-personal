@@ -51,126 +51,106 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32 relative">
-      <div className="absolute top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary-500/20 to-transparent" />
-      <div className="max-w-3xl mx-auto px-6 pt-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <div className="inline-flex items-center gap-4 px-4 py-2 rounded-full border border-white/10 bg-[#161b22]/50 backdrop-blur-md mb-6">
-            <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse" />
-            <span className="text-xs font-medium tracking-wide text-slate-300 uppercase">Contacto</span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-display font-semibold tracking-tight text-white mb-4">
-            Empecemos a <span className="text-primary-500">construir.</span>
-          </h2>
-          <p className="text-lg text-slate-400 font-light" style={{ maxWidth: '400px' }}>
-            Estoy disponible para proyectos de alta calidad, sistemas a medida y consultoría técnica.
-          </p>
-        </motion.div>
+    <section id="contact" className="py-32 bg-black px-6 md:px-12 lg:px-20 border-t border-white/5">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-20">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-8">Inquiries</h2>
+            <h3 className="text-4xl md:text-6xl font-normal tracking-tighter leading-none text-white mb-10">
+              Demos vida <br />
+              <span className="text-white/40 italic">a tu próximo activo.</span>
+            </h3>
+            
+            <p className="text-lg text-white/50 font-light leading-relaxed mb-12 max-w-sm">
+              Disponible para proyectos de alta complejidad, consultoría técnica y 
+              desarrollo de productos desde cero.
+            </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          {formState === 'success' ? (
-            <div className="flex items-center gap-4 p-6 bg-slate-900 border border-emerald-500/30 text-emerald-400 rounded-2xl">
-              <CheckCircle size={28} className="text-emerald-500" />
-              <span className="font-medium">Mensaje enviado. Te voy a responder en breve.</span>
-            </div>
-          ) : formState === 'error' ? (
-            <div className="flex items-center gap-4 p-6 bg-slate-900 border border-red-500/30 text-red-400 rounded-2xl">
-              <span className="font-medium">{errorMessage}</span>
-              <button 
-                onClick={() => setFormState('idle')}
-                className="text-sm underline hover:text-red-300"
-              >
-                Reintentar
-              </button>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-400 uppercase tracking-widest">Nombre</label>
-                  <input
-                    type="text"
-                    name="name"
-                    required
-                    className="w-full px-5 py-4 bg-[#161b22]/50 border border-white/10 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-primary-500/50 focus:bg-[#161b22] transition-all font-light shadow-inner shadow-black/20"
-                    placeholder="Tu nombre"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-400 uppercase tracking-widest">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    className="w-full px-5 py-4 bg-[#161b22]/50 border border-white/10 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-primary-500/50 focus:bg-[#161b22] transition-all font-light shadow-inner shadow-black/20"
-                    placeholder="tucorreo@ejemplo.com"
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-400 uppercase tracking-widest">Mensaje</label>
-                <textarea
-                  name="message"
-                  rows={5}
-                  required
-                  className="w-full px-5 py-4 bg-[#161b22]/50 border border-white/10 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-primary-500/50 focus:bg-[#161b22] transition-all resize-none font-light shadow-inner shadow-black/20"
-                  placeholder="Detalles sobre tu problema o proyecto..."
-                />
-              </div>
-              <button
-                type="submit"
-                disabled={formState === 'sending'}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary-500 text-white rounded-2xl font-medium hover:bg-primary-400 hover:scale-[1.02] transition-all primary-glow shadow-lg shadow-primary-500/20 disabled:opacity-50 disabled:hover:scale-100"
-              >
-                {formState === 'sending' ? (
-                  <span className="flex items-center gap-2">
-                    <Loader2 size={20} className="animate-spin" />
-                    Enviando...
-                  </span>
-                ) : (
-                  <>
-                    <span>Enviar Mensaje</span>
-                    <ArrowRight size={20} />
-                  </>
-                )}
-              </button>
-            </form>
-          )}
-
-          <div className="pt-12 mt-12 border-t border-white/5 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="space-y-4">
-              <p className="text-xs font-display text-slate-500 uppercase tracking-[0.2em]">Otros canales</p>
-              <div className="flex flex-wrap items-center gap-3 text-sm">
-                <a href="https://wa.me/5493524421497" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-[#161b22] border border-white/5 rounded-xl text-slate-400 hover:text-emerald-400 hover:border-emerald-500/30 transition-all">
-                  WhatsApp
-                </a>
-                <a href="mailto:dellorsif@gmail.com" className="px-4 py-2 bg-[#161b22] border border-white/5 rounded-xl text-slate-400 hover:text-primary-400 hover:border-primary-500/30 transition-all">
-                  dellorsif@gmail.com
-                </a>
-                <a href="https://github.com/7Francus7" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-[#161b22] border border-white/5 rounded-xl text-slate-400 hover:text-white hover:border-white/20 transition-all">
-                  GitHub
-                </a>
-                <a href="https://www.linkedin.com/in/franco-dellorsi/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-[#161b22] border border-white/5 rounded-xl text-slate-400 hover:text-blue-400 hover:border-blue-500/30 transition-all">
-                  LinkedIn
-                </a>
-                <a href="https://www.instagram.com/frandellorsi_/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-[#161b22] border border-white/5 rounded-xl text-slate-400 hover:text-pink-400 hover:border-pink-500/30 transition-all">
-                  Instagram
-                </a>
+              <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold">Channels</p>
+              <div className="flex flex-wrap gap-4">
+                <a href="https://wa.me/5493524421497" target="_blank" rel="noopener noreferrer" className="text-sm text-white/60 hover:text-white transition-colors">WhatsApp</a>
+                <a href="mailto:dellorsif@gmail.com" className="text-sm text-white/60 hover:text-white transition-colors">Email</a>
+                <a href="https://www.linkedin.com/in/franco-dellorsi/" target="_blank" rel="noopener noreferrer" className="text-sm text-white/60 hover:text-white transition-colors">LinkedIn</a>
               </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            {formState === 'success' ? (
+              <div className="liquid-glass border border-white/20 p-12 rounded-3xl text-center">
+                <CheckCircle size={48} className="text-white mx-auto mb-6" />
+                <h4 className="text-2xl font-light text-white mb-2">Mensaje Recibido</h4>
+                <p className="text-white/50 font-light">Te responderé en la brevedad posible.</p>
+                <button 
+                  onClick={() => setFormState('idle')}
+                  className="mt-8 text-sm text-white/30 hover:text-white transition-colors"
+                >
+                  Enviar otro mensaje
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="space-y-3">
+                    <label className="text-[10px] uppercase tracking-widest text-white/40 font-bold">Nombre</label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      placeholder="Franco D."
+                      className="w-full bg-transparent border-b border-white/10 py-3 text-white placeholder:text-white/10 focus:outline-none focus:border-white transition-colors font-light"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <label className="text-[10px] uppercase tracking-widest text-white/40 font-bold">Email</label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      placeholder="franco@example.com"
+                      className="w-full bg-transparent border-b border-white/10 py-3 text-white placeholder:text-white/10 focus:outline-none focus:border-white transition-colors font-light"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <label className="text-[10px] uppercase tracking-widest text-white/40 font-bold">Mensaje</label>
+                  <textarea
+                    name="message"
+                    rows={4}
+                    required
+                    placeholder="Cuéntame sobre tu proyecto..."
+                    className="w-full bg-transparent border-b border-white/10 py-3 text-white placeholder:text-white/10 focus:outline-none focus:border-white transition-colors resize-none font-light"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={formState === 'sending'}
+                  className="w-full flex items-center justify-between px-8 py-5 bg-white text-black rounded-xl font-semibold hover:bg-gray-100 transition-all disabled:opacity-50"
+                >
+                  {formState === 'sending' ? (
+                    <Loader2 size={24} className="animate-spin mx-auto" />
+                  ) : (
+                    <>
+                      <span>Enviar Consulta</span>
+                      <ArrowRight size={24} />
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
+          </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -19,84 +19,50 @@ const socialLinks = [
 ];
 
 export function Footer() {
-  const footerLinks = [
-    { label: 'Proyectos', to: '/proyectos' },
-    { label: 'Sobre mí', to: '/sobre-mi' },
-    { label: 'Contacto', to: '/contacto' },
-  ];
-
   return (
-    <footer className="relative py-16 border-t border-white/5 bg-[#0a0e14]">
-      {/* Decorative glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[1px] bg-gradient-to-r from-transparent via-primary-500/40 to-transparent" />
-      
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="grid md:grid-cols-3 gap-12 items-center">
-          {/* Logo / Brand */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
-            <Link to="/" className="text-2xl font-display font-bold tracking-tight text-white">
-              Franco<span className="text-primary-500">.</span>
+    <footer className="bg-black py-20 px-6 md:px-12 lg:px-20 border-t border-white/5">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-24">
+          <div>
+            <Link to="/" className="text-2xl font-semibold tracking-tight text-white mb-6 block">
+              Franco<span className="text-white/40">.</span>
             </Link>
-            <p className="text-sm text-slate-500 mt-2 font-light">
-              Construyendo software que genera valor.
+            <p className="text-white/40 max-w-sm font-light leading-relaxed">
+              Dedicado a la ingeniería de productos digitales que combinan 
+              rendimiento extremo con diseño minimalista.
             </p>
-          </motion.div>
-
-          {/* Nav links */}
-          <div className="flex flex-wrap justify-center gap-6 text-sm">
-            {footerLinks.map((item) => (
-              <Link
-                key={item.label}
-                to={item.to}
-                className="text-slate-500 hover:text-primary-400 transition-colors font-medium"
-              >
-                {item.label}
-              </Link>
-            ))}
           </div>
-
-          {/* Social */}
-          <div className="flex items-center justify-end gap-4">
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group p-3 rounded-xl bg-[#161b22] border border-white/5 hover:border-primary-500/30 transition-all"
-                aria-label={link.label}
-              >
-                <link.icon className="w-5 h-5 text-slate-400 group-hover:text-primary-400 transition-colors" />
-              </a>
-            ))}
+          
+          <div className="flex flex-col md:items-end justify-between gap-8">
+            <div className="flex gap-10">
+              <Link to="/proyectos" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Archive</Link>
+              <Link to="/sobre-mi" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Story</Link>
+              <Link to="/contacto" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Contact</Link>
+            </div>
+            
+            <div className="flex gap-4">
+              {socialLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-full border border-white/10 hover:bg-white hover:text-black transition-all"
+                >
+                  <link.icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
-
-        {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-slate-600 font-light">
-            © {new Date().getFullYear()} <span className="font-medium text-slate-400">Franco</span>. Hecho a mano. No templates.
+        
+        <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between gap-4">
+          <p className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-bold">
+            © {new Date().getFullYear()} Handcrafted by Franco
           </p>
-          <div className="flex items-center gap-3 text-[10px] font-medium uppercase tracking-[0.25em] text-slate-600">
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary-500/50" />
-              React
-            </span>
-            <span className="text-slate-800">·</span>
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary-500/50" />
-              Motion
-            </span>
-            <span className="text-slate-800">·</span>
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary-500/50" />
-              Tailwind
-            </span>
-          </div>
+          <p className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-bold">
+            Built with React & Precision
+          </p>
         </div>
       </div>
     </footer>

@@ -1,68 +1,61 @@
 import { motion } from 'framer-motion';
-import { Layers, BarChart3, ShoppingCart, Zap, Database, Wrench, ShoppingBag, Smartphone } from 'lucide-react';
-import { capabilities } from '../data/projects';
+import { Layers, Zap, BarChart3, Database } from 'lucide-react';
 
-const capabilityIcons = [
-  Layers, BarChart3, ShoppingCart, Zap, Database, Wrench, ShoppingBag, Smartphone
+const capabilities = [
+  {
+    title: 'Product Architecture',
+    description: 'Diseño integral de productos digitales desde la idea hasta el despliegue a gran escala.',
+    icon: Layers,
+  },
+  {
+    title: 'Full-stack Engineering',
+    description: 'Desarrollo robusto con React, Next.js, Python y Node.js centrado en el rendimiento.',
+    icon: Zap,
+  },
+  {
+    title: 'Business Systems',
+    description: 'Automatización de flujos operativos y creación de herramientas de gestión de negocio.',
+    icon: BarChart3,
+  },
+  {
+    title: 'Infrastructure & DB',
+    description: 'Bases de datos optimizadas y despliegues en la nube con escalabilidad garantizada.',
+    icon: Database,
+  },
 ];
 
 export function Capabilities() {
   return (
-    <section id="capabilities" className="py-24 md:py-32 relative">
-      <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16"
-        >
-          <div className="inline-flex items-center gap-4 px-4 py-2 rounded-full border border-white/10 bg-[#161b22]/50 backdrop-blur-md mb-6">
-            <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse" />
-            <span className="text-xs font-medium tracking-wide text-slate-300 uppercase">Capacidades</span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-display font-semibold tracking-tight text-white mb-4">
-            Lo que <span className="text-slate-600">sé construir.</span>
-          </h2>
-        </motion.div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {capabilities.map((cap, index) => {
-            const Icon = capabilityIcons[index] || Layers;
-            return (
-              <motion.div
-                key={cap.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="group glass rounded-3xl p-8 border border-white/5 bg-[#161b22]/60 space-y-5 hover:border-primary-500/30 hover:shadow-2xl hover:shadow-primary-500/5 transition-all duration-500"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="p-3 bg-[#0D1117] border border-white/10 rounded-xl relative group-hover:border-primary-500/30 transition-colors">
-                    <Icon size={24} className="text-primary-500 relative z-10" />
-                    <div className="absolute inset-0 bg-primary-500/20 blur-md rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                  <h3 className="font-display font-semibold text-lg text-white">{cap.title}</h3>
-                </div>
-                <p className="text-slate-400 font-light leading-relaxed">{cap.description}</p>
-              </motion.div>
-            );
-          })}
+    <section className="py-32 bg-black px-6 md:px-12 lg:px-20 border-t border-white/5">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-24">
+          <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-6">Expertise</h2>
+          <h3 className="text-4xl md:text-6xl font-normal tracking-tighter text-white">
+            Capacidades técnicas <br />
+            <span className="text-white/40 italic">de alto rendimiento.</span>
+          </h3>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-20 p-12 glass bg-[#161b22]/60 border border-white/5 backdrop-blur-xl rounded-3xl relative overflow-hidden shadow-2xl"
-        >
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary-600/10 blur-[100px] rounded-full" />
-          <p className="text-xl md:text-2xl text-slate-400 font-light text-center relative z-10">
-            ¿Necesitás algo que no está en esta lista?{' '}
-            <span className="text-white font-medium">Contáctame.</span> Seguramente sé cómo resolverlo.
-          </p>
-        </motion.div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-1">
+          {capabilities.map((cap, i) => (
+            <motion.div
+              key={cap.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="group p-8 border border-white/5 hover:bg-white/5 transition-all duration-500"
+            >
+              <div className="mb-10 w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                <cap.icon size={20} />
+              </div>
+              <h4 className="text-xl font-medium text-white mb-4 tracking-tight">{cap.title}</h4>
+              <p className="text-sm text-white/40 font-light leading-relaxed">
+                {cap.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
