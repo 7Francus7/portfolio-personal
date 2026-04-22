@@ -43,16 +43,16 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
             >
               <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/5 bg-[#111]">
                 <img
-                  src={project.image}
+                  src={project.images[0] || '/src/assets/hero.png'}
                   alt={project.title}
                   className="w-full h-full object-cover opacity-60 grayscale transition-all duration-700 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
                 
                 <div className="absolute top-6 left-6 flex gap-2">
-                  {project.tags.slice(0, 2).map((tag) => (
-                    <span key={tag} className="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-[10px] uppercase tracking-widest text-white/70">
-                      {tag}
+                  {project.category.slice(0, 2).map((cat) => (
+                    <span key={cat} className="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-[10px] uppercase tracking-widest text-white/70">
+                      {cat}
                     </span>
                   ))}
                 </div>
@@ -61,7 +61,7 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
               <div className="mt-8 flex justify-between items-start">
                 <div>
                   <h4 className="text-2xl font-light text-white mb-2">{project.title}</h4>
-                  <p className="text-sm text-white/40 font-light max-w-sm">{project.description}</p>
+                  <p className="text-sm text-white/40 font-light max-w-sm">{project.tagline}</p>
                 </div>
                 <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
                   <ArrowUpRight className="w-5 h-5" />
@@ -97,7 +97,7 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
               <div className="h-full overflow-y-auto custom-scrollbar">
                 <div className="aspect-video w-full overflow-hidden">
                   <img
-                    src={selectedProject.image}
+                    src={selectedProject.images[0] || '/src/assets/hero.png'}
                     alt={selectedProject.title}
                     className="w-full h-full object-cover"
                   />
@@ -110,13 +110,13 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
                         {selectedProject.title}
                       </h3>
                       <p className="text-lg text-white/50 font-light leading-relaxed mb-12">
-                        {selectedProject.fullDescription || selectedProject.description}
+                        {selectedProject.description}
                       </p>
 
                       <div className="flex flex-wrap gap-4 mb-16">
-                        {selectedProject.link && (
+                        {selectedProject.demo && (
                           <a
-                            href={selectedProject.link}
+                            href={selectedProject.demo}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-8 py-3 bg-white text-black rounded-xl font-medium hover:bg-gray-100 transition-all"
@@ -141,7 +141,7 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
                       <div>
                         <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold mb-6">Technologies</h4>
                         <div className="flex flex-wrap gap-3">
-                          {selectedProject.technologies.map((tech) => (
+                          {selectedProject.stack.map((tech) => (
                             <span key={tech} className="px-4 py-2 rounded-lg bg-white/5 border border-white/5 text-sm font-light text-white/80">
                               {tech}
                             </span>

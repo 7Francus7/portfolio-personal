@@ -4,12 +4,10 @@ import { ArrowRight, CheckCircle, Loader2 } from 'lucide-react';
 
 export function Contact() {
   const [formState, setFormState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormState('sending');
-    setErrorMessage('');
 
     const form = e.currentTarget;
     const formData = new FormData(form);
@@ -42,11 +40,9 @@ export function Contact() {
         form.reset();
       } else {
         setFormState('error');
-        setErrorMessage(result.message || 'Error al enviar');
       }
     } catch (error) {
       setFormState('error');
-      setErrorMessage('Error de conexión. Intentá de nuevo.');
     }
   };
 
