@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import profileImg from '../assets/profile.jpg';
 
 interface FadeInProps {
   children: React.ReactNode;
@@ -49,7 +50,7 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ text, className = "" 
   return (
     <h1 className={className} style={{ letterSpacing: '-0.05em' }}>
       {lines.map((line, lineIndex) => (
-        <span key={lineIndex} className="block overflow-hidden">
+        <span key={lineIndex} className="block overflow-hidden whitespace-nowrap">
           {line.split('').map((char, charIndex) => {
             const delay = (lineIndex * line.length * charDelay) + (charIndex * charDelay);
             return (
@@ -58,7 +59,7 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ text, className = "" 
                 className="inline-block transition-all duration-700 ease-out"
                 style={{
                   opacity: isAnimating ? 1 : 0,
-                  transform: isAnimating ? 'translateY(0)' : 'translateY(40px)',
+                  transform: isAnimating ? 'translateY(0)' : 'translateY(100%)',
                   transitionDelay: `${delay}ms`,
                 }}
               >
@@ -79,14 +80,15 @@ export function Hero() {
       <div className="absolute inset-y-0 right-0 w-full lg:w-[65%] z-0">
         <div className="relative h-full w-full">
           <img 
-            src="/src/assets/profile.jpg" 
+            src={profileImg} 
             alt="Franco - Product Architect"
-            className="h-full w-full object-cover object-[center_25%] opacity-70 grayscale-[0.3] contrast-125 brightness-75"
+            className="h-full w-full object-cover object-[center_25%] opacity-60 grayscale-[0.3] contrast-125 brightness-75"
             onError={(e) => {
-              e.currentTarget.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=2000";
+              // Si la imagen no carga, usamos un backup de alta calidad pero neutral
+              e.currentTarget.src = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=2000";
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
         </div>
       </div>
@@ -94,7 +96,7 @@ export function Hero() {
       {/* Main UI Layer */}
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-20 flex flex-col lg:flex-row lg:items-end justify-between pb-16 lg:pb-24">
         
-        <div className="max-w-4xl pt-32 lg:pt-0">
+        <div className="max-w-5xl pt-32 lg:pt-0">
           <FadeIn delay={0} duration={600}>
             <div className="mb-6 inline-flex items-center gap-3 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
               <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
@@ -103,14 +105,14 @@ export function Hero() {
           </FadeIn>
 
           <AnimatedHeading 
-            text={"Evolving ideas\ninto digital assets."} 
-            className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-normal mb-8 leading-[0.85] tracking-tighter"
+            text={"Evolving ideas\ninto assets."} 
+            className="text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] font-normal mb-8 leading-[0.8] tracking-tighter"
           />
           
           <div className="max-w-xl">
             <FadeIn delay={600} duration={1000}>
               <p className="text-lg md:text-xl text-white/50 mb-10 font-light leading-relaxed">
-                Full-stack Developer especializado en la creación de <span className="text-white">SaaS, sistemas operativos de negocio</span> y experiencias digitales que combinan estética radical con funcionalidad absoluta.
+                Full-stack Developer especializado en la creación de <span className="text-white font-medium">SaaS y sistemas operativos de negocio</span> que combinan estética radical con funcionalidad absoluta.
               </p>
             </FadeIn>
 
@@ -141,7 +143,7 @@ export function Hero() {
                 <div className="pt-4 border-t border-white/10">
                   <div className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                    <span className="text-[10px] uppercase tracking-widest text-white font-bold">Live Status: Available</span>
+                    <span className="text-[10px] uppercase tracking-widest text-white font-bold">Status: Available</span>
                   </div>
                 </div>
               </div>
