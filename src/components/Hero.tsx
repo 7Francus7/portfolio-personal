@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 interface FadeInProps {
   children: React.ReactNode;
@@ -74,65 +75,74 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ text, className = "" 
 
 export function Hero() {
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-black text-white">
-      {/* Background Image/Video */}
-      {/* 
-        He puesto un video de código de alta calidad en blanco y negro para mantener la estética VEX, 
-        pero podés reemplazar el <img> de abajo con tu foto local.
-      */}
-      <div className="absolute inset-0 h-full w-full">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="h-full w-full object-cover opacity-60 grayscale"
-        >
-          <source src="https://videos.pexels.com/video-files/3129957/3129957-uhd_2560_1440_30fps.mp4" type="video/mp4" />
-        </video>
-        {/* Overlay para suavizar la transición al negro del fondo */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+    <section className="relative h-screen w-full overflow-hidden bg-black text-white flex items-center">
+      {/* Photo Background with Cinematic Gradient */}
+      <div className="absolute inset-y-0 right-0 w-full lg:w-2/3 z-0">
+        <div className="relative h-full w-full">
+          {/* La Imagen - Se asume que está en src/assets/profile.jpg */}
+          {/* He puesto una imagen de respaldo por si no está el archivo, pero usará tu foto */}
+          <img 
+            src="/src/assets/profile.jpg" 
+            alt="Franco"
+            className="h-full w-full object-cover object-center opacity-80 grayscale-[0.2] brightness-90"
+            onError={(e) => {
+              // Fallback en caso de que no encuentre la imagen local
+              e.currentTarget.src = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=2000";
+            }}
+          />
+          
+          {/* Máscaras de degradado para fundir con el negro */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-transparent" />
+        </div>
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 flex h-full flex-col px-6 md:px-12 lg:px-16 pb-12 lg:pb-16">
-        <div className="flex-1" />
+      <div className="relative z-10 w-full px-6 md:px-12 lg:px-16 flex flex-col lg:flex-row lg:items-end justify-between pb-12 lg:pb-20">
+        
+        {/* Left Column: Content */}
+        <div className="max-w-3xl pt-24 lg:pt-0">
+          <AnimatedHeading 
+            text={"Construyendo software\nque genera valor real."} 
+            className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-normal mb-6 leading-[0.9] tracking-tighter"
+          />
+          
+          <FadeIn delay={800} duration={1000}>
+            <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-lg font-light leading-relaxed">
+              Desarrollador Full-stack y Product Builder. 
+              Transformo ideas complejas en sistemas eficientes y escalables.
+            </p>
+          </FadeIn>
 
-        <div className="lg:grid lg:grid-cols-2 lg:items-end">
-          {/* Left Column */}
-          <div className="max-w-3xl">
-            <AnimatedHeading 
-              text={"Construyendo software\nque genera valor real."} 
-              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal mb-4 leading-tight"
-            />
-            
-            <FadeIn delay={800} duration={1000}>
-              <p className="text-base md:text-lg text-gray-300 mb-8 max-w-lg font-light">
-                Desarrollador Full-stack especializado en SaaS, sistemas de gestión 
-                y productos digitales que resuelven problemas de negocio.
-              </p>
-            </FadeIn>
+          <FadeIn delay={1200} duration={1000} className="flex flex-wrap gap-4">
+            <Link to="/contacto" className="bg-white text-black px-10 py-4 rounded-lg font-medium transition-all hover:bg-gray-100 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+              Iniciar Proyecto
+            </Link>
+            <Link to="/proyectos" className="liquid-glass border border-white/20 text-white px-10 py-4 rounded-lg font-medium transition-all hover:bg-white hover:text-black">
+              Explorar Portfolio
+            </Link>
+          </FadeIn>
+        </div>
 
-            <FadeIn delay={1200} duration={1000} className="flex flex-wrap gap-4">
-              <Link to="/contacto" className="bg-white text-black px-8 py-3 rounded-lg font-medium transition-all hover:bg-gray-100 hover:scale-105 active:scale-95">
-                Hablemos
-              </Link>
-              <Link to="/proyectos" className="liquid-glass border border-white/20 text-white px-8 py-3 rounded-lg font-medium transition-all hover:bg-white hover:text-black">
-                Ver Proyectos
-              </Link>
-            </FadeIn>
-          </div>
-
-          {/* Right Column */}
-          <div className="mt-12 lg:mt-0 flex items-end justify-start lg:justify-end">
-            <FadeIn delay={1400} duration={1000}>
-              <div className="liquid-glass border border-white/20 px-6 py-3 rounded-xl">
-                <span className="text-lg md:text-xl lg:text-2xl font-light tracking-widest uppercase text-white/70">
-                  SaaS. Web Apps. Systems.
-                </span>
+        {/* Right Column: Dynamic Status Tag */}
+        <div className="mt-16 lg:mt-0">
+          <FadeIn delay={1500} duration={1200}>
+            <motion.div 
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="liquid-glass border border-white/20 px-8 py-5 rounded-2xl flex flex-col gap-1"
+            >
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-[10px] uppercase tracking-[0.3em] text-white/50 font-bold">Status</span>
               </div>
-            </FadeIn>
-          </div>
+              <span className="text-xl md:text-2xl font-light text-white/90">
+                Disponible para <br />
+                <span className="font-medium text-white">nuevos desafíos</span>
+              </span>
+            </motion.div>
+          </FadeIn>
         </div>
       </div>
     </section>
