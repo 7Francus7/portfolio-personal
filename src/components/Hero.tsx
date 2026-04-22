@@ -81,10 +81,9 @@ export function Hero() {
         <div className="relative h-full w-full">
           <img 
             src={profileImg} 
-            alt="Franco - Product Architect"
+            alt="Franco - Arquitecto de Producto"
             className="h-full w-full object-cover object-[center_25%] opacity-60 grayscale-[0.3] contrast-125 brightness-75"
             onError={(e) => {
-              // Si la imagen no carga, usamos un backup de alta calidad pero neutral
               e.currentTarget.src = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=2000";
             }}
           />
@@ -100,13 +99,13 @@ export function Hero() {
           <FadeIn delay={0} duration={600}>
             <div className="mb-6 inline-flex items-center gap-3 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
               <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-              <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-white/60">Independent Product Builder</span>
+              <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-white/60">Arquitecto de Producto Independiente</span>
             </div>
           </FadeIn>
 
           <AnimatedHeading 
-            text={"Evolving ideas\ninto assets."} 
-            className="text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] font-normal mb-8 leading-[0.8] tracking-tighter"
+            text={"Transformando ideas\nen activos digitales."} 
+            className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-normal mb-8 leading-[0.85] tracking-tighter"
           />
           
           <div className="max-w-xl">
@@ -118,10 +117,10 @@ export function Hero() {
 
             <FadeIn delay={1000} duration={1000} className="flex flex-wrap gap-5">
               <Link to="/contacto" className="bg-white text-black px-10 py-4 rounded-xl font-semibold transition-all hover:bg-gray-100 hover:scale-105 active:scale-95 shadow-[0_20px_40px_-15px_rgba(255,255,255,0.3)]">
-                Start a Project
+                Empezar Proyecto
               </Link>
               <Link to="/proyectos" className="liquid-glass border border-white/20 text-white px-10 py-4 rounded-xl font-medium transition-all hover:bg-white hover:text-black">
-                View Archive
+                Ver Archivo
               </Link>
             </FadeIn>
           </div>
@@ -132,18 +131,18 @@ export function Hero() {
             <div className="liquid-glass border border-white/10 p-8 rounded-3xl max-w-xs">
               <div className="flex flex-col gap-4">
                 <div className="flex justify-between items-start">
-                  <span className="text-[10px] uppercase tracking-widest text-white/40 font-bold">Focus</span>
+                  <span className="text-[10px] uppercase tracking-widest text-white/40 font-bold">Foco</span>
                   <div className="w-8 h-[1px] bg-white/20 mt-2" />
                 </div>
                 <div className="space-y-2">
                   <p className="text-sm font-light text-white/60 leading-snug">
-                    Actualmente diseñando arquitecturas escalables para la <span className="text-white font-medium">próxima generación</span> de herramientas de gestión.
+                    Diseñando arquitecturas escalables para la <span className="text-white font-medium">próxima generación</span> de herramientas de gestión.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-white/10">
                   <div className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                    <span className="text-[10px] uppercase tracking-widest text-white font-bold">Status: Available</span>
+                    <span className="text-[10px] uppercase tracking-widest text-white font-bold">Status: Disponible</span>
                   </div>
                 </div>
               </div>
