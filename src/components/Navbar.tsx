@@ -1,132 +1,92 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const navLinks = [
-  { label: 'Proyectos', to: '/proyectos' },
-  { label: 'Sobre mí', to: '/sobre-mi' },
-  { label: 'Contacto', to: '/contacto' },
+  { label: 'Story', to: '/sobre-mi' },
+  { label: 'Investing', to: '/proyectos' },
+  { label: 'Building', to: '/proyectos' },
+  { label: 'Advisory', to: '/contacto' },
 ];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Close mobile menu on route change
   useEffect(() => {
     setIsOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.pathname]);
-
-  const isActive = (to: string) => location.pathname === to;
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 w-[92%] max-w-5xl rounded-2xl ${
-          scrolled 
-            ? 'glass bg-[#0D1117]/80 backdrop-blur-2xl border border-white/5 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.4)]' 
-            : 'bg-transparent py-5'
-        }`}
-      >
-        <div className="px-6 flex items-center justify-between">
-          <Link to="/" className="text-xl font-display font-bold tracking-tight text-white flex items-center gap-1 group">
-            Franco
-            <span className="text-primary-500 group-hover:animate-pulse transition-colors">.</span>
+      <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 lg:px-16 pt-6">
+        <div className="liquid-glass rounded-xl px-4 py-2 flex items-center justify-between">
+          {/* Left: Logo */}
+          <Link to="/" className="text-2xl font-semibold tracking-tight text-white">
+            VEX
           </Link>
 
-          <div className="hidden md:flex items-center gap-1">
+          {/* Center: Links (Desktop) */}
+          <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
-                key={link.to}
+                key={link.label}
                 to={link.to}
-                className={`relative px-4 py-2 text-sm font-medium transition-colors rounded-lg hover:bg-white/5 ${
-                  isActive(link.to)
-                    ? 'text-white bg-white/5'
-                    : 'text-slate-400 hover:text-white'
-                }`}
+                className="text-sm text-white/90 hover:text-gray-300 transition-colors"
               >
                 {link.label}
-                {isActive(link.to) && (
-                  <motion.span
-                    layoutId="nav-indicator"
-                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-primary-500 rounded-full"
-                  />
-                )}
               </Link>
             ))}
+          </div>
+
+          {/* Right: CTA Button (Desktop) */}
+          <div className="hidden md:block">
             <Link
               to="/contacto"
-              className="ml-4 inline-flex items-center gap-2 px-5 py-2 bg-primary-500/10 border border-primary-500/20 text-primary-400 rounded-xl text-sm font-medium hover:bg-primary-500/20 hover:border-primary-500/40 transition-all"
+              className="bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
             >
-              Hablemos
-              <ArrowRight size={14} />
+              Start a Chat
             </Link>
           </div>
 
+          {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden p-2 text-white rounded-lg hover:bg-white/5 transition-colors"
+            className="md:hidden p-2 text-white"
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
+      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-[#0D1117]/98 backdrop-blur-2xl pt-28 px-8 md:hidden"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 z-40 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden"
           >
-            <div className="flex flex-col gap-2">
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.to}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.08 }}
-                >
-                  <Link
-                    to={link.to}
-                    className={`block text-3xl font-display font-medium transition-colors py-3 border-b border-white/5 ${
-                      isActive(link.to) ? 'text-primary-500' : 'text-slate-100 hover:text-primary-500'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="mt-10"
-            >
+            {navLinks.map((link) => (
               <Link
-                to="/contacto"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-primary-500 text-white rounded-2xl font-medium shadow-lg shadow-primary-500/20"
+                key={link.label}
+                to={link.to}
+                className="text-2xl text-white font-light hover:text-gray-300 transition-colors"
+                onClick={() => setIsOpen(false)}
               >
-                Hablemos
-                <ArrowRight size={18} />
+                {link.label}
               </Link>
-            </motion.div>
+            ))}
+            <Link
+              to="/contacto"
+              className="mt-4 bg-white text-black px-8 py-3 rounded-lg font-medium"
+              onClick={() => setIsOpen(false)}
+            >
+              Start a Chat
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
