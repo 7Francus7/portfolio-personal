@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 const navLinks = [
   { label: 'Proyectos', to: '/proyectos' },
   { label: 'Sobre mí', to: '/sobre-mi' },
-  { label: 'Contacto', to: '/contacto' },
+  // Removido 'Contacto' de aquí porque ya está el botón 'Hablemos' a la derecha
 ];
 
 export function Navbar() {
@@ -44,7 +44,7 @@ export function Navbar() {
           <div className="hidden md:block">
             <Link
               to="/contacto"
-              className="bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-all hover:scale-105 active:scale-95"
+              className="bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-all hover:scale-105 active:scale-95 shadow-[0_10px_20px_-5px_rgba(255,255,255,0.2)]"
             >
               Hablemos
             </Link>
