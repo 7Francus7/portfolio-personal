@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, X, ExternalLink, Check, Layers, Zap, BarChart3 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { type Project } from '../data/projects';
 
 const GithubIcon = ({ className, size = 24 }: { className?: string; size?: number }) => (
