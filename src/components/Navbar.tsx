@@ -4,10 +4,9 @@ import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const navLinks = [
-  { label: 'Story', to: '/sobre-mi' },
-  { label: 'Investing', to: '/proyectos' },
-  { label: 'Building', to: '/proyectos' },
-  { label: 'Advisory', to: '/contacto' },
+  { label: 'Proyectos', to: '/proyectos' },
+  { label: 'Sobre mí', to: '/sobre-mi' },
+  { label: 'Contacto', to: '/contacto' },
 ];
 
 export function Navbar() {
@@ -24,8 +23,8 @@ export function Navbar() {
       <nav className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 lg:px-16 pt-6">
         <div className="liquid-glass rounded-xl px-4 py-2 flex items-center justify-between">
           {/* Left: Logo */}
-          <Link to="/" className="text-2xl font-semibold tracking-tight text-white">
-            VEX
+          <Link to="/" className="text-2xl font-semibold tracking-tight text-white flex items-center gap-1 group">
+            Franco<span className="text-white/40">.</span>
           </Link>
 
           {/* Center: Links (Desktop) */}
@@ -34,7 +33,7 @@ export function Navbar() {
               <Link
                 key={link.label}
                 to={link.to}
-                className="text-sm text-white/90 hover:text-gray-300 transition-colors"
+                className="text-sm text-white/70 hover:text-white transition-colors font-light tracking-wide"
               >
                 {link.label}
               </Link>
@@ -45,9 +44,9 @@ export function Navbar() {
           <div className="hidden md:block">
             <Link
               to="/contacto"
-              className="bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
+              className="bg-white text-black px-6 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-all hover:scale-105 active:scale-95"
             >
-              Start a Chat
+              Hablemos
             </Link>
           </div>
 
@@ -74,7 +73,7 @@ export function Navbar() {
               <Link
                 key={link.label}
                 to={link.to}
-                className="text-2xl text-white font-light hover:text-gray-300 transition-colors"
+                className="text-2xl text-white font-light hover:text-gray-400 transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}
@@ -85,7 +84,7 @@ export function Navbar() {
               className="mt-4 bg-white text-black px-8 py-3 rounded-lg font-medium"
               onClick={() => setIsOpen(false)}
             >
-              Start a Chat
+              Hablemos
             </Link>
           </motion.div>
         )}

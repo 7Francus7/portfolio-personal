@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 interface FadeInProps {
   children: React.ReactNode;
@@ -74,43 +75,51 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ text, className = "" 
 export function Hero() {
   return (
     <section className="relative h-screen w-full overflow-hidden bg-black text-white">
-      {/* Video Background */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 h-full w-full object-cover"
-      >
-        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4" type="video/mp4" />
-      </video>
+      {/* Background Image/Video */}
+      {/* 
+        He puesto un video de código de alta calidad en blanco y negro para mantener la estética VEX, 
+        pero podés reemplazar el <img> de abajo con tu foto local.
+      */}
+      <div className="absolute inset-0 h-full w-full">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="h-full w-full object-cover opacity-60 grayscale"
+        >
+          <source src="https://videos.pexels.com/video-files/3129957/3129957-uhd_2560_1440_30fps.mp4" type="video/mp4" />
+        </video>
+        {/* Overlay para suavizar la transición al negro del fondo */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+      </div>
 
       {/* Content Container */}
       <div className="relative z-10 flex h-full flex-col px-6 md:px-12 lg:px-16 pb-12 lg:pb-16">
-        {/* Spacer to push content to bottom */}
         <div className="flex-1" />
 
         <div className="lg:grid lg:grid-cols-2 lg:items-end">
           {/* Left Column */}
           <div className="max-w-3xl">
             <AnimatedHeading 
-              text={"Shaping tomorrow\nwith vision and action."} 
-              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal mb-4"
+              text={"Construyendo software\nque genera valor real."} 
+              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal mb-4 leading-tight"
             />
             
             <FadeIn delay={800} duration={1000}>
-              <p className="text-base md:text-lg text-gray-300 mb-8 max-w-lg">
-                We back visionaries and craft ventures that define what comes next.
+              <p className="text-base md:text-lg text-gray-300 mb-8 max-w-lg font-light">
+                Desarrollador Full-stack especializado en SaaS, sistemas de gestión 
+                y productos digitales que resuelven problemas de negocio.
               </p>
             </FadeIn>
 
             <FadeIn delay={1200} duration={1000} className="flex flex-wrap gap-4">
-              <button className="bg-white text-black px-8 py-3 rounded-lg font-medium transition-colors hover:bg-gray-100">
-                Start a Chat
-              </button>
-              <button className="liquid-glass border border-white/20 text-white px-8 py-3 rounded-lg font-medium transition-all hover:bg-white hover:text-black">
-                Explore Now
-              </button>
+              <Link to="/contacto" className="bg-white text-black px-8 py-3 rounded-lg font-medium transition-all hover:bg-gray-100 hover:scale-105 active:scale-95">
+                Hablemos
+              </Link>
+              <Link to="/proyectos" className="liquid-glass border border-white/20 text-white px-8 py-3 rounded-lg font-medium transition-all hover:bg-white hover:text-black">
+                Ver Proyectos
+              </Link>
             </FadeIn>
           </div>
 
@@ -118,8 +127,8 @@ export function Hero() {
           <div className="mt-12 lg:mt-0 flex items-end justify-start lg:justify-end">
             <FadeIn delay={1400} duration={1000}>
               <div className="liquid-glass border border-white/20 px-6 py-3 rounded-xl">
-                <span className="text-lg md:text-xl lg:text-2xl font-light">
-                  Investing. Building. Advisory.
+                <span className="text-lg md:text-xl lg:text-2xl font-light tracking-widest uppercase text-white/70">
+                  SaaS. Web Apps. Systems.
                 </span>
               </div>
             </FadeIn>
