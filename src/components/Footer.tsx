@@ -27,16 +27,16 @@ export function Footer() {
               Franco<span className="text-white/40">.</span>
             </Link>
             <p className="text-white/40 max-w-sm font-light leading-relaxed">
-              Dedicado a la ingeniería de productos digitales que combinan 
-              rendimiento extremo con diseño minimalista.
+              Sistemas web para negocios que necesitan vender, reservar, cobrar,
+              medir y administrar con menos fricción.
             </p>
           </div>
           
           <div className="flex flex-col md:items-end justify-between gap-8">
             <div className="flex gap-10">
-              <Link to="/proyectos" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Archive</Link>
-              <Link to="/sobre-mi" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Story</Link>
-              <Link to="/contacto" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Contact</Link>
+              <Link to="/proyectos" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Proyectos</Link>
+              <Link to="/sobre-mi" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Sobre mí</Link>
+              <Link to="/contacto" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Contacto</Link>
             </div>
             
             <div className="flex gap-4">
@@ -57,10 +57,10 @@ export function Footer() {
         
         <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between gap-4">
           <p className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-bold">
-            © {new Date().getFullYear()} Handcrafted by Franco
+            © {new Date().getFullYear()} Franco Dellorsi
           </p>
           <p className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-bold">
-            Built with React & Precision
+            React, TypeScript, Vite
           </p>
         </div>
       </div>

@@ -3,23 +3,23 @@ import { Layers, Zap, BarChart3, Database } from 'lucide-react';
 
 const capabilities = [
   {
-    title: 'Product Architecture',
-    description: 'Diseño integral de productos digitales desde la idea hasta el despliegue a gran escala.',
+    title: 'Arquitectura de producto',
+    description: 'Definición de flujos, pantallas y estructura técnica antes de escribir código.',
     icon: Layers,
   },
   {
-    title: 'Full-stack Engineering',
-    description: 'Desarrollo robusto con React, Next.js, Python y Node.js centrado en el rendimiento.',
+    title: 'Full-stack engineering',
+    description: 'React, Next.js, Node, Python y bases de datos trabajando como una sola pieza.',
     icon: Zap,
   },
   {
-    title: 'Business Systems',
-    description: 'Automatización de flujos operativos y creación de herramientas de gestión de negocio.',
+    title: 'Sistemas de negocio',
+    description: 'Reservas, POS, clientes, caja, inventario y procesos internos sin planillas sueltas.',
     icon: BarChart3,
   },
   {
-    title: 'Infrastructure & DB',
-    description: 'Bases de datos optimizadas y despliegues en la nube con escalabilidad garantizada.',
+    title: 'Infraestructura y datos',
+    description: 'Modelos de datos claros, deploys simples y bases preparadas para crecer.',
     icon: Database,
   },
 ];
@@ -29,10 +29,10 @@ export function Capabilities() {
     <section className="py-32 bg-black px-6 md:px-12 lg:px-20 border-t border-white/5">
       <div className="max-w-7xl mx-auto">
         <div className="mb-24">
-          <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-6">Expertise</h2>
+          <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-6">Capacidades</h2>
           <h3 className="text-4xl md:text-6xl font-normal tracking-tighter text-white">
-            Capacidades técnicas <br />
-            <span className="text-white/40 italic">de alto rendimiento.</span>
+            Lo que suelo <br />
+            <span className="text-white/40 italic">resolver.</span>
           </h3>
         </div>
 

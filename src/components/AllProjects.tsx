@@ -11,6 +11,14 @@ const statusColors: Record<string, string> = {
   private: 'bg-white/5 text-white/20 border border-white/5',
 };
 
+const statusLabels: Record<string, string> = {
+  live: 'online',
+  mvp: 'mvp',
+  'in-development': 'en curso',
+  client: 'cliente',
+  private: 'privado',
+};
+
 interface AllProjectsProps {
   initialProjects?: Project[];
 }
@@ -43,10 +51,10 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-6">Archive</h2>
+          <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-6">Archivo</h2>
           <h3 className="text-4xl md:text-5xl font-normal tracking-tighter text-white mb-4">
-            Explora el ecosistema <br />
-            <span className="text-white/40 italic">de soluciones técnicas.</span>
+            Todo el trabajo <br />
+            <span className="text-white/40 italic">en un solo lugar.</span>
           </h3>
         </motion.div>
 
@@ -97,7 +105,7 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
             >
               <div className="flex items-start justify-between mb-6">
                 <span className={`px-2 py-1 text-[8px] uppercase tracking-widest font-bold rounded ${statusColors[project.status]}`}>
-                  {project.status}
+                  {statusLabels[project.status]}
                 </span>
                 <span className="text-white/20 text-[10px] font-medium">{project.year}</span>
               </div>
@@ -123,7 +131,7 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
 
         {filteredProjects.length === 0 && (
           <div className="text-center py-32 rounded-3xl border border-white/5 border-dashed">
-            <p className="text-white/20 font-light tracking-widest uppercase text-xs">No matching digital assets found.</p>
+            <p className="text-white/20 font-light tracking-widest uppercase text-xs">No hay proyectos con ese filtro.</p>
           </div>
         )}
       </div>
@@ -150,13 +158,13 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
             </div>
             <div className="p-10 space-y-10">
               <div>
-                <h4 className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-4">Description</h4>
+                <h4 className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-4">Descripción</h4>
                 <p className="text-white/60 font-light leading-relaxed">{selectedProject.description}</p>
               </div>
               
               <div className="grid grid-cols-2 gap-8">
                 <div>
-                  <h4 className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-4">Technologies</h4>
+                  <h4 className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-4">Tecnologías</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.stack.map(s => (
                       <span key={s} className="text-xs text-white/40">{s}</span>
@@ -164,7 +172,7 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-4">Year</h4>
+                  <h4 className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-4">Año</h4>
                   <p className="text-sm text-white/80">{selectedProject.year}</p>
                 </div>
               </div>
@@ -177,7 +185,7 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 text-sm font-medium text-white hover:text-white/60 transition-colors"
                   >
-                    Live Demo <ArrowUpRight size={16} />
+                    Ver demo <ArrowUpRight size={16} />
                   </a>
                 )}
                 {selectedProject.github && !selectedProject.private && (
@@ -187,7 +195,7 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 text-sm font-medium text-white/40 hover:text-white transition-colors"
                   >
-                    Repository <ArrowUpRight size={16} />
+                    Repositorio <ArrowUpRight size={16} />
                   </a>
                 )}
               </div>

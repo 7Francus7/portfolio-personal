@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const navLinks = [
   { label: 'Proyectos', to: '/proyectos' },
@@ -11,12 +11,6 @@ const navLinks = [
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
-
-  // Close mobile menu on route change
-  useEffect(() => {
-    setIsOpen(false);
-  }, [location.pathname]);
 
   return (
     <>
@@ -54,6 +48,7 @@ export function Navbar() {
           <button
             className="md:hidden p-2 text-white"
             onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

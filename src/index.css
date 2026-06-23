@@ -109,7 +109,7 @@
     background-clip: text;
   }
   .section-line {
-    background: linear-gradient(90deg, transparent for, rgba(255, 107, 107, 0.3) 50%, transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 107, 107, 0.3) 50%, transparent);
   }
   .noise {
     position: relative;

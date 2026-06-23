@@ -48,7 +48,7 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ text, className = "" 
   const lines = text.split('\n');
 
   return (
-    <h1 className={className} style={{ letterSpacing: '-0.05em' }}>
+    <h1 className={className}>
       {lines.map((line, lineIndex) => (
         <span key={lineIndex} className="block overflow-hidden whitespace-nowrap">
           {line.split('').map((char, charIndex) => {
@@ -104,14 +104,14 @@ export function Hero() {
           </FadeIn>
 
           <AnimatedHeading 
-            text={"Transformando ideas\nen activos digitales."} 
-            className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-normal mb-8 leading-[0.85] tracking-tighter"
+            text={"Software útil.\nNegocios reales."} 
+            className="text-[2.75rem] sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-normal mb-8 leading-[0.9]"
           />
           
           <div className="max-w-xl">
             <FadeIn delay={600} duration={1000}>
               <p className="text-lg md:text-xl text-white/50 mb-10 font-light leading-relaxed">
-                Full-stack Developer especializado en la creación de <span className="text-white font-medium">SaaS y sistemas operativos de negocio</span> que combinan estética radical con funcionalidad absoluta.
+                Full-stack Developer enfocado en <span className="text-white font-medium">SaaS, backoffice y sistemas de gestión</span> para ordenar reservas, ventas, caja y operación diaria.
               </p>
             </FadeIn>
 
@@ -136,7 +136,7 @@ export function Hero() {
                 </div>
                 <div className="space-y-2">
                   <p className="text-sm font-light text-white/60 leading-snug">
-                    Diseñando arquitecturas escalables para la <span className="text-white font-medium">próxima generación</span> de herramientas de gestión.
+                    Diseño interfaces y arquitectura para herramientas que se usan todos los días.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-white/10">

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import profileImg from '../assets/profile.jpg';
 
 export function About() {
   return (
@@ -11,34 +12,32 @@ export function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-8">Philosophy</h2>
+            <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-8">Enfoque</h2>
             <h3 className="text-4xl md:text-6xl font-normal tracking-tighter leading-none text-white mb-10">
               Menos ruido, <br />
-              <span className="text-white/40 italic">más impacto funcional.</span>
+              <span className="text-white/40 italic">más sistema útil.</span>
             </h3>
             
             <div className="space-y-6 text-lg text-white/50 font-light leading-relaxed">
               <p>
-                No creo en el software como un fin, sino como una herramienta de 
-                <span className="text-white font-medium"> apalancamiento</span>. Cada línea de código 
-                debe estar justificada por un valor de negocio o una mejora operativa.
+                No me interesa hacer pantallas para decorar. Me interesa construir
+                <span className="text-white font-medium"> herramientas que ordenan trabajo</span>: menos pasos manuales,
+                menos confusión y más control sobre lo que pasa.
               </p>
               <p>
-                Mi enfoque combina el pragmatismo de un 
-                <span className="text-white font-medium"> Product Builder</span> con el rigor técnico 
-                de un Ingeniero Full-stack, logrando soluciones que no solo se ven premium, 
-                sino que operan sin fricciones.
+                Mezclo criterio de producto con desarrollo full-stack. Diseño el flujo,
+                escribo el código y cuido que el sistema quede claro para quien lo usa todos los días.
               </p>
             </div>
 
             <div className="mt-12 grid grid-cols-2 gap-8">
               <div>
                 <span className="text-3xl font-light text-white">04+</span>
-                <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mt-2">Años de Experiencia</p>
+                <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mt-2">Años construyendo</p>
               </div>
               <div>
                 <span className="text-3xl font-light text-white">15+</span>
-                <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mt-2">Sistemas Desplegados</p>
+                <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mt-2">Sistemas desplegados</p>
               </div>
             </div>
           </motion.div>
@@ -52,7 +51,7 @@ export function About() {
           >
             <div className="relative aspect-square rounded-3xl overflow-hidden border border-white/5">
               <img
-                src="/src/assets/profile.jpg"
+                src={profileImg}
                 alt="Franco Working"
                 className="w-full h-full object-cover grayscale opacity-60"
                 onError={(e) => {
@@ -65,8 +64,8 @@ export function About() {
             {/* Decorative glass elements */}
             <div className="absolute -bottom-8 -left-8 liquid-glass p-8 rounded-2xl border border-white/10 hidden md:block">
               <div className="flex flex-col gap-2">
-                <span className="text-3xl font-display font-bold text-white tracking-tighter">Pure Code.</span>
-                <span className="text-sm text-white/40 font-light italic">No shortcuts.</span>
+                <span className="text-3xl font-display font-bold text-white tracking-tighter">Código claro.</span>
+                <span className="text-sm text-white/40 font-light italic">Sin vueltas.</span>
               </div>
             </div>
           </motion.div>

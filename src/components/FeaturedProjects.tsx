@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, X, ExternalLink, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { type Project } from '../data/projects';
+import heroFallback from '../assets/hero.png';
 
 const GithubIcon = ({ className, size = 24 }: { className?: string; size?: number }) => (
   <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -18,17 +19,17 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
           <div className="max-w-2xl">
-            <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-6">Selected Works</h2>
+            <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-6">Destacados</h2>
             <h3 className="text-4xl md:text-6xl font-normal tracking-tighter leading-none text-white">
-              Sistemas que impulsan <br /> 
-              <span className="text-white/40 italic">la eficiencia digital.</span>
+              Sistemas con foco <br /> 
+              <span className="text-white/40 italic">en operación.</span>
             </h3>
           </div>
           <Link 
             to="/proyectos" 
             className="group flex items-center gap-2 text-sm font-medium text-white hover:text-white/60 transition-colors"
           >
-            Archive
+            Ver archivo
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
           </Link>
         </div>
@@ -43,7 +44,7 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
             >
               <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/5 bg-[#111]">
                 <img
-                  src={project.images[0] || '/src/assets/hero.png'}
+                  src={project.images[0] || heroFallback}
                   alt={project.title}
                   className="w-full h-full object-cover opacity-60 grayscale transition-all duration-700 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
                 />
@@ -97,7 +98,7 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
               <div className="h-full overflow-y-auto custom-scrollbar">
                 <div className="aspect-video w-full overflow-hidden">
                   <img
-                    src={selectedProject.images[0] || '/src/assets/hero.png'}
+                    src={selectedProject.images[0] || heroFallback}
                     alt={selectedProject.title}
                     className="w-full h-full object-cover"
                   />
@@ -121,7 +122,7 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-8 py-3 bg-white text-black rounded-xl font-medium hover:bg-gray-100 transition-all"
                           >
-                            Live Demo <ExternalLink size={16} />
+                            Ver demo <ExternalLink size={16} />
                           </a>
                         )}
                         {selectedProject.github && (
@@ -131,7 +132,7 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-8 py-3 bg-black border border-white/10 text-white rounded-xl font-medium hover:bg-white hover:text-black transition-all"
                           >
-                            Source Code <GithubIcon size={16} />
+                            Código <GithubIcon size={16} />
                           </a>
                         )}
                       </div>
@@ -139,7 +140,7 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
 
                     <div className="space-y-12">
                       <div>
-                        <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold mb-6">Technologies</h4>
+                        <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold mb-6">Tecnologías</h4>
                         <div className="flex flex-wrap gap-3">
                           {selectedProject.stack.map((tech) => (
                             <span key={tech} className="px-4 py-2 rounded-lg bg-white/5 border border-white/5 text-sm font-light text-white/80">
@@ -150,7 +151,7 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
                       </div>
 
                       <div>
-                        <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold mb-6">Key Features</h4>
+                        <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold mb-6">Funciones clave</h4>
                         <ul className="grid gap-3">
                           {selectedProject.features?.map((feature) => (
                             <li key={feature} className="flex items-start gap-3 text-sm text-white/50 font-light">

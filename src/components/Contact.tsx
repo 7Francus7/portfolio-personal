@@ -41,7 +41,7 @@ export function Contact() {
       } else {
         setFormState('error');
       }
-    } catch (error) {
+    } catch {
       setFormState('error');
     }
   };
@@ -56,19 +56,19 @@ export function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-8">Inquiries</h2>
+            <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-8">Contacto</h2>
             <h3 className="text-4xl md:text-6xl font-normal tracking-tighter leading-none text-white mb-10">
-              Demos vida <br />
-              <span className="text-white/40 italic">a tu próximo activo.</span>
+              Contame qué <br />
+              <span className="text-white/40 italic">hay que construir.</span>
             </h3>
             
             <p className="text-lg text-white/50 font-light leading-relaxed mb-12 max-w-sm">
-              Disponible para proyectos de alta complejidad, consultoría técnica y 
-              desarrollo de productos desde cero.
+              Si tenés una operación desordenada, una idea de sistema o un producto a mejorar,
+              escribime con contexto y lo vemos.
             </p>
 
             <div className="space-y-4">
-              <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold">Channels</p>
+              <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold">Canales</p>
               <div className="flex flex-wrap gap-4">
                 <a href="https://wa.me/5493524421497" target="_blank" rel="noopener noreferrer" className="text-sm text-white/60 hover:text-white transition-colors">WhatsApp</a>
                 <a href="mailto:dellorsif@gmail.com" className="text-sm text-white/60 hover:text-white transition-colors">Email</a>
@@ -87,7 +87,7 @@ export function Contact() {
               <div className="liquid-glass border border-white/20 p-12 rounded-3xl text-center">
                 <CheckCircle size={48} className="text-white mx-auto mb-6" />
                 <h4 className="text-2xl font-light text-white mb-2">Mensaje Recibido</h4>
-                <p className="text-white/50 font-light">Te responderé en la brevedad posible.</p>
+                <p className="text-white/50 font-light">Te respondo apenas pueda revisarlo.</p>
                 <button 
                   onClick={() => setFormState('idle')}
                   className="mt-8 text-sm text-white/30 hover:text-white transition-colors"
@@ -125,7 +125,7 @@ export function Contact() {
                     name="message"
                     rows={4}
                     required
-                    placeholder="Cuéntame sobre tu proyecto..."
+                    placeholder="Contame qué necesitás construir..."
                     className="w-full bg-transparent border-b border-white/10 py-3 text-white placeholder:text-white/10 focus:outline-none focus:border-white transition-colors resize-none font-light"
                   />
                 </div>
@@ -138,7 +138,7 @@ export function Contact() {
                     <Loader2 size={24} className="animate-spin mx-auto" />
                   ) : (
                     <>
-                      <span>Enviar Consulta</span>
+                      <span>Enviar consulta</span>
                       <ArrowRight size={24} />
                     </>
                   )}

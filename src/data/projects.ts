@@ -138,7 +138,7 @@ export const projects: Project[] = [
     stack: ['React', 'TypeScript', 'Framer Motion'],
     features: ['Match-3 Engine lógico', 'Animaciones Cinemáticas', 'Sistema de Tienda in-game', 'Lógica de poderes', 'Mobile First'],
     role: 'Game Developer & UI Animator',
-    images: [],
+    images: ['/images/luminous.png'],
     private: true
   },
   {
