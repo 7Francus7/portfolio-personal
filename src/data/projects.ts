@@ -53,7 +53,7 @@ export const projects: Project[] = [
     features: ['Reservas online 24/7', 'Gestión de clientes (CRM básico)', 'Calendario operativo', 'Control de caja y cobranzas', 'Reportes diarios/semanales', 'Portal de reservas público'],
     role: 'Product design, full-stack development, arquitectura',
     github: 'https://github.com/7Francus7/CourtOps',
-    demo: 'https://courtops.net',
+    demo: 'https://www.courtops.net',
     images: ['/images/courtops.png'],
     impact: 'Reduce gestión manual 70%, aumenta reservas online 40%',
     private: false,
@@ -77,7 +77,6 @@ export const projects: Project[] = [
     features: ['Gestión de rutas de reparto', 'Control de stock físico de envases', 'POS integrado para ventas en efectivo/transferencia', 'Base de datos de Clientes e historial', 'Liquidación de cuentas de clientes', 'Gestión de dispensers prestados'],
     role: 'Architect & Full-Stack Development',
     github: 'https://github.com/7Francus7/Soderia-Nico',
-    demo: 'https://soderia-nico.vercel.app',
     images: ['/images/soderia.png'],
     impact: 'Visibilidad total de retornos de botellas y deudores',
     private: false,
@@ -175,7 +174,7 @@ export const projects: Project[] = [
     role: 'Web Development',
     github: 'https://github.com/7Francus7/landing-diego-grande',
     demo: 'https://landing-diego-grande.vercel.app',
-    images: [],
+    images: ['/images/landing-diego.png'],
     private: false
   }
 ];

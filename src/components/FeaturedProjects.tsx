@@ -4,6 +4,7 @@ import { ArrowUpRight, X, ExternalLink, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { type Project } from '../data/projects';
 import heroFallback from '../assets/hero.png';
+import { getProjectLinkLabel } from '../utils/projects';
 
 const GithubIcon = ({ className, size = 24 }: { className?: string; size?: number }) => (
   <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -56,6 +57,32 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
                       {cat}
                     </span>
                   ))}
+                </div>
+                <div className="absolute bottom-5 left-5 right-5 flex flex-wrap gap-3 opacity-0 translate-y-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+                  {project.demo && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(event) => event.stopPropagation()}
+                      className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-xs font-semibold text-black hover:bg-white/90"
+                    >
+                      {getProjectLinkLabel(project)}
+                      <ExternalLink size={14} />
+                    </a>
+                  )}
+                  {project.github && !project.private && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(event) => event.stopPropagation()}
+                      className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-black/50 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md hover:bg-white hover:text-black"
+                    >
+                      Código
+                      <GithubIcon size={14} />
+                    </a>
+                  )}
                 </div>
               </div>
 
@@ -122,7 +149,7 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 px-8 py-3 bg-white text-black rounded-xl font-medium hover:bg-gray-100 transition-all"
                           >
-                            Ver demo <ExternalLink size={16} />
+                            {getProjectLinkLabel(selectedProject)} <ExternalLink size={16} />
                           </a>
                         )}
                         {selectedProject.github && (

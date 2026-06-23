@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Search, X, ArrowUpRight } from 'lucide-react';
 import { projects as defaultProjects, categories, type Project, type ProjectCategory } from '../data/projects';
+import { getProjectLinkLabel, hasProjectImage } from '../utils/projects';
 
 const statusColors: Record<string, string> = {
   live: 'bg-white/10 text-white border border-white/20',
@@ -101,29 +102,74 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
             <motion.article
               key={project.id}
               onClick={() => setSelectedProject(project)}
-              className="group bg-black p-8 cursor-pointer hover:bg-white/5 transition-all duration-500"
+              className="group bg-black cursor-pointer hover:bg-white/5 transition-all duration-500"
             >
-              <div className="flex items-start justify-between mb-6">
-                <span className={`px-2 py-1 text-[8px] uppercase tracking-widest font-bold rounded ${statusColors[project.status]}`}>
-                  {statusLabels[project.status]}
-                </span>
-                <span className="text-white/20 text-[10px] font-medium">{project.year}</span>
+              <div className="relative aspect-[16/10] overflow-hidden border-b border-white/5 bg-white/[0.03]">
+                {hasProjectImage(project) ? (
+                  <img
+                    src={project.images[0]}
+                    alt={`Captura real de ${project.title}`}
+                    className="h-full w-full object-cover opacity-55 grayscale transition-all duration-700 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center p-8 text-center">
+                    <p className="text-[10px] uppercase tracking-[0.3em] text-white/25">
+                      Captura no pública
+                    </p>
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               </div>
-              <h3 className="text-xl font-medium text-white mb-3 group-hover:translate-x-1 transition-transform">
-                {project.title}
-              </h3>
-              <p className="text-sm text-white/40 font-light mb-8 line-clamp-2 leading-relaxed">
-                {project.tagline}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {project.stack.slice(0, 3).map((tech) => (
-                  <span
-                    key={tech}
-                    className="text-[10px] text-white/30 uppercase tracking-widest"
-                  >
-                    {tech}
+
+              <div className="p-8">
+                <div className="flex items-start justify-between mb-6">
+                  <span className={`px-2 py-1 text-[8px] uppercase tracking-widest font-bold rounded ${statusColors[project.status]}`}>
+                    {statusLabels[project.status]}
                   </span>
-                ))}
+                  <span className="text-white/20 text-[10px] font-medium">{project.year}</span>
+                </div>
+                <h3 className="text-xl font-medium text-white mb-3 group-hover:translate-x-1 transition-transform">
+                  {project.title}
+                </h3>
+                <p className="text-sm text-white/40 font-light mb-8 line-clamp-2 leading-relaxed">
+                  {project.tagline}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-8">
+                  {project.stack.slice(0, 3).map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-[10px] text-white/30 uppercase tracking-widest"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex flex-wrap gap-4 border-t border-white/5 pt-5">
+                  {project.demo && (
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(event) => event.stopPropagation()}
+                      className="flex items-center gap-2 text-xs font-semibold text-white hover:text-white/60 transition-colors"
+                    >
+                      {getProjectLinkLabel(project)}
+                      <ArrowUpRight size={14} />
+                    </a>
+                  )}
+                  {project.github && !project.private && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(event) => event.stopPropagation()}
+                      className="flex items-center gap-2 text-xs font-semibold text-white/40 hover:text-white transition-colors"
+                    >
+                      Repositorio
+                      <ArrowUpRight size={14} />
+                    </a>
+                  )}
+                </div>
               </div>
             </motion.article>
           ))}
@@ -157,6 +203,22 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
               </button>
             </div>
             <div className="p-10 space-y-10">
+              <div className="overflow-hidden rounded-2xl border border-white/5 bg-white/[0.03]">
+                {hasProjectImage(selectedProject) ? (
+                  <img
+                    src={selectedProject.images[0]}
+                    alt={`Captura real de ${selectedProject.title}`}
+                    className="aspect-video w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex aspect-video w-full items-center justify-center p-8 text-center">
+                    <p className="text-[10px] uppercase tracking-[0.3em] text-white/25">
+                      Captura no pública
+                    </p>
+                  </div>
+                )}
+              </div>
+
               <div>
                 <h4 className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-4">Descripción</h4>
                 <p className="text-white/60 font-light leading-relaxed">{selectedProject.description}</p>
@@ -185,7 +247,7 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 text-sm font-medium text-white hover:text-white/60 transition-colors"
                   >
-                    Ver demo <ArrowUpRight size={16} />
+                    {getProjectLinkLabel(selectedProject)} <ArrowUpRight size={16} />
                   </a>
                 )}
                 {selectedProject.github && !selectedProject.private && (
