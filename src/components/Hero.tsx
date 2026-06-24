@@ -75,7 +75,7 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ text, className = "" 
 
 export function Hero() {
   return (
-    <section className="relative h-[100svh] w-full overflow-hidden bg-black text-white flex items-center">
+    <section className="relative min-h-[100svh] w-full overflow-hidden bg-black text-white flex items-center">
       {/* Visual Background Layer */}
       <div className="absolute inset-y-0 right-0 w-full lg:w-[65%] z-0">
         <div className="relative h-full w-full">
@@ -103,9 +103,9 @@ export function Hero() {
             </div>
           </FadeIn>
 
-          <AnimatedHeading 
-            text={"Software útil.\nNegocios reales."} 
-            className="text-[2.75rem] sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-normal mb-8 leading-[0.9]"
+          <AnimatedHeading
+            text={"Software útil.\nNegocios reales."}
+            className="text-[clamp(1.75rem,8vw,8rem)] font-normal mb-8 leading-[0.9]"
           />
           
           <div className="max-w-xl">
@@ -142,9 +142,9 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-20 lg:mt-0">
+        <div className="mt-12 lg:mt-0 w-full lg:w-auto">
           <FadeIn delay={1400} duration={1200}>
-            <div className="liquid-glass border border-white/10 p-8 rounded-3xl max-w-xs">
+            <div className="liquid-glass border border-white/10 p-8 rounded-3xl w-full max-w-xs">
               <div className="flex flex-col gap-4">
                 <div className="flex justify-between items-start">
                   <span className="text-[10px] uppercase tracking-widest text-white/40 font-bold">Foco</span>

@@ -70,10 +70,10 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
               className="w-full pl-12 pr-4 py-4 bg-transparent border-b border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-white transition-colors font-light"
             />
           </div>
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="-mx-6 flex items-center gap-2 overflow-x-auto px-6 pb-1 md:mx-0 md:flex-wrap md:overflow-visible md:px-0">
             <button
               onClick={() => setSelectedCategory('all')}
-              className={`px-4 py-2 rounded-full text-xs font-medium tracking-widest uppercase transition-all ${
+              className={`shrink-0 px-4 py-2 rounded-full text-xs font-medium tracking-widest uppercase transition-all ${
                 selectedCategory === 'all'
                   ? 'bg-white text-black'
                   : 'bg-transparent border border-white/10 text-white/40 hover:text-white hover:border-white'
@@ -85,7 +85,7 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
               <button
                 key={cat.value}
                 onClick={() => setSelectedCategory(cat.value)}
-                className={`px-4 py-2 rounded-full text-xs font-medium tracking-widest uppercase transition-all ${
+                className={`shrink-0 px-4 py-2 rounded-full text-xs font-medium tracking-widest uppercase transition-all ${
                   selectedCategory === cat.value
                     ? 'bg-white text-black'
                     : 'bg-transparent border border-white/10 text-white/40 hover:text-white hover:border-white'

@@ -17,7 +17,7 @@ export function SobreMiPage() {
             className="max-w-4xl"
           >
             <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-8">Sobre mí</h2>
-            <h1 className="text-5xl md:text-8xl font-normal leading-[0.9] text-white mb-10">
+            <h1 className="text-4xl sm:text-5xl md:text-8xl font-normal leading-[0.9] text-white mb-10">
               Producto, código <br />
               <span className="text-white/40 italic">y oficio.</span>
             </h1>

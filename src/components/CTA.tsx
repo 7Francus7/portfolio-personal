@@ -16,7 +16,7 @@ export function CTA() {
               </span>
             </div>
 
-            <h2 className="mx-auto max-w-3xl text-4xl md:text-7xl font-normal tracking-tighter leading-[0.95] text-white">
+            <h2 className="mx-auto max-w-3xl text-3xl sm:text-4xl md:text-7xl font-normal tracking-tighter leading-[0.95] text-white">
               ¿Tenés una operación <br />
               <span className="text-white/40 italic">que ordenar?</span>
             </h2>

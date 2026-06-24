@@ -144,8 +144,8 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
                   />
                 </div>
 
-                <div className="p-8 md:p-16">
-                  <div className="grid lg:grid-cols-2 gap-16">
+                <div className="p-6 sm:p-8 md:p-16">
+                  <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
                     <div>
                       <h3 className="text-4xl md:text-6xl font-normal tracking-tighter text-white mb-8">
                         {selectedProject.title}
