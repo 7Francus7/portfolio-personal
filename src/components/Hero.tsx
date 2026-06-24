@@ -51,7 +51,7 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ text, className = "" 
   return (
     <h1 className={className}>
       {lines.map((line, lineIndex) => (
-        <span key={lineIndex} className="block overflow-hidden whitespace-nowrap">
+        <span key={lineIndex} className="block overflow-hidden whitespace-nowrap pb-[0.12em]">
           {line.split('').map((char, charIndex) => {
             const delay = (lineIndex * line.length * charDelay) + (charIndex * charDelay);
             return (
@@ -82,7 +82,7 @@ export function Hero() {
   const contentOpacity = useTransform(scrollY, [0, 520], [1, 0]);
 
   return (
-    <section className="relative min-h-[100svh] w-full overflow-hidden bg-black text-white flex items-center">
+    <section className="relative min-h-[100svh] w-full overflow-hidden bg-black text-white flex items-center lg:items-end">
       {/* Visual Background Layer */}
       <div className="absolute inset-y-0 right-0 w-full lg:w-[68%] z-0">
         <motion.div style={{ y: imageY, scale: imageScale }} className="relative h-[120%] w-full will-change-transform">
@@ -112,7 +112,7 @@ export function Hero() {
 
           <AnimatedHeading
             text={"Software útil.\nNegocios reales."}
-            className="text-[clamp(1.75rem,8vw,8rem)] font-normal mb-8 leading-[0.9]"
+            className="text-[clamp(2.25rem,6.4vw,6.25rem)] font-normal mb-8 leading-[0.95]"
           />
           
           <div className="max-w-xl">
