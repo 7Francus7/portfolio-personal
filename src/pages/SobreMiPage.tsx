@@ -1,5 +1,7 @@
 import { About } from '../components/About';
 import { Capabilities } from '../components/Capabilities';
+import { TechStack } from '../components/TechStack';
+import { CTA } from '../components/CTA';
 import { Footer } from '../components/Footer';
 import { motion } from 'framer-motion';
 
@@ -28,6 +30,8 @@ export function SobreMiPage() {
 
       <About />
       <Capabilities />
+      <TechStack />
+      <CTA />
       <Footer />
     </>
   );

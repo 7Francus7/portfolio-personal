@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
+import { ScrollToTop } from './components/ScrollToTop';
 import { HomePage } from './pages/HomePage';
 import { ProyectosPage } from './pages/ProyectosPage';
 import { SobreMiPage } from './pages/SobreMiPage';
@@ -8,6 +9,7 @@ import { ContactoPage } from './pages/ContactoPage';
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <div className="min-h-screen bg-[#0D1117] text-white noise">
         <Navbar />
         <main>

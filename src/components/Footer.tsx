@@ -27,9 +27,27 @@ export function Footer() {
               Franco<span className="text-white/40">.</span>
             </Link>
             <p className="text-white/40 max-w-sm font-light leading-relaxed">
-              Sistemas web para negocios que necesitan vender, reservar, cobrar,
-              medir y administrar con menos fricción.
+              Full-stack Developer. Sistemas web para negocios que necesitan
+              vender, reservar, cobrar, medir y administrar con menos fricción.
             </p>
+
+            <div className="mt-8 flex flex-col gap-3">
+              <div className="inline-flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/60">
+                  Disponible para nuevos proyectos
+                </span>
+              </div>
+              <a
+                href="mailto:dellorsif@gmail.com"
+                className="text-sm font-light text-white/50 transition-colors hover:text-white"
+              >
+                dellorsif@gmail.com
+              </a>
+              <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30">
+                Argentina · Trabajo remoto
+              </span>
+            </div>
           </div>
           
           <div className="flex flex-col md:items-end justify-between gap-8">

@@ -54,7 +54,7 @@ export const projects: Project[] = [
     role: 'Product design, full-stack development, arquitectura',
     github: 'https://github.com/7Francus7/CourtOps',
     demo: 'https://www.courtops.net',
-    images: ['/images/courtops.png'],
+    images: ['/images/courtops.webp'],
     impact: 'Reduce gestión manual 70%, aumenta reservas online 40%',
     private: false,
     metrics: [
@@ -77,7 +77,7 @@ export const projects: Project[] = [
     features: ['Gestión de rutas de reparto', 'Control de stock físico de envases', 'POS integrado para ventas en efectivo/transferencia', 'Base de datos de Clientes e historial', 'Liquidación de cuentas de clientes', 'Gestión de dispensers prestados'],
     role: 'Architect & Full-Stack Development',
     github: 'https://github.com/7Francus7/Soderia-Nico',
-    images: ['/images/soderia.png'],
+    images: ['/images/soderia.webp'],
     impact: 'Visibilidad total de retornos de botellas y deudores',
     private: false,
     metrics: [
@@ -101,9 +101,13 @@ export const projects: Project[] = [
     role: 'Full-Stack Development',
     github: 'https://github.com/7Francus7/SaaS-Negocios',
     demo: 'https://saa-s-negocios.vercel.app',
-    images: ['/images/saas.png'],
+    images: ['/images/saas.webp'],
     impact: 'Autonomía de administración contable centralizada',
-    private: false
+    private: false,
+    metrics: [
+      { label: 'Visión de caja', value: 'En vivo' },
+      { label: 'Curva de uso', value: 'Mínima' }
+    ]
   },
   {
     id: 'eleeme-catalog',
@@ -119,9 +123,13 @@ export const projects: Project[] = [
     stack: ['React', 'Next.js 15', 'Tailwind CSS', 'TypeScript'],
     features: ['Bento Glass aesthetic Landing', 'Panel de administración responsive', 'Gestión de productos y ofertas', 'Limpieza dinámica de imágenes de productos', 'Server Actions'],
     role: 'Frontend Engineering & UX Design',
-    images: ['/images/eleeme.png'],
+    images: ['/images/eleeme.webp'],
     impact: 'Costos de mantenimiento de catálogo reducidos a cero',
-    private: true
+    private: true,
+    metrics: [
+      { label: 'Catálogo', value: 'Autogestionado' },
+      { label: 'Mantenimiento', value: '$0' }
+    ]
   },
   {
     id: 'luminous-match3',
@@ -137,7 +145,7 @@ export const projects: Project[] = [
     stack: ['React', 'TypeScript', 'Framer Motion'],
     features: ['Match-3 Engine lógico', 'Animaciones Cinemáticas', 'Sistema de Tienda in-game', 'Lógica de poderes', 'Mobile First'],
     role: 'Game Developer & UI Animator',
-    images: ['/images/luminous.png'],
+    images: ['/images/luminous.webp'],
     private: true
   },
   {
@@ -174,7 +182,7 @@ export const projects: Project[] = [
     role: 'Web Development',
     github: 'https://github.com/7Francus7/landing-diego-grande',
     demo: 'https://landing-diego-grande.vercel.app',
-    images: ['/images/landing-diego.png'],
+    images: ['/images/landing-diego.webp'],
     private: false
   }
 ];

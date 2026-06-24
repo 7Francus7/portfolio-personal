@@ -86,12 +86,25 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
                 </div>
               </div>
 
-              <div className="mt-8 flex justify-between items-start">
-                <div>
+              <div className="mt-8 flex justify-between items-start gap-6">
+                <div className="min-w-0">
                   <h4 className="text-2xl font-light text-white mb-2">{project.title}</h4>
                   <p className="text-sm text-white/40 font-light max-w-sm">{project.tagline}</p>
+
+                  {project.metrics && project.metrics.length > 0 && (
+                    <div className="mt-5 flex flex-wrap gap-6">
+                      {project.metrics.map((metric) => (
+                        <div key={metric.label}>
+                          <p className="text-lg font-medium text-white">{metric.value}</p>
+                          <p className="text-[10px] uppercase tracking-widest text-white/30 font-bold">
+                            {metric.label}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                <div className="w-12 h-12 shrink-0 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
                   <ArrowUpRight className="w-5 h-5" />
                 </div>
               </div>
@@ -188,6 +201,27 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
                           ))}
                         </ul>
                       </div>
+
+                      {selectedProject.metrics && selectedProject.metrics.length > 0 && (
+                        <div>
+                          <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold mb-6">Impacto</h4>
+                          <div className="grid grid-cols-2 gap-4">
+                            {selectedProject.metrics.map((metric) => (
+                              <div key={metric.label} className="rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                                <p className="text-2xl font-light text-white">{metric.value}</p>
+                                <p className="mt-2 text-[10px] uppercase tracking-widest text-white/35 font-bold">
+                                  {metric.label}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                          {selectedProject.impact && (
+                            <p className="mt-5 text-sm font-light leading-relaxed text-white/45">
+                              {selectedProject.impact}
+                            </p>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

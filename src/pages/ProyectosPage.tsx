@@ -1,5 +1,6 @@
 import { FeaturedProjects } from '../components/FeaturedProjects';
 import { AllProjects } from '../components/AllProjects';
+import { CTA } from '../components/CTA';
 import { Footer } from '../components/Footer';
 import { projects } from '../data/projects';
 import { motion } from 'framer-motion';
@@ -31,6 +32,7 @@ export function ProyectosPage() {
 
       <FeaturedProjects projects={featuredOnPage} />
       <AllProjects initialProjects={projects} />
+      <CTA />
       <Footer />
     </main>
   );

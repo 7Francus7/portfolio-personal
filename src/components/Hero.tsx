@@ -98,8 +98,8 @@ export function Hero() {
         <div className="max-w-5xl pt-32 lg:pt-0">
           <FadeIn delay={0} duration={600}>
             <div className="mb-6 inline-flex items-center gap-3 px-3 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
-              <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-              <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-white/60">Arquitecto de Producto Independiente</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-[10px] uppercase tracking-[0.2em] font-medium text-white/60">Full-stack Developer · Product Builder</span>
             </div>
           </FadeIn>
 
@@ -120,8 +120,24 @@ export function Hero() {
                 Empezar Proyecto
               </Link>
               <Link to="/proyectos" className="liquid-glass border border-white/20 text-white px-10 py-4 rounded-xl font-medium transition-all hover:bg-white hover:text-black">
-                Ver Archivo
+                Ver Proyectos
               </Link>
+            </FadeIn>
+
+            <FadeIn delay={1200} duration={1000}>
+              <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4 text-white/40">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-lg font-medium text-white">4+</span>
+                  <span className="text-[11px] uppercase tracking-widest">años de experiencia</span>
+                </div>
+                <div className="hidden h-3 w-px bg-white/15 sm:block" />
+                <div className="flex items-baseline gap-2">
+                  <span className="text-lg font-medium text-white">15+</span>
+                  <span className="text-[11px] uppercase tracking-widest">sistemas en producción</span>
+                </div>
+                <div className="hidden h-3 w-px bg-white/15 sm:block" />
+                <span className="text-[11px] uppercase tracking-widest">Argentina · Remoto</span>
+              </div>
             </FadeIn>
           </div>
         </div>
