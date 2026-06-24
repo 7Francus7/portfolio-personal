@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const navLinks = [
   { label: 'Proyectos', to: '/proyectos' },
@@ -11,6 +11,7 @@ const navLinks = [
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { pathname } = useLocation();
 
   return (
     <>
@@ -23,15 +24,28 @@ export function Navbar() {
 
           {/* Center: Links (Desktop) */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.label}
-                to={link.to}
-                className="text-sm text-white/70 hover:text-white transition-colors font-light tracking-wide"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const active = pathname === link.to;
+              return (
+                <Link
+                  key={link.label}
+                  to={link.to}
+                  aria-current={active ? 'page' : undefined}
+                  className={`relative text-sm font-light tracking-wide transition-colors ${
+                    active ? 'text-white' : 'text-white/60 hover:text-white'
+                  }`}
+                >
+                  {link.label}
+                  {active && (
+                    <motion.span
+                      layoutId="nav-active"
+                      className="absolute -bottom-1.5 left-0 right-0 h-px bg-white"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Right: CTA Button (Desktop) */}
@@ -68,7 +82,10 @@ export function Navbar() {
               <Link
                 key={link.label}
                 to={link.to}
-                className="text-2xl text-white font-light hover:text-gray-400 transition-colors"
+                aria-current={pathname === link.to ? 'page' : undefined}
+                className={`text-2xl font-light transition-colors ${
+                  pathname === link.to ? 'text-white' : 'text-white/55 hover:text-white'
+                }`}
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}

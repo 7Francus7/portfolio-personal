@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import profileImg from '../assets/profile.jpg';
 
 interface FadeInProps {
@@ -74,26 +75,32 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({ text, className = "" 
 };
 
 export function Hero() {
+  const { scrollY } = useScroll();
+  const imageY = useTransform(scrollY, [0, 800], ['0%', '16%']);
+  const imageScale = useTransform(scrollY, [0, 800], [1, 1.07]);
+  const contentY = useTransform(scrollY, [0, 800], ['0%', '-10%']);
+  const contentOpacity = useTransform(scrollY, [0, 520], [1, 0]);
+
   return (
     <section className="relative min-h-[100svh] w-full overflow-hidden bg-black text-white flex items-center">
       {/* Visual Background Layer */}
-      <div className="absolute inset-y-0 right-0 w-full lg:w-[65%] z-0">
-        <div className="relative h-full w-full">
-          <img 
-            src={profileImg} 
-            alt="Franco - Arquitecto de Producto"
-            className="h-full w-full object-cover object-[center_25%] opacity-60 grayscale-[0.3] contrast-125 brightness-75"
+      <div className="absolute inset-y-0 right-0 w-full lg:w-[68%] z-0">
+        <motion.div style={{ y: imageY, scale: imageScale }} className="relative h-[120%] w-full will-change-transform">
+          <img
+            src={profileImg}
+            alt="Franco Dellorsi - Full-stack Developer"
+            className="h-full w-full object-cover object-[center_22%] opacity-80 grayscale-[0.12] contrast-110 brightness-95"
             onError={(e) => {
               e.currentTarget.src = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=2000";
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
-        </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/55 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/30" />
+        </motion.div>
       </div>
 
       {/* Main UI Layer */}
-      <div className="relative z-10 w-full px-6 md:px-12 lg:px-20 flex flex-col lg:flex-row lg:items-end justify-between pb-16 lg:pb-24">
+      <motion.div style={{ y: contentY, opacity: contentOpacity }} className="relative z-10 w-full px-6 md:px-12 lg:px-20 flex flex-col lg:flex-row lg:items-end justify-between pb-16 lg:pb-24">
         
         <div className="max-w-5xl pt-32 lg:pt-0">
           <FadeIn delay={0} duration={600}>
@@ -165,7 +172,7 @@ export function Hero() {
             </div>
           </FadeIn>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
