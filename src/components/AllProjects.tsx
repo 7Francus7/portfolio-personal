@@ -43,7 +43,7 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
   }, [selectedCategory, searchQuery, projectList]);
 
   return (
-    <section id="all-projects" className="py-32 bg-black px-6 md:px-12 lg:px-20 border-t border-white/5">
+    <section id="all-projects" className="py-32 surface-band px-6 md:px-12 lg:px-20 border-t border-white/5">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -54,8 +54,8 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
         >
           <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-6">Archivo</h2>
           <h3 className="text-4xl md:text-5xl font-normal tracking-tighter text-white mb-4">
-            Todo el trabajo <br />
-            <span className="text-white/40 italic">en un solo lugar.</span>
+            Otras piezas <br />
+            <span className="text-white/40 italic">del archivo.</span>
           </h3>
         </motion.div>
 
@@ -102,14 +102,14 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
             <motion.article
               key={project.id}
               onClick={() => setSelectedProject(project)}
-              className="group bg-black cursor-pointer hover:bg-white/5 transition-all duration-500"
+              className="group surface-card cursor-pointer hover:bg-white/[0.06] transition-all duration-500"
             >
               <div className="relative aspect-[16/10] overflow-hidden border-b border-white/5 bg-white/[0.03]">
                 {hasProjectImage(project) ? (
                   <img
                     src={project.images[0]}
                     alt={`Captura real de ${project.title}`}
-                    className="h-full w-full object-cover opacity-55 grayscale transition-all duration-700 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
+                    className="h-full w-full object-cover opacity-84 grayscale-[0.12] transition-all duration-700 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
                   />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center p-8 text-center">
@@ -118,7 +118,7 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
                     </p>
                   </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#171a20]/48 via-transparent to-transparent" />
               </div>
 
               <div className="p-8">
@@ -187,16 +187,16 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-6"
+          className="fixed inset-0 z-50 bg-[#08090b]/88 backdrop-blur-xl flex items-center justify-center p-6"
           onClick={() => setSelectedProject(null)}
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-[#0a0a0a] border border-white/10 rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl shadow-black"
+            className="bg-[#171a20] border border-white/10 rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl shadow-black"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-8 border-b border-white/5 flex items-center justify-between sticky top-0 bg-[#0a0a0a]/90 backdrop-blur-md">
+            <div className="p-8 border-b border-white/5 flex items-center justify-between sticky top-0 bg-[#171a20]/90 backdrop-blur-md">
               <h3 className="text-2xl font-normal tracking-tight text-white">{selectedProject.title}</h3>
               <button onClick={() => setSelectedProject(null)} className="p-2 hover:bg-white/10 rounded-full transition-all">
                 <X size={20} className="text-white" />

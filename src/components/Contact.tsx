@@ -47,7 +47,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-32 bg-black px-6 md:px-12 lg:px-20 border-t border-white/5">
+    <section id="contact" className="py-32 surface-band px-6 md:px-12 lg:px-20 border-t border-white/5">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-20">
           <motion.div

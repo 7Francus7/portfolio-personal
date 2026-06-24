@@ -68,7 +68,7 @@ export function ProjectImporter({ onImport }: ProjectImporterProps) {
   return (
     <div className="glass bg-[#161b22]/60 rounded-3xl p-6 space-y-4 border border-white/5">
       <div className="flex items-center gap-3">
-        <div className="p-2 rounded-lg bg-[#0D1117] border border-white/10">
+        <div className="p-2 rounded-lg bg-[#171a20] border border-white/10">
           <GithubIcon size={18} className="text-slate-300" />
         </div>
         <h3 className="font-medium text-white">Importar desde GitHub</h3>
@@ -85,7 +85,7 @@ export function ProjectImporter({ onImport }: ProjectImporterProps) {
           }}
           onKeyDown={handleKeyDown}
           placeholder="owner/repo"
-          className="flex-1 px-4 py-3 bg-[#0D1117] border border-white/10 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-primary-500/50 transition-all font-light"
+          className="flex-1 px-4 py-3 bg-[#171a20] border border-white/10 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-primary-500/50 transition-all font-light"
         />
         <button
           onClick={handleSearch}
@@ -133,7 +133,7 @@ export function ProjectImporter({ onImport }: ProjectImporterProps) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="p-4 bg-[#0D1117] border border-white/10 rounded-2xl space-y-4"
+            className="p-4 bg-[#171a20] border border-white/10 rounded-2xl space-y-4"
           >
             <div className="flex items-start justify-between">
               <div>

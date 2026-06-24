@@ -26,7 +26,7 @@ const capabilities = [
 
 export function Capabilities() {
   return (
-    <section className="py-32 bg-black px-6 md:px-12 lg:px-20 border-t border-white/5">
+    <section className="py-32 surface-band px-6 md:px-12 lg:px-20 border-t border-white/5">
       <div className="max-w-7xl mx-auto">
         <div className="mb-24">
           <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-6">Capacidades</h2>
@@ -44,7 +44,7 @@ export function Capabilities() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="group p-8 border border-white/5 hover:bg-white/5 transition-all duration-500"
+              className="group surface-card p-8 border border-white/5 hover:bg-white/[0.06] transition-all duration-500"
             >
               <div className="mb-10 w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
                 <cap.icon size={20} />

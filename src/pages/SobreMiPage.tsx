@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 export function SobreMiPage() {
   return (
     <>
-      <div className="pt-40 pb-20 relative px-6 md:px-12 lg:px-20 border-b border-white/5 bg-black">
+      <div className="pt-40 pb-20 relative px-6 md:px-12 lg:px-20 border-b border-white/5 surface-page">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

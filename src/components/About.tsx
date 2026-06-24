@@ -3,7 +3,7 @@ import profileImg from '../assets/profile.jpg';
 
 export function About() {
   return (
-    <section className="py-32 bg-black px-6 md:px-12 lg:px-20 overflow-hidden">
+    <section className="py-32 surface-band px-6 md:px-12 lg:px-20 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           <motion.div
@@ -53,12 +53,12 @@ export function About() {
               <img
                 src={profileImg}
                 alt="Franco Working"
-                className="w-full h-full object-cover grayscale opacity-60"
+                className="w-full h-full object-cover grayscale-[0.25] opacity-72"
                 onError={(e) => {
                   e.currentTarget.src = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=2000";
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#171a20]/80 via-transparent to-transparent" />
             </div>
             
             {/* Decorative glass elements */}
