@@ -29,6 +29,8 @@ export interface Project {
   github?: string;
   demo?: string;
   images: string[];
+  /** Set true only when images[0] is a genuine product screenshot (not a mockup). */
+  realScreenshot?: boolean;
   impact?: string;
   private: boolean;
   metrics?: {
