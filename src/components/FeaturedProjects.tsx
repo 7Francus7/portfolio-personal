@@ -90,14 +90,13 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <section className="surface-page border-t border-[var(--color-line-strong)] px-6 py-32 md:px-12 lg:px-16">
+    <section className="surface-page border-t border-[var(--color-line-strong)] px-6 pb-32 pt-20 md:px-12 lg:px-16">
       <div className="mx-auto max-w-[1400px]">
-        <div className="mb-24 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+        <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div className="max-w-2xl">
-            <p className="label-mono mb-6">/ Destacados</p>
-            <h3 className="font-serif-display text-4xl leading-[1.02] tracking-[-0.02em] text-ink md:text-6xl">
-              Sistemas con foco <br />
-              <span className="italic text-accent">en operación.</span>
+            <p className="label-mono mb-5">/ Destacados</p>
+            <h3 className="font-serif-display text-3xl leading-[1.04] tracking-[-0.02em] text-ink md:text-5xl">
+              Sistemas con foco <span className="italic text-accent">en operación.</span>
             </h3>
           </div>
           <Link

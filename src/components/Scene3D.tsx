@@ -1,12 +1,13 @@
 import { useRef, useState, useMemo, Suspense, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Html, Stars } from '@react-three/drei';
+import { Html, ContactShadows } from '@react-three/drei';
 import {
   useScroll,
   useMotionValueEvent,
   AnimatePresence,
   motion,
 } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import * as THREE from 'three';
 
 // ---------------------------------------------------------------------------
@@ -29,7 +30,7 @@ const STAGES: Stage[] = [
     id: 'intro',
     label: '— STACK —',
     title: 'Lo que construyo',
-    sub: 'Scroll para descubrir cada especialidad ↓',
+    sub: 'Scroll para recorrer cada especialidad ↓',
   },
   {
     id: 'web',
@@ -187,6 +188,7 @@ function ConnectionLine({
   to: [number, number, number];
   revealAt: number;
 }) {
+  const lineRef = useRef<THREE.Line>(null!);
   const lineObj = useMemo(() => {
     const start = new THREE.Vector3(0, 0, 0);
     const end = new THREE.Vector3(...to);
@@ -195,7 +197,7 @@ function ConnectionLine({
     const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
     const geo = new THREE.BufferGeometry().setFromPoints(curve.getPoints(40));
     const mat = new THREE.LineBasicMaterial({
-      color: '#b89850',
+      color: '#16150f',
       transparent: true,
       opacity: 0,
     });
@@ -203,11 +205,12 @@ function ConnectionLine({
   }, [to]);
 
   useFrame(() => {
+    if (!lineRef.current) return;
     const prog = Math.max(0, Math.min(1, (sp.v - revealAt) / 0.12));
-    (lineObj.material as THREE.LineBasicMaterial).opacity = prog * 0.18;
+    (lineRef.current.material as THREE.LineBasicMaterial).opacity = prog * 0.22;
   });
 
-  return <primitive object={lineObj} />;
+  return <primitive ref={lineRef} object={lineObj} />;
 }
 
 // ---------------------------------------------------------------------------
@@ -266,17 +269,16 @@ function FloatingPiece({ cfg }: { cfg: PieceConfig }) {
     }
   });
 
-  const enter = () => {
-    setHovered(true);
-    document.body.style.cursor = 'pointer';
-  };
-  const leave = () => {
-    setHovered(false);
-    document.body.style.cursor = 'default';
-  };
+  const enter = () => setHovered(true);
+  const leave = () => setHovered(false);
 
   return (
-    <mesh ref={mesh} position={cfg.origin} onPointerEnter={enter} onPointerLeave={leave}>
+    <mesh
+      ref={mesh}
+      position={cfg.origin}
+      onPointerEnter={enter}
+      onPointerLeave={leave}
+    >
       <PieceGeo geo={cfg.geo} size={cfg.size} />
       <meshStandardMaterial
         color={hovered ? cfg.hoverColor : cfg.color}
@@ -309,12 +311,10 @@ function FloatingPiece({ cfg }: { cfg: PieceConfig }) {
         >
           <div
             style={{
-              background: 'rgba(10,9,6,0.92)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              border: '1px solid rgba(184,152,80,0.2)',
-              borderRadius: '4px',
-              padding: '7px 13px',
+              background: '#fffefb',
+              border: '1px solid rgba(22,21,15,0.12)',
+              boxShadow: '0 12px 30px rgba(22,21,15,0.1)',
+              padding: '8px 14px',
               textAlign: 'center',
               whiteSpace: 'nowrap',
             }}
@@ -322,9 +322,9 @@ function FloatingPiece({ cfg }: { cfg: PieceConfig }) {
             <p
               style={{
                 fontFamily: 'Instrument Serif, ui-serif, Georgia, serif',
-                fontSize: '13px',
+                fontSize: '14px',
                 fontWeight: 400,
-                color: '#ece6d8',
+                color: '#16150f',
                 margin: 0,
               }}
             >
@@ -336,8 +336,8 @@ function FloatingPiece({ cfg }: { cfg: PieceConfig }) {
                 fontSize: '9px',
                 letterSpacing: '0.14em',
                 textTransform: 'uppercase',
-                color: 'rgba(180,165,135,0.65)',
-                margin: '4px 0 0',
+                color: 'rgba(107,104,92,0.85)',
+                margin: '5px 0 0',
               }}
             >
               {cfg.sub}
@@ -372,16 +372,27 @@ function CameraRig() {
 function SceneContent() {
   return (
     <>
-      {/* Product-photography lighting: key + accent fills + local core light */}
-      <ambientLight intensity={0.08} color="#f0e8d8" />
-      <directionalLight position={[4, 7, 3]} intensity={2.4} color="#fff8f0" />
-      <pointLight position={[-5, -3, -2]} intensity={10} color="#b8442b" />
-      <pointLight position={[0, -3, -5]} intensity={4} color="#5080a0" />
-      <pointLight position={[0, 0, 0]} intensity={4} color="#c8a860" />
-
-      <Stars radius={45} depth={65} count={480} factor={1.1} fade speed={0.25} />
+      {/* Lighting tuned for a light paper backdrop: strong neutral fill so the
+          pieces read as solid forms, plus warm/cool accents for depth. */}
+      <ambientLight intensity={0.85} color="#fbf6ec" />
+      <directionalLight position={[4, 7, 3]} intensity={2.2} color="#fff8f0" />
+      <directionalLight position={[-3, 2, 4]} intensity={0.8} color="#ffffff" />
+      <pointLight position={[-5, -3, -2]} intensity={8} color="#b8442b" />
+      <pointLight position={[0, -3, -5]} intensity={3} color="#5080a0" />
+      <pointLight position={[0, 0, 0]} intensity={3} color="#c8a860" />
 
       <CoreSphere />
+
+      {/* Soft contact shadow grounds the floating pieces on the paper plane */}
+      <ContactShadows
+        position={[0, -2.6, 0]}
+        opacity={0.22}
+        scale={16}
+        blur={2.8}
+        far={5}
+        resolution={512}
+        color="#16150f"
+      />
 
       {PIECES.map((cfg) => (
         <FloatingPiece key={cfg.id} cfg={cfg} />
@@ -439,7 +450,7 @@ export function Scene3D() {
   return (
     <section
       ref={containerRef}
-      style={{ position: 'relative', height: '320vh' }}
+      style={{ position: 'relative', height: '220vh' }}
       aria-label="Stack y especialidades — escena 3D interactiva"
     >
       {inView && (
@@ -454,31 +465,31 @@ export function Scene3D() {
             pointerEvents: progress <= 0.01 || progress >= 0.99 ? 'none' : 'auto',
           }}
         >
-          {/* ── Top fade: paper → dark ── */}
+          {/* ── Top fade: blend the floating scene into the paper page ── */}
           <div
             style={{
               position: 'absolute',
               top: 0,
               left: 0,
               right: 0,
-              height: '110px',
+              height: '120px',
               background:
-                'linear-gradient(to bottom, #faf9f6 0%, rgba(250,249,246,0.55) 55%, transparent 100%)',
+                'linear-gradient(to bottom, #faf9f6 0%, rgba(250,249,246,0.6) 55%, transparent 100%)',
               zIndex: 20,
               pointerEvents: 'none',
             }}
           />
 
-          {/* ── Bottom fade: dark → paper ── */}
+          {/* ── Bottom fade ── */}
           <div
             style={{
               position: 'absolute',
               bottom: 0,
               left: 0,
               right: 0,
-              height: '110px',
+              height: '120px',
               background:
-                'linear-gradient(to top, #faf9f6 0%, rgba(250,249,246,0.55) 55%, transparent 100%)',
+                'linear-gradient(to top, #faf9f6 0%, rgba(250,249,246,0.6) 55%, transparent 100%)',
               zIndex: 20,
               pointerEvents: 'none',
             }}
@@ -509,7 +520,7 @@ export function Scene3D() {
                     fontSize: '0.6rem',
                     letterSpacing: '0.24em',
                     textTransform: 'uppercase',
-                    color: 'rgba(176,162,130,0.6)',
+                    color: 'rgba(107,104,92,0.9)',
                     margin: '0 0 10px',
                   }}
                 >
@@ -522,7 +533,7 @@ export function Scene3D() {
                     fontWeight: 400,
                     letterSpacing: '-0.02em',
                     lineHeight: 1.05,
-                    color: '#ece6d8',
+                    color: '#16150f',
                     margin: '0 0 10px',
                   }}
                 >
@@ -533,7 +544,7 @@ export function Scene3D() {
                     fontFamily: 'JetBrains Mono, monospace',
                     fontSize: '0.68rem',
                     letterSpacing: '0.08em',
-                    color: 'rgba(176,162,130,0.5)',
+                    color: 'rgba(44,42,34,0.7)',
                     margin: 0,
                     lineHeight: 1.6,
                   }}
@@ -544,6 +555,31 @@ export function Scene3D() {
             </AnimatePresence>
           </div>
 
+          {/* ── Portfolio link — ties the scene back into the projects ── */}
+          <Link
+            to="/proyectos"
+            style={{
+              position: 'absolute',
+              bottom: '96px',
+              right: 'clamp(32px, 5vw, 72px)',
+              zIndex: 30,
+              pointerEvents: 'auto',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              fontFamily: 'JetBrains Mono, monospace',
+              fontSize: '0.62rem',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              color: '#b8442b',
+              textDecoration: 'none',
+              borderBottom: '1px solid rgba(184,68,43,0.4)',
+              paddingBottom: '3px',
+            }}
+          >
+            Ver proyectos →
+          </Link>
+
           {/* ── Progress bar — aligns with text left edge ── */}
           <div
             style={{
@@ -552,7 +588,7 @@ export function Scene3D() {
               left: 'clamp(32px, 5vw, 72px)',
               width: '56px',
               height: '1px',
-              background: 'rgba(176,162,130,0.18)',
+              background: 'rgba(22,21,15,0.12)',
               borderRadius: '1px',
               zIndex: 30,
               overflow: 'hidden',
@@ -562,7 +598,7 @@ export function Scene3D() {
               style={{
                 width: `${progress * 100}%`,
                 height: '100%',
-                background: 'rgba(192,149,80,0.55)',
+                background: '#b8442b',
                 borderRadius: '1px',
               }}
             />
@@ -572,12 +608,12 @@ export function Scene3D() {
           <Canvas
             camera={{ position: [0, 0, 5.5], fov: 50 }}
             style={{
-              background: '#0c0b08',
+              background: '#faf9f6',
               width: '100%',
               height: '100%',
             }}
             dpr={[1, 2]}
-            gl={{ antialias: true }}
+            gl={{ antialias: true, alpha: true }}
           >
             <Suspense fallback={null}>
               <SceneContent />
