@@ -30,7 +30,8 @@ export function Navbar() {
       >
         <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 md:px-12 lg:px-16">
           {/* Logo */}
-          <Link to="/" className="group flex items-baseline gap-2">
+          <Link to="/" className="group flex items-center gap-3" aria-label="Franco Dellorsi — Inicio">
+            <img src="/logo.png" alt="" className="h-7 w-auto transition-transform group-hover:-translate-y-0.5" />
             <span className="font-serif-display text-2xl text-ink">Franco Dellorsi</span>
           </Link>
 
