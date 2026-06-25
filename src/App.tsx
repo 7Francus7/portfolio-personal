@@ -10,7 +10,7 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <div className="min-h-screen bg-[#0D1117] text-white noise">
+      <div className="min-h-screen surface-page text-ink grain">
         <Navbar />
         <main>
           <Routes>

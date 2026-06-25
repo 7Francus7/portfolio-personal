@@ -47,32 +47,32 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-32 surface-band px-6 md:px-12 lg:px-20 border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-20">
+    <section id="contact" className="surface-band border-t border-[var(--color-line-strong)] px-6 py-32 md:px-12 lg:px-16">
+      <div className="mx-auto max-w-[1400px]">
+        <div className="grid gap-20 lg:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-8">Contacto</h2>
-            <h3 className="text-4xl md:text-6xl font-normal tracking-tighter leading-none text-white mb-10">
+            <p className="label-mono mb-8">/ Contacto</p>
+            <h3 className="mb-10 font-serif-display text-4xl leading-[1.02] tracking-[-0.02em] text-ink md:text-6xl">
               Contame qué <br />
-              <span className="text-white/40 italic">hay que construir.</span>
+              <span className="italic text-accent">hay que construir.</span>
             </h3>
-            
-            <p className="text-lg text-white/50 font-light leading-relaxed mb-12 max-w-sm">
+
+            <p className="mb-12 max-w-sm text-lg font-light leading-relaxed text-ink-mute">
               Si tenés una operación desordenada, una idea de sistema o un producto a mejorar,
               escribime con contexto y lo vemos.
             </p>
 
             <div className="space-y-4">
-              <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold">Canales</p>
-              <div className="flex flex-wrap gap-4">
-                <a href="https://wa.me/5493524421497" target="_blank" rel="noopener noreferrer" className="text-sm text-white/60 hover:text-white transition-colors">WhatsApp</a>
-                <a href="mailto:dellorsif@gmail.com" className="text-sm text-white/60 hover:text-white transition-colors">Email</a>
-                <a href="https://www.linkedin.com/in/franco-dellorsi/" target="_blank" rel="noopener noreferrer" className="text-sm text-white/60 hover:text-white transition-colors">LinkedIn</a>
+              <p className="label-mono">Canales</p>
+              <div className="flex flex-wrap gap-6">
+                <a href="https://wa.me/5493524421497" target="_blank" rel="noopener noreferrer" className="link-underline text-sm text-ink-soft hover:text-ink">WhatsApp</a>
+                <a href="mailto:dellorsif@gmail.com" className="link-underline text-sm text-ink-soft hover:text-ink">Email</a>
+                <a href="https://www.linkedin.com/in/franco-dellorsi/" target="_blank" rel="noopener noreferrer" className="link-underline text-sm text-ink-soft hover:text-ink">LinkedIn</a>
               </div>
             </div>
           </motion.div>
@@ -84,58 +84,58 @@ export function Contact() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {formState === 'success' ? (
-              <div className="liquid-glass border border-white/20 p-12 rounded-3xl text-center">
-                <CheckCircle size={48} className="text-white mx-auto mb-6" />
-                <h4 className="text-2xl font-light text-white mb-2">Mensaje Recibido</h4>
-                <p className="text-white/50 font-light">Te respondo apenas pueda revisarlo.</p>
-                <button 
+              <div className="surface-card border border-[var(--color-line-strong)] p-12 text-center">
+                <CheckCircle size={48} className="mx-auto mb-6 text-accent" />
+                <h4 className="mb-2 font-serif-display text-2xl text-ink">Mensaje recibido</h4>
+                <p className="font-light text-ink-mute">Te respondo apenas pueda revisarlo.</p>
+                <button
                   onClick={() => setFormState('idle')}
-                  className="mt-8 text-sm text-white/30 hover:text-white transition-colors"
+                  className="label-mono mt-8 hover:!text-ink"
                 >
                   Enviar otro mensaje
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-8">
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid gap-8 md:grid-cols-2">
                   <div className="space-y-3">
-                    <label className="text-[10px] uppercase tracking-widest text-white/40 font-bold">Nombre</label>
+                    <label className="label-mono">Nombre</label>
                     <input
                       type="text"
                       name="name"
                       required
                       placeholder="Franco D."
-                      className="w-full bg-transparent border-b border-white/10 py-3 text-white placeholder:text-white/10 focus:outline-none focus:border-white transition-colors font-light"
+                      className="w-full border-b border-[var(--color-line-strong)] bg-transparent py-3 font-light text-ink transition-colors placeholder:text-ink-faint focus:border-ink focus:outline-none"
                     />
                   </div>
                   <div className="space-y-3">
-                    <label className="text-[10px] uppercase tracking-widest text-white/40 font-bold">Email</label>
+                    <label className="label-mono">Email</label>
                     <input
                       type="email"
                       name="email"
                       required
                       placeholder="franco@example.com"
-                      className="w-full bg-transparent border-b border-white/10 py-3 text-white placeholder:text-white/10 focus:outline-none focus:border-white transition-colors font-light"
+                      className="w-full border-b border-[var(--color-line-strong)] bg-transparent py-3 font-light text-ink transition-colors placeholder:text-ink-faint focus:border-ink focus:outline-none"
                     />
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <label className="text-[10px] uppercase tracking-widest text-white/40 font-bold">Mensaje</label>
+                  <label className="label-mono">Mensaje</label>
                   <textarea
                     name="message"
                     rows={4}
                     required
                     placeholder="Contame qué necesitás construir..."
-                    className="w-full bg-transparent border-b border-white/10 py-3 text-white placeholder:text-white/10 focus:outline-none focus:border-white transition-colors resize-none font-light"
+                    className="w-full resize-none border-b border-[var(--color-line-strong)] bg-transparent py-3 font-light text-ink transition-colors placeholder:text-ink-faint focus:border-ink focus:outline-none"
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={formState === 'sending'}
-                  className="w-full flex items-center justify-between px-8 py-5 bg-white text-black rounded-xl font-semibold hover:bg-gray-100 transition-all disabled:opacity-50"
+                  className="flex w-full items-center justify-between bg-ink px-8 py-5 font-medium text-paper transition-transform hover:-translate-y-0.5 disabled:opacity-50"
                 >
                   {formState === 'sending' ? (
-                    <Loader2 size={24} className="animate-spin mx-auto" />
+                    <Loader2 size={24} className="mx-auto animate-spin" />
                   ) : (
                     <>
                       <span>Enviar consulta</span>

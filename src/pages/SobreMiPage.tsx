@@ -8,20 +8,20 @@ import { motion } from 'framer-motion';
 export function SobreMiPage() {
   return (
     <>
-      <div className="pt-40 pb-20 relative px-6 md:px-12 lg:px-20 border-b border-white/5 surface-page">
-        <div className="max-w-7xl mx-auto">
+      <div className="surface-page relative border-b border-[var(--color-line-strong)] px-6 pb-20 pt-40 md:px-12 lg:px-16">
+        <div className="mx-auto max-w-[1400px]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             className="max-w-4xl"
           >
-            <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-8">Sobre mí</h2>
-            <h1 className="text-4xl sm:text-5xl md:text-8xl font-normal leading-[0.9] text-white mb-10">
+            <p className="label-mono mb-8">/ Sobre mí</p>
+            <h1 className="mb-10 font-serif-display text-5xl leading-[1.0] tracking-[-0.02em] text-ink sm:text-6xl md:text-8xl">
               Producto, código <br />
-              <span className="text-white/40 italic">y oficio.</span>
+              <span className="italic text-accent">y oficio.</span>
             </h1>
-            <p className="text-xl text-white/50 font-light max-w-xl leading-relaxed">
+            <p className="max-w-xl text-xl font-light leading-relaxed text-ink-mute">
               Trabajo cerca del problema: entender la operación, diseñar la herramienta y dejarla lista para uso real.
             </p>
           </motion.div>

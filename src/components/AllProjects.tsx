@@ -4,14 +4,6 @@ import { Search, X, ArrowUpRight } from 'lucide-react';
 import { projects as defaultProjects, categories, type Project, type ProjectCategory } from '../data/projects';
 import { getProjectLinkLabel, hasProjectImage } from '../utils/projects';
 
-const statusColors: Record<string, string> = {
-  live: 'bg-white/10 text-white border border-white/20',
-  mvp: 'bg-white/10 text-white/70 border border-white/20',
-  'in-development': 'bg-white/10 text-white/50 border border-white/20',
-  client: 'bg-white/10 text-white/40 border border-white/20',
-  private: 'bg-white/5 text-white/20 border border-white/5',
-};
-
 const statusLabels: Record<string, string> = {
   live: 'online',
   mvp: 'mvp',
@@ -28,13 +20,13 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
   const [selectedCategory, setSelectedCategory] = useState<ProjectCategory | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  
+
   const projectList = initialProjects || defaultProjects;
 
   const filteredProjects = useMemo(() => {
     return projectList.filter((project) => {
       const matchesCategory = selectedCategory === 'all' || project.category.includes(selectedCategory);
-      const matchesSearch = searchQuery === '' || 
+      const matchesSearch = searchQuery === '' ||
         project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         project.stack.some(s => s.toLowerCase().includes(searchQuery.toLowerCase())) ||
         project.description.toLowerCase().includes(searchQuery.toLowerCase());
@@ -43,8 +35,8 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
   }, [selectedCategory, searchQuery, projectList]);
 
   return (
-    <section id="all-projects" className="py-32 surface-band px-6 md:px-12 lg:px-20 border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
+    <section id="all-projects" className="surface-band border-t border-[var(--color-line-strong)] px-6 py-32 md:px-12 lg:px-16">
+      <div className="mx-auto max-w-[1400px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -52,31 +44,30 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-6">Archivo</h2>
-          <h3 className="text-4xl md:text-5xl font-normal tracking-tighter text-white mb-4">
-            Otras piezas <br />
-            <span className="text-white/40 italic">del archivo.</span>
+          <p className="label-mono mb-6">/ Archivo</p>
+          <h3 className="font-serif-display text-4xl leading-[1.02] tracking-[-0.02em] text-ink md:text-5xl">
+            Otras piezas <span className="italic text-accent">del archivo.</span>
           </h3>
         </motion.div>
 
-        <div className="flex flex-col md:flex-row gap-8 mb-16">
+        <div className="mb-12 flex flex-col gap-8 md:flex-row">
           <div className="relative flex-1">
-            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/20" />
+            <Search size={18} className="absolute left-0 top-1/2 -translate-y-1/2 text-ink-faint" />
             <input
               type="text"
               placeholder="Buscar por tecnología, nombre o descripción..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 bg-transparent border-b border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-white transition-colors font-light"
+              className="w-full border-b border-[var(--color-line-strong)] bg-transparent py-4 pl-8 pr-4 font-light text-ink transition-colors placeholder:text-ink-faint focus:border-ink focus:outline-none"
             />
           </div>
           <div className="-mx-6 flex items-center gap-2 overflow-x-auto px-6 pb-1 md:mx-0 md:flex-wrap md:overflow-visible md:px-0">
             <button
               onClick={() => setSelectedCategory('all')}
-              className={`shrink-0 px-4 py-2 rounded-full text-xs font-medium tracking-widest uppercase transition-all ${
+              className={`label-mono shrink-0 border px-4 py-2 transition-all ${
                 selectedCategory === 'all'
-                  ? 'bg-white text-black'
-                  : 'bg-transparent border border-white/10 text-white/40 hover:text-white hover:border-white'
+                  ? 'border-ink bg-ink !text-paper'
+                  : 'border-[var(--color-line-strong)] hover:!text-ink'
               }`}
             >
               Todos
@@ -85,10 +76,10 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
               <button
                 key={cat.value}
                 onClick={() => setSelectedCategory(cat.value)}
-                className={`shrink-0 px-4 py-2 rounded-full text-xs font-medium tracking-widest uppercase transition-all ${
+                className={`label-mono shrink-0 border px-4 py-2 transition-all ${
                   selectedCategory === cat.value
-                    ? 'bg-white text-black'
-                    : 'bg-transparent border border-white/10 text-white/40 hover:text-white hover:border-white'
+                    ? 'border-ink bg-ink !text-paper'
+                    : 'border-[var(--color-line-strong)] hover:!text-ink'
                 }`}
               >
                 {cat.label}
@@ -97,61 +88,51 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded-3xl overflow-hidden">
+        <div className="grid border-t border-l border-[var(--color-line-strong)] sm:grid-cols-2 lg:grid-cols-3">
           {filteredProjects.map((project) => (
             <motion.article
               key={project.id}
               onClick={() => setSelectedProject(project)}
-              className="group surface-card cursor-pointer hover:bg-white/[0.06] transition-all duration-500"
+              className="group surface-card cursor-pointer border-b border-r border-[var(--color-line-strong)] transition-colors hover:bg-paper-dim"
             >
-              <div className="relative aspect-[16/10] overflow-hidden border-b border-white/5 bg-white/[0.03]">
+              <div className="relative aspect-[16/10] overflow-hidden border-b border-[var(--color-line-strong)] bg-paper-deep">
                 {hasProjectImage(project) ? (
                   <img
                     src={project.images[0]}
                     alt={`Captura real de ${project.title}`}
-                    className="h-full w-full object-cover opacity-84 grayscale-[0.12] transition-all duration-700 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-105"
+                    className="gallery-img h-full w-full object-cover group-hover:scale-[1.03]"
                   />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center p-8 text-center">
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-white/25">
-                      Captura no pública
-                    </p>
+                    <p className="label-mono">Captura no pública</p>
                   </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#171a20]/48 via-transparent to-transparent" />
               </div>
 
               <div className="p-8">
-                <div className="flex items-start justify-between mb-6">
-                  <span className={`px-2 py-1 text-[8px] uppercase tracking-widest font-bold rounded ${statusColors[project.status]}`}>
-                    {statusLabels[project.status]}
-                  </span>
-                  <span className="text-white/20 text-[10px] font-medium">{project.year}</span>
+                <div className="mb-6 flex items-start justify-between">
+                  <span className="label-mono !text-accent">{statusLabels[project.status]}</span>
+                  <span className="label-mono">{project.year}</span>
                 </div>
-                <h3 className="text-xl font-medium text-white mb-3 group-hover:translate-x-1 transition-transform">
+                <h3 className="mb-3 font-serif-display text-2xl text-ink transition-transform group-hover:translate-x-1">
                   {project.title}
                 </h3>
-                <p className="text-sm text-white/40 font-light mb-8 line-clamp-2 leading-relaxed">
+                <p className="mb-8 line-clamp-2 text-sm font-light leading-relaxed text-ink-mute">
                   {project.tagline}
                 </p>
-                <div className="flex flex-wrap gap-2 mb-8">
+                <div className="mb-8 flex flex-wrap gap-x-4 gap-y-1">
                   {project.stack.slice(0, 3).map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-[10px] text-white/30 uppercase tracking-widest"
-                    >
-                      {tech}
-                    </span>
+                    <span key={tech} className="label-mono">{tech}</span>
                   ))}
                 </div>
-                <div className="flex flex-wrap gap-4 border-t border-white/5 pt-5">
+                <div className="flex flex-wrap gap-4 border-t border-[var(--color-line-strong)] pt-5">
                   {project.demo && (
                     <a
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(event) => event.stopPropagation()}
-                      className="flex items-center gap-2 text-xs font-semibold text-white hover:text-white/60 transition-colors"
+                      className="flex items-center gap-2 text-xs font-medium text-ink hover:text-accent"
                     >
                       {getProjectLinkLabel(project)}
                       <ArrowUpRight size={14} />
@@ -163,7 +144,7 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(event) => event.stopPropagation()}
-                      className="flex items-center gap-2 text-xs font-semibold text-white/40 hover:text-white transition-colors"
+                      className="flex items-center gap-2 text-xs font-medium text-ink-mute hover:text-ink"
                     >
                       Repositorio
                       <ArrowUpRight size={14} />
@@ -176,8 +157,8 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
         </div>
 
         {filteredProjects.length === 0 && (
-          <div className="text-center py-32 rounded-3xl border border-white/5 border-dashed">
-            <p className="text-white/20 font-light tracking-widest uppercase text-xs">No hay proyectos con ese filtro.</p>
+          <div className="border border-dashed border-[var(--color-line-strong)] py-32 text-center">
+            <p className="label-mono">No hay proyectos con ese filtro.</p>
           </div>
         )}
       </div>
@@ -187,23 +168,23 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-[#08090b]/88 backdrop-blur-xl flex items-center justify-center p-6"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-6 backdrop-blur-sm"
           onClick={() => setSelectedProject(null)}
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-[#171a20] border border-white/10 rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl shadow-black"
+            initial={{ opacity: 0, scale: 0.96, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            className="max-h-[85vh] w-full max-w-2xl overflow-y-auto border border-[var(--color-line-strong)] bg-paper shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-8 border-b border-white/5 flex items-center justify-between sticky top-0 bg-[#171a20]/90 backdrop-blur-md">
-              <h3 className="text-2xl font-normal tracking-tight text-white">{selectedProject.title}</h3>
-              <button onClick={() => setSelectedProject(null)} className="p-2 hover:bg-white/10 rounded-full transition-all">
-                <X size={20} className="text-white" />
+            <div className="sticky top-0 flex items-center justify-between border-b border-[var(--color-line-strong)] bg-paper/90 p-8 backdrop-blur-md">
+              <h3 className="font-serif-display text-2xl text-ink">{selectedProject.title}</h3>
+              <button onClick={() => setSelectedProject(null)} aria-label="Cerrar" className="rounded-full p-2 transition-colors hover:bg-paper-dim">
+                <X size={20} className="text-ink" />
               </button>
             </div>
-            <div className="p-10 space-y-10">
-              <div className="overflow-hidden rounded-2xl border border-white/5 bg-white/[0.03]">
+            <div className="space-y-10 p-10">
+              <div className="overflow-hidden border border-[var(--color-line-strong)] bg-paper-deep">
                 {hasProjectImage(selectedProject) ? (
                   <img
                     src={selectedProject.images[0]}
@@ -212,50 +193,48 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
                   />
                 ) : (
                   <div className="flex aspect-video w-full items-center justify-center p-8 text-center">
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-white/25">
-                      Captura no pública
-                    </p>
+                    <p className="label-mono">Captura no pública</p>
                   </div>
                 )}
               </div>
 
               <div>
-                <h4 className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-4">Descripción</h4>
-                <p className="text-white/60 font-light leading-relaxed">{selectedProject.description}</p>
+                <h4 className="label-mono mb-4">Descripción</h4>
+                <p className="font-light leading-relaxed text-ink-soft">{selectedProject.description}</p>
               </div>
-              
+
               <div className="grid grid-cols-2 gap-8">
                 <div>
-                  <h4 className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-4">Tecnologías</h4>
-                  <div className="flex flex-wrap gap-2">
+                  <h4 className="label-mono mb-4">Tecnologías</h4>
+                  <div className="flex flex-wrap gap-x-4 gap-y-1">
                     {selectedProject.stack.map(s => (
-                      <span key={s} className="text-xs text-white/40">{s}</span>
+                      <span key={s} className="label-mono">{s}</span>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-4">Año</h4>
-                  <p className="text-sm text-white/80">{selectedProject.year}</p>
+                  <h4 className="label-mono mb-4">Año</h4>
+                  <p className="font-serif-display text-xl text-ink">{selectedProject.year}</p>
                 </div>
               </div>
 
-              <div className="flex gap-6 pt-6">
+              <div className="flex gap-6 border-t border-[var(--color-line-strong)] pt-6">
                 {selectedProject.demo && (
-                  <a 
-                    href={selectedProject.demo} 
-                    target="_blank" 
+                  <a
+                    href={selectedProject.demo}
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm font-medium text-white hover:text-white/60 transition-colors"
+                    className="flex items-center gap-2 text-sm font-medium text-ink hover:text-accent"
                   >
                     {getProjectLinkLabel(selectedProject)} <ArrowUpRight size={16} />
                   </a>
                 )}
                 {selectedProject.github && !selectedProject.private && (
-                  <a 
-                    href={selectedProject.github} 
-                    target="_blank" 
+                  <a
+                    href={selectedProject.github}
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm font-medium text-white/40 hover:text-white transition-colors"
+                    className="flex items-center gap-2 text-sm font-medium text-ink-mute hover:text-ink"
                   >
                     Repositorio <ArrowUpRight size={16} />
                   </a>

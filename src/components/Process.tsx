@@ -29,35 +29,31 @@ const steps = [
 
 export function Process() {
   return (
-    <section className="bg-black px-6 py-32 md:px-12 lg:px-20 border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-20 max-w-2xl">
-          <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-6">
-            Cómo trabajo
+    <section className="surface-band border-t border-[var(--color-line-strong)] px-6 py-28 md:px-12 lg:px-16">
+      <div className="mx-auto max-w-[1400px]">
+        <div className="mb-16 max-w-2xl">
+          <p className="label-mono mb-6">/ Cómo trabajo</p>
+          <h2 className="font-serif-display text-4xl leading-[1.02] tracking-[-0.02em] text-ink md:text-6xl">
+            Un proceso claro,<br />
+            <span className="italic text-accent">sin sorpresas.</span>
           </h2>
-          <h3 className="text-4xl md:text-6xl font-normal tracking-tighter leading-none text-white">
-            Un proceso claro, <br />
-            <span className="text-white/40 italic">sin sorpresas.</span>
-          </h3>
         </div>
 
-        <div className="grid gap-px overflow-hidden rounded-3xl border border-white/5 bg-white/5 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid border-t border-[var(--color-line-strong)] md:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, i) => (
             <motion.div
               key={step.number}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group flex flex-col bg-black p-8 transition-colors duration-500 hover:bg-white/[0.03]"
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ delay: i * 0.1, duration: 0.6 }}
+              className="group flex flex-col border-b border-[var(--color-line-strong)] py-10 lg:border-b-0 lg:border-r lg:px-8 lg:py-12 lg:last:border-r-0 lg:[&:first-child]:pl-0"
             >
-              <span className="text-sm font-display font-bold text-white/30 transition-colors group-hover:text-white">
+              <span className="font-mono text-sm text-ink-faint transition-colors group-hover:text-accent">
                 {step.number}
               </span>
-              <h4 className="mt-10 text-xl font-medium tracking-tight text-white">
-                {step.title}
-              </h4>
-              <p className="mt-4 text-sm font-light leading-relaxed text-white/40">
+              <h3 className="mt-10 font-serif-display text-2xl text-ink">{step.title}</h3>
+              <p className="mt-4 text-sm font-light leading-relaxed text-ink-mute">
                 {step.description}
               </p>
             </motion.div>

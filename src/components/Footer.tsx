@@ -19,44 +19,40 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="surface-band py-20 px-6 md:px-12 lg:px-20 border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-24">
+    <footer className="surface-band border-t border-[var(--color-line-strong)] px-6 py-20 md:px-12 lg:px-16">
+      <div className="mx-auto max-w-[1400px]">
+        <div className="grid gap-12 md:grid-cols-2 lg:gap-24">
           <div>
-            <Link to="/" className="text-2xl font-semibold tracking-tight text-white mb-6 block">
-              Franco<span className="text-white/40">.</span>
+            <Link to="/" className="mb-6 block font-serif-display text-3xl text-ink">
+              Franco Dellorsi
             </Link>
-            <p className="text-white/40 max-w-sm font-light leading-relaxed">
+            <p className="max-w-sm font-light leading-relaxed text-ink-mute">
               Full-stack Developer. Sistemas web para negocios que necesitan
               vender, reservar, cobrar, medir y administrar con menos fricción.
             </p>
 
             <div className="mt-8 flex flex-col gap-3">
               <div className="inline-flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/60">
-                  Disponible para nuevos proyectos
-                </span>
+                <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                <span className="label-mono">Disponible para nuevos proyectos</span>
               </div>
               <a
                 href="mailto:dellorsif@gmail.com"
-                className="text-sm font-light text-white/50 transition-colors hover:text-white"
+                className="link-underline w-fit text-sm font-light text-ink-soft hover:text-ink"
               >
                 dellorsif@gmail.com
               </a>
-              <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-white/30">
-                Argentina · Trabajo remoto
-              </span>
+              <span className="label-mono">Argentina · Trabajo remoto</span>
             </div>
           </div>
-          
-          <div className="flex flex-col md:items-end justify-between gap-8">
+
+          <div className="flex flex-col justify-between gap-8 md:items-end">
             <div className="flex gap-10">
-              <Link to="/proyectos" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Proyectos</Link>
-              <Link to="/sobre-mi" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Sobre mí</Link>
-              <Link to="/contacto" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Contacto</Link>
+              <Link to="/proyectos" className="label-mono hover:!text-ink">Proyectos</Link>
+              <Link to="/sobre-mi" className="label-mono hover:!text-ink">Sobre mí</Link>
+              <Link to="/contacto" className="label-mono hover:!text-ink">Contacto</Link>
             </div>
-            
+
             <div className="flex gap-4">
               {socialLinks.map((link) => (
                 <a
@@ -64,22 +60,19 @@ export function Footer() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-full border border-white/10 hover:bg-white hover:text-black transition-all"
+                  aria-label={link.label}
+                  className="rounded-full border border-[var(--color-line-strong)] p-3 text-ink-soft transition-all hover:bg-ink hover:text-paper"
                 >
-                  <link.icon className="w-4 h-4" />
+                  <link.icon className="h-4 w-4" />
                 </a>
               ))}
             </div>
           </div>
         </div>
-        
-        <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between gap-4">
-          <p className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-bold">
-            © {new Date().getFullYear()} Franco Dellorsi
-          </p>
-          <p className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-bold">
-            React, TypeScript, Vite
-          </p>
+
+        <div className="mt-20 flex flex-col justify-between gap-4 border-t border-[var(--color-line-strong)] pt-8 md:flex-row">
+          <p className="label-mono">© {new Date().getFullYear()} Franco Dellorsi</p>
+          <p className="label-mono">React · TypeScript · Vite</p>
         </div>
       </div>
     </footer>

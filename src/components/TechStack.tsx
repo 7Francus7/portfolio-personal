@@ -26,42 +26,35 @@ const stackGroups: StackGroup[] = [
 
 export function TechStack() {
   return (
-    <section className="bg-black px-6 py-28 md:px-12 lg:px-20 border-t border-white/5">
-      <div className="max-w-7xl mx-auto">
+    <section className="surface-page border-t border-[var(--color-line-strong)] px-6 py-28 md:px-12 lg:px-16">
+      <div className="mx-auto max-w-[1400px]">
         <div className="grid gap-16 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <h2 className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold mb-6">
-              Stack
+            <p className="label-mono mb-6">/ Stack</p>
+            <h2 className="font-serif-display text-4xl leading-[1.02] tracking-[-0.02em] text-ink md:text-5xl">
+              Herramientas<br />
+              <span className="italic text-accent">que ya domino.</span>
             </h2>
-            <h3 className="text-4xl md:text-5xl font-normal tracking-tighter leading-none text-white">
-              Herramientas <br />
-              <span className="text-white/40 italic">que ya domino.</span>
-            </h3>
-            <p className="mt-8 max-w-sm text-base text-white/45 font-light leading-relaxed">
+            <p className="mt-8 max-w-sm font-light leading-relaxed text-ink-mute">
               Un stack moderno y probado en producción, elegido por velocidad de
               entrega y mantenibilidad a largo plazo.
             </p>
           </div>
 
-          <div className="grid gap-px overflow-hidden rounded-3xl border border-white/5 bg-white/5 sm:grid-cols-2">
+          <div className="grid border-t border-[var(--color-line-strong)] sm:grid-cols-2">
             {stackGroups.map((group, i) => (
               <motion.div
                 key={group.label}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="bg-black p-8"
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: i * 0.08, duration: 0.6 }}
+                className="border-b border-[var(--color-line-strong)] py-8 sm:odd:pr-8 sm:even:border-l sm:even:pl-8"
               >
-                <p className="text-[10px] uppercase tracking-[0.3em] text-white/35 font-bold mb-6">
-                  {group.label}
-                </p>
-                <ul className="flex flex-wrap gap-2">
+                <p className="label-mono mb-6">{group.label}</p>
+                <ul className="flex flex-wrap gap-x-5 gap-y-2">
                   {group.items.map((item) => (
-                    <li
-                      key={item}
-                      className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-1.5 text-sm font-light text-white/80"
-                    >
+                    <li key={item} className="font-serif-display text-xl text-ink-soft">
                       {item}
                     </li>
                   ))}
