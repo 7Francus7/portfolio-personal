@@ -54,7 +54,9 @@ async function fetchRepo(owner, repo) {
 }
 
 function buildProject(entry, gh) {
-  const demo = entry.demo ?? gh?.homepage ?? undefined;
+  // `demo: false` in the config suppresses the GitHub homepage fallback — used
+  // when a repo points to a deployment that no longer exists.
+  const demo = entry.demo === false ? undefined : entry.demo ?? gh?.homepage ?? undefined;
   const isPrivate = entry.private ?? false;
   const useShot = !isPrivate && !!demo && entry.screenshot !== false;
   const id =

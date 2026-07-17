@@ -38,18 +38,8 @@
       "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fwww.courtops.net?w=1280&h=853"
     ],
     "realScreenshot": true,
-    "impact": "Reduce gestión manual 70%, aumenta reservas online 40%",
-    "private": false,
-    "metrics": [
-      {
-        "label": "Turnos gestionados",
-        "value": "500+/mes"
-      },
-      {
-        "label": "Tiempo de gestión",
-        "value": "-70%"
-      }
-    ]
+    "impact": "Centraliza reservas, clientes y cobranzas que antes vivían en WhatsApp y planillas",
+    "private": false
   },
   {
     "id": "soderianico",
@@ -62,7 +52,7 @@
       "internal-tool"
     ],
     "featured": true,
-    "status": "live",
+    "status": "client",
     "year": "2026",
     "description": "Sistema integral de gestión para una empresa de distribución de agua y soda, que maneja rutas de reparto diarias, control de inventario de sifones/dispensers y registro contable de clientes.",
     "problem": "La logística de reparto en papel generaba descontrol de envases, morosidad en pagos de clientes recurrentes y falta de visibilidad sobre los dispensers prestados.",
@@ -83,23 +73,10 @@
     ],
     "role": "Architect & Full-Stack Development",
     "github": "https://github.com/7Francus7/Soderia-Nico",
-    "demo": "https://soderia-nico.vercel.app",
-    "images": [
-      "https://s.wordpress.com/mshots/v1/https%3A%2F%2Fsoderia-nico.vercel.app?w=1280&h=853"
-    ],
-    "realScreenshot": true,
-    "impact": "Visibilidad total de retornos de botellas y deudores",
-    "private": false,
-    "metrics": [
-      {
-        "label": "Control integral",
-        "value": "100%"
-      },
-      {
-        "label": "Aceleración logística",
-        "value": "+40%"
-      }
-    ]
+    "images": [],
+    "realScreenshot": false,
+    "impact": "Sistema en uso real: reemplaza el reparto en papel con envases trazables, cuentas corrientes por cliente y cierre de caja diario",
+    "private": false
   },
   {
     "id": "saasnegocios",
@@ -141,10 +118,6 @@
       {
         "label": "Visión de caja",
         "value": "En vivo"
-      },
-      {
-        "label": "Curva de uso",
-        "value": "Mínima"
       }
     ]
   },

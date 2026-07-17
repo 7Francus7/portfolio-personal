@@ -14,16 +14,14 @@
       "category": ["saas", "web-app", "mobile-friendly", "pos"],
       "stack": ["React", "Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Prisma"],
       "features": ["Reservas online 24/7", "Gestión de clientes (CRM básico)", "Calendario operativo", "Control de caja y cobranzas", "Reportes diarios/semanales", "Portal de reservas público"],
-      "impact": "Reduce gestión manual 70%, aumenta reservas online 40%",
-      "metrics": [
-        { "label": "Turnos gestionados", "value": "500+/mes" },
-        { "label": "Tiempo de gestión", "value": "-70%" }
-      ]
+      "impact": "Centraliza reservas, clientes y cobranzas que antes vivían en WhatsApp y planillas"
     },
     {
       "repo": "Soderia-Nico",
       "featured": true,
-      "status": "live",
+      "status": "client",
+      "demo": false,
+      "screenshot": false,
       "role": "Architect & Full-Stack Development",
       "tagline": "Sistema ERP y logística para distribución de agua en bidones",
       "description": "Sistema integral de gestión para una empresa de distribución de agua y soda, que maneja rutas de reparto diarias, control de inventario de sifones/dispensers y registro contable de clientes.",
@@ -32,11 +30,7 @@
       "category": ["saas", "pos", "mobile-friendly", "internal-tool"],
       "stack": ["React", "Next.js", "TypeScript", "Tailwind CSS"],
       "features": ["Gestión de rutas de reparto", "Control de stock físico de envases", "POS integrado para ventas en efectivo/transferencia", "Base de datos de Clientes e historial", "Liquidación de cuentas de clientes", "Gestión de dispensers prestados"],
-      "impact": "Visibilidad total de retornos de botellas y deudores",
-      "metrics": [
-        { "label": "Control integral", "value": "100%" },
-        { "label": "Aceleración logística", "value": "+40%" }
-      ]
+      "impact": "Sistema en uso real: reemplaza el reparto en papel con envases trazables, cuentas corrientes por cliente y cierre de caja diario"
     },
     {
       "repo": "SaaS-Negocios",
@@ -53,8 +47,7 @@
       "features": ["Punto de Venta (POS)", "Reportes de Ventas Financieros", "Dashboard de KPIs", "Control de inventario"],
       "impact": "Autonomía de administración contable centralizada",
       "metrics": [
-        { "label": "Visión de caja", "value": "En vivo" },
-        { "label": "Curva de uso", "value": "Mínima" }
+        { "label": "Visión de caja", "value": "En vivo" }
       ]
     },
     {
