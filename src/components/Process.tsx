@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-
 const steps = [
   {
     number: '01',
@@ -40,13 +38,9 @@ export function Process() {
         </div>
 
         <div className="grid border-t border-[var(--color-line-strong)] md:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, i) => (
-            <motion.div
+          {steps.map((step) => (
+            <div
               key={step.number}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
               className="group flex flex-col border-b border-[var(--color-line-strong)] py-10 lg:border-b-0 lg:border-r lg:px-8 lg:py-12 lg:last:border-r-0 lg:[&:first-child]:pl-0"
             >
               <span className="font-mono text-sm text-ink-faint transition-colors group-hover:text-accent">
@@ -56,7 +50,7 @@ export function Process() {
               <p className="mt-4 text-sm font-light leading-relaxed text-ink-mute">
                 {step.description}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

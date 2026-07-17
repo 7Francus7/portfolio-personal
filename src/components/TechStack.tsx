@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-
 type StackGroup = {
   label: string;
   items: string[];
@@ -42,13 +40,9 @@ export function TechStack() {
           </div>
 
           <div className="grid border-t border-[var(--color-line-strong)] sm:grid-cols-2">
-            {stackGroups.map((group, i) => (
-              <motion.div
+            {stackGroups.map((group) => (
+              <div
                 key={group.label}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ delay: i * 0.08, duration: 0.6 }}
                 className="border-b border-[var(--color-line-strong)] py-8 sm:odd:pr-8 sm:even:border-l sm:even:pl-8"
               >
                 <p className="label-mono mb-6">{group.label}</p>
@@ -59,7 +53,7 @@ export function TechStack() {
                     </li>
                   ))}
                 </ul>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

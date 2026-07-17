@@ -113,12 +113,8 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
             const flip = i % 2 === 1;
             const link = getProjectLink(project);
             return (
-              <motion.article
+              <article
                 key={project.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16"
               >
                 <div className={flip ? 'lg:order-2' : ''}>
@@ -194,7 +190,7 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
                     </button>
                   </div>
                 </div>
-              </motion.article>
+              </article>
             );
           })}
         </div>

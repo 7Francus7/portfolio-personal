@@ -43,18 +43,12 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
   return (
     <section id="all-projects" className="surface-band border-t border-[var(--color-line-strong)] px-6 py-32 md:px-12 lg:px-16">
       <div className="mx-auto max-w-[1400px]">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-16"
-        >
+        <div className="mb-16">
           <p className="label-mono mb-6">/ Archivo</p>
           <h3 className="font-serif-display text-4xl leading-[1.02] tracking-[-0.02em] text-ink md:text-5xl">
             Otras piezas <span className="italic text-accent">del archivo.</span>
           </h3>
-        </motion.div>
+        </div>
 
         <div className="mb-12 flex flex-col gap-8 md:flex-row">
           <div className="relative flex-1">
@@ -98,7 +92,7 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
           {filteredProjects.map((project) => {
             const link = getProjectLink(project);
             return (
-              <motion.article
+              <article
                 key={project.id}
                 onClick={() => setSelectedProject(project)}
                 className="group surface-card flex cursor-pointer flex-col border-b border-r border-[var(--color-line-strong)] p-8 transition-colors hover:bg-paper-dim"
@@ -139,7 +133,7 @@ export function AllProjects({ initialProjects }: AllProjectsProps) {
                     </a>
                   )}
                 </div>
-              </motion.article>
+              </article>
             );
           })}
         </div>

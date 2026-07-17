@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Layers, Zap, BarChart3, Database } from 'lucide-react';
 
 const capabilities = [
@@ -36,13 +35,9 @@ export function Capabilities() {
         </div>
 
         <div className="grid border-t border-l border-[var(--color-line-strong)] md:grid-cols-2 lg:grid-cols-4">
-          {capabilities.map((cap, i) => (
-            <motion.div
+          {capabilities.map((cap) => (
+            <div
               key={cap.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
               className="group border-b border-r border-[var(--color-line-strong)] p-8 transition-colors duration-500 hover:bg-paper-dim"
             >
               <div className="mb-10 flex h-12 w-12 items-center justify-center border border-[var(--color-line-strong)] text-ink transition-all group-hover:bg-ink group-hover:text-paper">
@@ -52,7 +47,7 @@ export function Capabilities() {
               <p className="text-sm font-light leading-relaxed text-ink-mute">
                 {cap.description}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

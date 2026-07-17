@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle, Loader2 } from 'lucide-react';
 
 export function Contact() {
@@ -50,12 +49,7 @@ export function Contact() {
     <section id="contact" className="surface-band border-t border-[var(--color-line-strong)] px-6 py-32 md:px-12 lg:px-16">
       <div className="mx-auto max-w-[1400px]">
         <div className="grid gap-20 lg:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
+          <div>
             <p className="label-mono mb-8">/ Contacto</p>
             <h3 className="mb-10 font-serif-display text-4xl leading-[1.02] tracking-[-0.02em] text-ink md:text-6xl">
               Contame qué <br />
@@ -75,14 +69,9 @@ export function Contact() {
                 <a href="https://www.linkedin.com/in/franco-dellorsi/" target="_blank" rel="noopener noreferrer" className="link-underline text-sm text-ink-soft hover:text-ink">LinkedIn</a>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
+          <div>
             {formState === 'success' ? (
               <div className="surface-card border border-[var(--color-line-strong)] p-12 text-center">
                 <CheckCircle size={48} className="mx-auto mb-6 text-accent" />
@@ -99,8 +88,9 @@ export function Contact() {
               <form onSubmit={handleSubmit} className="space-y-8">
                 <div className="grid gap-8 md:grid-cols-2">
                   <div className="space-y-3">
-                    <label className="label-mono">Nombre</label>
+                    <label htmlFor="contact-name" className="label-mono">Nombre</label>
                     <input
+                      id="contact-name"
                       type="text"
                       name="name"
                       required
@@ -109,8 +99,9 @@ export function Contact() {
                     />
                   </div>
                   <div className="space-y-3">
-                    <label className="label-mono">Email</label>
+                    <label htmlFor="contact-email" className="label-mono">Email</label>
                     <input
+                      id="contact-email"
                       type="email"
                       name="email"
                       required
@@ -120,8 +111,9 @@ export function Contact() {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <label className="label-mono">Mensaje</label>
+                  <label htmlFor="contact-message" className="label-mono">Mensaje</label>
                   <textarea
+                    id="contact-message"
                     name="message"
                     rows={4}
                     required
@@ -145,7 +137,7 @@ export function Contact() {
                 </button>
               </form>
             )}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

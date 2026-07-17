@@ -1,20 +1,13 @@
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ArrowDownRight } from 'lucide-react';
 import profileImg from '../assets/profile.jpg';
 
-const ease = [0.16, 1, 0.3, 1] as const;
-
 function Reveal({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.9, delay, ease }}
-    >
+    <div className="reveal" style={delay ? { animationDelay: `${delay}s` } : undefined}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -75,7 +68,7 @@ export function Hero() {
             <div className="mt-16 grid max-w-md grid-cols-3 gap-6 border-t border-[var(--color-line-strong)] pt-6">
               {[
                 { v: '4+', l: 'años' },
-                { v: '15+', l: 'sistemas en producción' },
+                { v: '6', l: 'sistemas publicados' },
                 { v: '100%', l: 'remoto' },
               ].map((s) => (
                 <div key={s.l}>
@@ -89,28 +82,21 @@ export function Hero() {
 
         {/* Right — gallery plate */}
         <div className="flex items-center lg:col-span-5">
-          <motion.figure
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.1, delay: 0.25, ease }}
-            className="w-full"
-          >
+          <figure className="reveal w-full" style={{ animationDelay: '0.25s' }}>
             <div className="overflow-hidden border border-[var(--color-line-strong)] bg-paper-dim">
               <img
                 src={profileImg}
                 alt="Franco Dellorsi — Full-stack Developer"
+                width={900}
+                height={900}
                 className="gallery-img aspect-[4/5] w-full object-cover object-[center_20%]"
-                onError={(e) => {
-                  e.currentTarget.src =
-                    'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1200';
-                }}
               />
             </div>
             <figcaption className="mt-3 flex items-center justify-between">
               <span className="label-mono">Franco Dellorsi</span>
               <span className="label-mono">— 2026</span>
             </figcaption>
-          </motion.figure>
+          </figure>
         </div>
       </div>
     </section>

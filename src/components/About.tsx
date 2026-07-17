@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import profileImg from '../assets/profile.jpg';
 
 export function About() {
@@ -6,12 +5,7 @@ export function About() {
     <section className="surface-band overflow-hidden px-6 py-32 md:px-12 lg:px-16">
       <div className="mx-auto max-w-[1400px]">
         <div className="grid items-center gap-20 lg:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
+          <div>
             <p className="label-mono mb-8">/ Enfoque</p>
             <h3 className="mb-10 font-serif-display text-4xl leading-[1.02] tracking-[-0.02em] text-ink md:text-6xl">
               Menos ruido, <br />
@@ -36,34 +30,27 @@ export function About() {
                 <p className="label-mono mt-2">Años construyendo</p>
               </div>
               <div>
-                <span className="font-serif-display text-4xl text-ink">15+</span>
-                <p className="label-mono mt-2">Sistemas desplegados</p>
+                <span className="font-serif-display text-4xl text-ink">6</span>
+                <p className="label-mono mt-2">Sistemas publicados</p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.figure
-            initial={{ opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="relative"
-          >
+          <figure className="relative">
             <div className="overflow-hidden border border-[var(--color-line-strong)] bg-paper-dim">
               <img
                 src={profileImg}
                 alt="Franco Dellorsi"
+                width={900}
+                height={900}
                 className="gallery-img aspect-[4/5] w-full object-cover object-[center_20%]"
-                onError={(e) => {
-                  e.currentTarget.src = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1200";
-                }}
               />
             </div>
             <figcaption className="mt-3 flex items-center justify-between">
               <span className="label-mono">Código claro, sin vueltas</span>
               <span className="label-mono">— AR</span>
             </figcaption>
-          </motion.figure>
+          </figure>
         </div>
       </div>
     </section>

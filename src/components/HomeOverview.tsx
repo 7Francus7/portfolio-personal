@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-
 const notes = [
   {
     title: 'Producto antes que pantalla',
@@ -35,12 +33,8 @@ export function HomeOverview() {
 
         <div className="mt-16 grid border-t border-[var(--color-line-strong)] md:grid-cols-3">
           {notes.map((note, i) => (
-            <motion.article
+            <article
               key={note.title}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ delay: i * 0.08, duration: 0.6 }}
               className="border-b border-[var(--color-line-strong)] py-10 md:border-b-0 md:border-r md:px-8 md:py-12 md:last:border-r-0 md:[&:first-child]:pl-0"
             >
               <span className="font-mono text-sm text-accent">0{i + 1}</span>
@@ -48,7 +42,7 @@ export function HomeOverview() {
               <p className="mt-4 text-sm font-light leading-relaxed text-ink-mute">
                 {note.text}
               </p>
-            </motion.article>
+            </article>
           ))}
         </div>
       </div>
