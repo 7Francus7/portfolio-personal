@@ -1,0 +1,161 @@
+@import 'tailwindcss';
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Sistema visual — dirección editorial clara (doc 10 §2).
+   Papel · tinta · clay · serif editorial · mono para datos · sans para lectura.
+   Tokens únicos: cambiar acá, no en los componentes.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+@theme {
+  /* Colores / superficies */
+  --color-paper: #faf9f6;
+  --color-paper-dim: #f2f0e9;
+  --color-ink: #16150f;
+  --color-ink-soft: #403d33;
+  --color-ink-mute: #5f5b4e;
+  --color-clay: #a63d27;
+  --color-clay-deep: #8c3320;
+  --color-line: #e5e2d8;
+  --color-line-strong: #c9c5b6;
+
+  /* Tipografía (familias inyectadas por next/font en el layout) */
+  --font-serif: var(--font-instrument-serif), Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, 'Cascadia Mono', monospace;
+
+  /* Escala tipográfica editorial */
+  --text-display: clamp(2.6rem, 6.5vw, 5.5rem);
+  --text-title: clamp(2rem, 4.5vw, 3.5rem);
+  --text-heading: clamp(1.5rem, 3vw, 2.25rem);
+
+  /* Layout */
+  --container-content: 72rem;
+  --container-prose: 42rem;
+
+  /* Radios: lenguaje editorial = esquinas rectas; radio solo utilitario */
+  --radius-none: 0;
+  --radius-soft: 2px;
+
+  /* Motion */
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+}
+
+/* Z-index (escala corta y nombrada) */
+:root {
+  --z-skip-link: 60;
+  --z-menu: 50;
+  --z-header: 40;
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-clay);
+  color: var(--color-paper);
+}
+
+/* Foco visible consistente en todo el sitio */
+:focus-visible {
+  outline: 2px solid var(--color-clay);
+  outline-offset: 3px;
+}
+
+/* ── Utilidades editoriales ───────────────────────────────────────────────── */
+
+@utility font-serif-display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* Etiqueta mono: kickers, metadatos, labels */
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-mute);
+}
+
+@utility hairline-t {
+  border-top: 1px solid var(--color-line);
+}
+
+@utility hairline-b {
+  border-bottom: 1px solid var(--color-line);
+}
+
+/* Contenedor de página */
+@utility container-editorial {
+  margin-inline: auto;
+  max-width: var(--container-content);
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 3rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 4rem;
+  }
+}
+
+/* Enlace subrayado editorial */
+@utility link-editorial {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-decoration-color: var(--color-line-strong);
+  transition: text-decoration-color var(--duration-fast) var(--ease-editorial);
+  &:hover {
+    text-decoration-color: var(--color-clay);
+  }
+}
+
+/* ── Skip link ─────────────────────────────────────────────────────────────── */
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: var(--z-skip-link);
+  padding: 0.6rem 1rem;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  transform: translateY(-300%);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* ── Motion: nada esencial depende de animación ───────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
