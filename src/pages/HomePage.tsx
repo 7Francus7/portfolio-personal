@@ -1,7 +1,7 @@
 import { Hero } from '../components/Hero';
 import { FeaturedProjects } from '../components/FeaturedProjects';
 import { HomeOverview } from '../components/HomeOverview';
-import { TechStack } from '../components/TechStack';
+import { Services } from '../components/Services';
 import { Process } from '../components/Process';
 import { CTA } from '../components/CTA';
 import { Footer } from '../components/Footer';
@@ -18,7 +18,7 @@ export function HomePage() {
       <Hero />
       <HomeOverview />
       <FeaturedProjects projects={featuredProjects} />
-      <TechStack />
+      <Services />
       <Process />
       <CTA />
       <Footer />

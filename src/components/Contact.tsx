@@ -14,6 +14,8 @@ export function Contact() {
     const data = {
       name: formData.get('name'),
       email: formData.get('email'),
+      projectType: formData.get('projectType'),
+      timeline: formData.get('timeline'),
       message: formData.get('message'),
     };
 
@@ -27,7 +29,7 @@ export function Contact() {
           access_key: '8cfd6b9d-bb53-4a23-a887-feb7aac2c980',
           from_name: data.name,
           email: data.email,
-          message: `Nombre: ${data.name}\nEmail: ${data.email}\n\nMensaje:\n${data.message}`,
+          message: `Nombre: ${data.name}\nEmail: ${data.email}\nTipo de proyecto: ${data.projectType}\nPlazo: ${data.timeline}\n\nMensaje:\n${data.message}`,
           subject: `Nuevo mensaje de ${data.name} - Portfolio`,
         }),
       });
@@ -110,6 +112,41 @@ export function Contact() {
                     />
                   </div>
                 </div>
+                <div className="grid gap-8 md:grid-cols-2">
+                  <div className="space-y-3">
+                    <label htmlFor="contact-project-type" className="label-mono">Necesidad</label>
+                    <select
+                      id="contact-project-type"
+                      name="projectType"
+                      required
+                      defaultValue=""
+                      className="w-full border-b border-[var(--color-line-strong)] bg-transparent py-3 font-light text-ink transition-colors focus:border-ink focus:outline-none"
+                    >
+                      <option value="" disabled>Elegí una opción</option>
+                      <option value="Sistema interno a medida">Sistema interno a medida</option>
+                      <option value="MVP de producto">MVP de producto</option>
+                      <option value="Mejora de sistema existente">Mejora de sistema existente</option>
+                      <option value="Sitio web o catálogo">Sitio web o catálogo</option>
+                      <option value="Todavía no lo sé">Todavía no lo sé</option>
+                    </select>
+                  </div>
+                  <div className="space-y-3">
+                    <label htmlFor="contact-timeline" className="label-mono">Plazo estimado</label>
+                    <select
+                      id="contact-timeline"
+                      name="timeline"
+                      required
+                      defaultValue=""
+                      className="w-full border-b border-[var(--color-line-strong)] bg-transparent py-3 font-light text-ink transition-colors focus:border-ink focus:outline-none"
+                    >
+                      <option value="" disabled>Elegí una opción</option>
+                      <option value="Cuanto antes">Cuanto antes</option>
+                      <option value="En 1 o 2 meses">En 1 o 2 meses</option>
+                      <option value="En 3 meses o más">En 3 meses o más</option>
+                      <option value="Solo estoy explorando">Solo estoy explorando</option>
+                    </select>
+                  </div>
+                </div>
                 <div className="space-y-3">
                   <label htmlFor="contact-message" className="label-mono">Mensaje</label>
                   <textarea
@@ -121,6 +158,11 @@ export function Contact() {
                     className="w-full resize-none border-b border-[var(--color-line-strong)] bg-transparent py-3 font-light text-ink transition-colors placeholder:text-ink-faint focus:border-ink focus:outline-none"
                   />
                 </div>
+                {formState === 'error' && (
+                  <p role="alert" className="text-sm text-accent">
+                    No pude enviar el mensaje. Probá de nuevo o escribime por WhatsApp.
+                  </p>
+                )}
                 <button
                   type="submit"
                   disabled={formState === 'sending'}
