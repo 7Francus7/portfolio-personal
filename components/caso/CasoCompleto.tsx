@@ -246,7 +246,8 @@ export function CasoCompletoVista({ caso }: { caso: CasoCompletoTipo }) {
           <Kicker>Siguiente caso</Kicker>
           <Link href={`/casos/${siguiente.slug}`} className="group block max-w-3xl">
             <p className="font-serif-display text-(length:--text-title) leading-tight group-hover:text-clay">
-              {siguiente.nombre} →
+              {siguiente.nombre}{' '}
+              <span aria-hidden="true" className="nudge inline-block">→</span>
             </p>
             <p className="mt-2 text-ink-mute">{siguiente.titulo}</p>
           </Link>

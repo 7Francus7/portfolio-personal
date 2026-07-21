@@ -118,7 +118,8 @@ export default function HomePage() {
                   </span>
                   <span className="text-sm leading-relaxed text-ink-mute">{caso.resumen}</span>
                   <span className="label-mono md:justify-self-end">
-                    {ROL_LABEL[caso.rolPortfolio]} →
+                    {ROL_LABEL[caso.rolPortfolio]}{' '}
+                    <span aria-hidden="true" className="nudge inline-block">→</span>
                   </span>
                 </Link>
               </li>

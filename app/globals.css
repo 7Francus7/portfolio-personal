@@ -126,6 +126,32 @@ body {
   }
 }
 
+/* ── Micro-motion (solo CSS) ──────────────────────────────────────────────────
+   Refuerza respuesta y jerarquía; nunca oculta contenido ni depende de JS.
+   Todo se neutraliza bajo prefers-reduced-motion (bloque al final). */
+
+/* Respuesta suave en toda superficie interactiva (color, fondo, borde, foco). */
+a,
+button,
+summary {
+  transition:
+    color var(--duration-base) var(--ease-editorial),
+    background-color var(--duration-base) var(--ease-editorial),
+    border-color var(--duration-base) var(--ease-editorial),
+    text-decoration-color var(--duration-fast) var(--ease-editorial),
+    transform var(--duration-base) var(--ease-editorial);
+}
+
+/* Nudge: un elemento (típicamente una flecha) se corre apenas al hover del grupo. */
+@utility nudge {
+  transition: transform var(--duration-base) var(--ease-editorial);
+}
+@media (hover: hover) {
+  .group:hover .nudge {
+    transform: translateX(0.35rem);
+  }
+}
+
 /* ── Skip link ─────────────────────────────────────────────────────────────── */
 
 .skip-link {
