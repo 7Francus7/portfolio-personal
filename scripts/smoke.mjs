@@ -88,7 +88,11 @@ try {
   check('Zentro figura "En desarrollo"', zentroHtml.includes('En desarrollo'));
 
   // ── Navegador ───────────────────────────────────────────────────────────────
-  const browser = await chromium.launch();
+  // En entornos con Chromium preinstalado (CI, sandboxes) el binario de la
+  // versión exacta puede no estar descargado: PLAYWRIGHT_CHROMIUM_EXECUTABLE
+  // permite apuntar al ejecutable disponible sin bajar nada.
+  const executablePath = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || undefined;
+  const browser = await chromium.launch({ executablePath });
 
   // Desktop 1440
   {
