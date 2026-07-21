@@ -7,6 +7,7 @@ export const metadata: Metadata = metadataRuta({
   descripcion:
     'Contame cómo funciona tu negocio hoy — papel, planillas, WhatsApp — y vemos qué sistema lo ordena. Email, WhatsApp y LinkedIn.',
   ruta: '/contacto',
+  og: 'contacto',
 });
 
 // Sin formulario en V1 (doc 09): contacto directo por medios reales.
@@ -49,7 +50,9 @@ export default function ContactoPage() {
                   <span className="font-serif-display text-3xl group-hover:text-clay md:text-4xl">
                     {m.etiqueta}
                   </span>
-                  <span className="label-mono">{m.valor} →</span>
+                  <span className="label-mono">
+                    {m.valor} <span aria-hidden="true" className="nudge inline-block">→</span>
+                  </span>
                 </a>
               </li>
             ))}

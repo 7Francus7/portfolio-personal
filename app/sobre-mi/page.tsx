@@ -10,6 +10,7 @@ export const metadata: Metadata = metadataRuta({
   descripcion:
     'Franco Dell’Orsi, desarrollador de producto y full-stack de Argentina. Trabajo el recorrido completo: de la operación real al sistema en producción.',
   ruta: '/sobre-mi',
+  og: 'sobre-mi',
 });
 
 export default function SobreMiPage() {

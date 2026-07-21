@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     titulo: `${caso.nombre} — ${caso.titulo}`,
     descripcion: caso.resumen,
     ruta: `/casos/${caso.slug}`,
+    og: `caso-${caso.slug}`,
   });
 }
 

@@ -11,6 +11,7 @@ export const metadata: Metadata = metadataRuta({
   descripcion:
     'Sistemas de gestión, SaaS verticales y productos en desarrollo: Sodería Nico, Trackium, Zentro, CourtOps y Doleth, más la colección secundaria.',
   ruta: '/proyectos',
+  og: 'proyectos',
 });
 
 /**
@@ -57,7 +58,8 @@ export default function ProyectosPage() {
                   </div>
                   <p className="text-sm leading-relaxed text-ink-mute">{caso.resumen}</p>
                   <p className="label-mono md:justify-self-end md:self-center">
-                    {caso.tipo === 'completo' ? 'Caso completo →' : 'Caso reducido →'}
+                    {caso.tipo === 'completo' ? 'Caso completo' : 'Caso reducido'}{' '}
+                    <span aria-hidden="true" className="nudge inline-block">→</span>
                   </p>
                 </Link>
               </li>

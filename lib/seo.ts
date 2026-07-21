@@ -27,7 +27,16 @@ export function metadataBase(): Metadata {
   };
 }
 
-export function metadataRuta(opts: { titulo: string; descripcion: string; ruta: string }): Metadata {
+export function metadataRuta(opts: {
+  titulo: string;
+  descripcion: string;
+  ruta: string;
+  /** Nombre del OG por ruta en /public/og (sin extensión). Omitir usa el base. */
+  og?: string;
+}): Metadata {
+  const imagen = opts.og
+    ? [{ url: `/og/${opts.og}.png`, width: 1200, height: 630, alt: `${opts.titulo} — ${site.nombre}` }]
+    : undefined;
   return {
     title: opts.titulo,
     description: opts.descripcion,
@@ -36,6 +45,7 @@ export function metadataRuta(opts: { titulo: string; descripcion: string; ruta: 
       title: `${opts.titulo} — ${site.nombre}`,
       description: opts.descripcion,
       url: opts.ruta,
+      ...(imagen ? { images: imagen } : {}),
     },
   };
 }

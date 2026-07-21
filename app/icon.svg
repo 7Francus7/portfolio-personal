@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" role="img" aria-label="Franco Dell’Orsi">
+  <!-- Identidad editorial: tinta / papel / clay. Monograma F con travesaño clay.
+       Sin gradientes, sin neón, sin rayo. Geometría propia (rects) para nitidez a 16px. -->
+  <rect width="32" height="32" fill="#16150f"/>
+  <!-- Asta y brazo superior en papel -->
+  <rect x="10.5" y="8" width="4.5" height="17" fill="#faf9f6"/>
+  <rect x="10.5" y="8" width="12" height="4.5" fill="#faf9f6"/>
+  <!-- Travesaño (brazo medio) en clay: el acento editorial -->
+  <rect x="10.5" y="15" width="8.5" height="4" fill="#a63d27"/>
+</svg>
