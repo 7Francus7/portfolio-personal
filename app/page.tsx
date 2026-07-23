@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { casos, casosPorSlug } from '@/content/cases';
 import { coleccionSecundaria } from '@/content/projects';
-import { comoTrabajo, contacto, site } from '@/content/site';
+import { comoTrabajo, contacto, oferta, site } from '@/content/site';
 import { EstadoBadge, Kicker } from '@/components/ui';
 import { ESTADO_LABEL, ROL_LABEL } from '@/content/types';
 
@@ -14,7 +14,7 @@ import { ESTADO_LABEL, ROL_LABEL } from '@/content/types';
 // ─────────────────────────────────────────────────────────────────────────────
 
 const soderia = casosPorSlug['soderia-nico'];
-const seleccionados = casos.filter((c) => c.slug !== 'soderia-nico');
+const seleccionados = casos.filter((c) => ['trackium', 'courtops'].includes(c.slug));
 
 export default function HomePage() {
   return (
@@ -41,21 +41,21 @@ export default function HomePage() {
 
         <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
           <Link
-            href="/proyectos"
+            href="/contacto"
             className="border border-ink bg-ink px-6 py-3 text-sm font-medium text-paper hover:bg-clay-deep hover:border-clay-deep"
           >
-            Ver proyectos
+            Contame tu operación
           </Link>
-          <Link href="/contacto" className="link-editorial text-sm">
-            Contame tu operación →
+          <Link href="/casos/soderia-nico" className="tap-target link-editorial text-sm">
+            Ver caso en uso real →
           </Link>
         </div>
 
         {/* Prueba integrada: solo hechos respaldados por la documentación */}
         <ul className="hairline-t mt-14 flex max-w-3xl flex-col gap-2 pt-6 md:flex-row md:gap-8">
-          <li className="label-mono">Sodería Nico — sistema en uso real diario</li>
-          <li className="label-mono">Trackium — gestión integral de transporte</li>
-          <li className="label-mono">CourtOps — reservas para clubes de pádel</li>
+          <li className="label-mono">Sodería Nico — sistema en uso real</li>
+          <li className="label-mono">CourtOps — demo pública</li>
+          <li className="label-mono">ELEEME — trabajo para cliente</li>
         </ul>
       </section>
 
@@ -118,13 +118,18 @@ export default function HomePage() {
                   </span>
                   <span className="text-sm leading-relaxed text-ink-mute">{caso.resumen}</span>
                   <span className="label-mono md:justify-self-end">
-                    {ROL_LABEL[caso.rolPortfolio]}{' '}
+                    {caso.acceso.demo?.verificada ? 'Demo pública' : ROL_LABEL[caso.rolPortfolio]}{' '}
                     <span aria-hidden="true" className="nudge inline-block">→</span>
                   </span>
                 </Link>
               </li>
             ))}
           </ul>
+          <p className="mt-6">
+            <Link href="/proyectos" className="tap-target link-editorial text-sm">
+              Ver proyectos en desarrollo →
+            </Link>
+          </p>
         </div>
       </section>
 
@@ -148,6 +153,32 @@ export default function HomePage() {
                   <h3 className="font-serif-display text-2xl">{etapa.paso}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-ink-mute">{etapa.detalle}</p>
                 </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section aria-labelledby="oferta" className="hairline-t">
+        <div className="container-editorial py-16 md:py-24">
+          <Kicker>Qué podés contratar</Kicker>
+          <h2
+            id="oferta"
+            className="max-w-3xl font-serif-display text-(length:--text-title) leading-[1.05]"
+          >
+            Del problema operativo a un sistema que se pueda usar.
+          </h2>
+          <ol className="mt-12 max-w-4xl">
+            {oferta.map((servicio, i) => (
+              <li
+                key={servicio.nombre}
+                className={`grid gap-3 py-7 md:grid-cols-[auto_1fr_2fr] md:gap-8 ${i > 0 ? 'hairline-t' : ''}`}
+              >
+                <span aria-hidden="true" className="label-mono pt-1 !text-clay">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h3 className="font-serif-display text-2xl">{servicio.nombre}</h3>
+                <p className="leading-relaxed text-ink-mute">{servicio.detalle}</p>
               </li>
             ))}
           </ol>
@@ -231,9 +262,9 @@ export default function HomePage() {
             ¿Tu negocio todavía depende de papel, planillas o WhatsApp?
           </h2>
           <p className="mt-6 max-w-(--container-prose) text-lg leading-relaxed text-ink-soft">
-            Contame cómo funciona hoy — cómo vendés, cómo cobrás, dónde anotás — y vemos juntos qué
-            sistema lo ordena. Si buscás a alguien de producto y full-stack para tu equipo, también
-            podemos hablar.
+            La primera conversación dura 30 minutos. Me contás cómo vendés, cobrás y administrás
+            hoy; separamos el cuello de botella de las funciones que pueden esperar y definimos un
+            próximo paso concreto.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
             <a
@@ -246,7 +277,7 @@ export default function HomePage() {
               href={contacto.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="link-editorial text-sm"
+              className="tap-target link-editorial text-sm"
             >
               Escribir por WhatsApp →
             </a>

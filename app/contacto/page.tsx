@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { contacto } from '@/content/site';
+import { contacto, primerPaso } from '@/content/site';
 import { metadataRuta } from '@/lib/seo';
+import { Kicker } from '@/components/ui';
 
 export const metadata: Metadata = metadataRuta({
   titulo: 'Contacto',
@@ -29,12 +30,35 @@ export default function ContactoPage() {
         </h1>
         <p className="mt-8 max-w-(--container-prose) text-lg leading-relaxed text-ink-soft">
           Contame cómo funciona hoy: cómo vendés, cómo cobrás, dónde anotás, qué se pierde. Con eso
-          alcanza para empezar. Leo y contesto yo.
+          alcanza para empezar. La primera conversación dura 30 minutos y la tenés directamente
+          conmigo.
         </p>
-        <p className="mt-4 max-w-(--container-prose) leading-relaxed text-ink-mute">
-          Si sos recruiter o parte de un equipo de producto, escribime por el medio que te quede más
-          cómodo.
-        </p>
+      </section>
+
+      <section aria-labelledby="primer-paso" className="hairline-t bg-paper-dim">
+        <div className="container-editorial py-14 md:py-20">
+          <Kicker>Cómo empezamos</Kicker>
+          <h2
+            id="primer-paso"
+            className="max-w-3xl font-serif-display text-(length:--text-title) leading-[1.05]"
+          >
+            Una charla concreta, sin venderte software antes de entender el problema.
+          </h2>
+          <ol className="mt-10 max-w-4xl">
+            {primerPaso.map((item, i) => (
+              <li
+                key={item.paso}
+                className={`grid gap-3 py-7 md:grid-cols-[auto_1fr_2fr] md:gap-8 ${i > 0 ? 'hairline-t' : ''}`}
+              >
+                <span aria-hidden="true" className="label-mono pt-1 !text-clay">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <h3 className="font-serif-display text-2xl">{item.paso}</h3>
+                <p className="leading-relaxed text-ink-mute">{item.detalle}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
 
       <section aria-label="Medios de contacto" className="hairline-t">
@@ -57,6 +81,23 @@ export default function ContactoPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="hairline-t">
+        <div className="container-editorial py-10">
+          <p className="max-w-(--container-prose) text-sm leading-relaxed text-ink-mute">
+            ¿Buscás sumar producto y desarrollo full-stack a un equipo?{' '}
+            <a
+              href={contacto.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link-editorial"
+            >
+              Hablemos por LinkedIn
+            </a>
+            .
+          </p>
         </div>
       </section>
     </>

@@ -42,6 +42,40 @@ export const navegacion = [
   { href: '/contacto', label: 'Contacto' },
 ] as const;
 
+/** Oferta concreta para negocios que necesitan ordenar una operación. */
+export const oferta = [
+  {
+    nombre: 'Diagnóstico y alcance',
+    detalle:
+      'Mapeamos cómo trabaja hoy el negocio, dónde se pierde control y qué conviene resolver primero.',
+  },
+  {
+    nombre: 'MVP operativo',
+    detalle:
+      'Diseño y construyo el flujo central completo: interfaz, backend, datos y puesta en producción.',
+  },
+  {
+    nombre: 'Evolución del sistema',
+    detalle:
+      'Después del primer uso, ajustamos lo que frena y sumamos módulos solo cuando la operación los necesita.',
+  },
+] as const;
+
+export const primerPaso = [
+  {
+    paso: 'Conversamos 30 minutos',
+    detalle: 'Me mostrás cómo vendés, cobrás, repartís o administrás hoy. Sin presentación preparada.',
+  },
+  {
+    paso: 'Definimos el cuello de botella',
+    detalle: 'Separamos el problema urgente de las funciones que pueden esperar.',
+  },
+  {
+    paso: 'Recibís un próximo paso claro',
+    detalle: 'Te digo si conviene construir, qué alcance tendría y cómo empezar sin rehacer todo después.',
+  },
+] as const;
+
 /** Cómo trabajo — proceso congelado por el brief de Fase 3A. */
 export const comoTrabajo = [
   {

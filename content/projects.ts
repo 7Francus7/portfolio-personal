@@ -12,9 +12,10 @@ import type { ProyectoSecundario } from './types';
 export const coleccionSecundaria: ProyectoSecundario[] = [
   {
     nombre: 'SaaS Negocios',
-    descripcion: 'MVP de administración para pequeños comercios: punto de venta, inventario simple y reportes de caja.',
+    descripcion:
+      'MVP de administración para pequeños comercios: punto de venta, inventario y caja. El acceso requiere crear una cuenta.',
     estado: 'mvp',
-    url: { href: 'https://saa-s-negocios.vercel.app', etiqueta: 'Ver demo' },
+    url: { href: 'https://saa-s-negocios.vercel.app/register', etiqueta: 'Probar MVP' },
   },
   {
     nombre: 'ELEEME Catálogo',

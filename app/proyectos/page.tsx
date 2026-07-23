@@ -6,6 +6,11 @@ import { metadataRuta } from '@/lib/seo';
 import { EstadoBadge, Kicker } from '@/components/ui';
 import { ESTADO_LABEL, ROL_LABEL } from '@/content/types';
 
+const trabajoComprobable = casos.filter(
+  (caso) => caso.estado === 'uso-real' || caso.acceso.demo?.verificada,
+);
+const productosEnDesarrollo = casos.filter((caso) => !trabajoComprobable.includes(caso));
+
 export const metadata: Metadata = metadataRuta({
   titulo: 'Proyectos',
   descripcion:
@@ -34,12 +39,16 @@ export default function ProyectosPage() {
 
       <section aria-labelledby="destacados" className="hairline-t">
         <div className="container-editorial py-14">
-          <Kicker>Proyectos con caso</Kicker>
+          <Kicker>Trabajo comprobable</Kicker>
           <h2 id="destacados" className="sr-only">
-            Proyectos con caso
+            Trabajo comprobable
           </h2>
+          <p className="mb-8 max-w-(--container-prose) text-ink-mute">
+            Primero, lo que ya puede verificarse: un sistema privado en uso real y un producto con
+            demo pública navegable.
+          </p>
           <ul>
-            {casos.map((caso, i) => (
+            {trabajoComprobable.map((caso, i) => (
               <li key={caso.slug} className={i > 0 ? 'hairline-t' : undefined}>
                 <Link
                   href={`/casos/${caso.slug}`}
@@ -58,7 +67,11 @@ export default function ProyectosPage() {
                   </div>
                   <p className="text-sm leading-relaxed text-ink-mute">{caso.resumen}</p>
                   <p className="label-mono md:justify-self-end md:self-center">
-                    {caso.tipo === 'completo' ? 'Caso completo' : 'Caso reducido'}{' '}
+                    {caso.acceso.demo?.verificada
+                      ? 'Demo pública + caso'
+                      : caso.tipo === 'completo'
+                        ? 'Caso completo'
+                        : 'Caso reducido'}{' '}
                     <span aria-hidden="true" className="nudge inline-block">→</span>
                   </p>
                 </Link>
@@ -68,7 +81,46 @@ export default function ProyectosPage() {
         </div>
       </section>
 
-      <section aria-labelledby="secundarios" className="hairline-t bg-paper-dim">
+      <section aria-labelledby="en-desarrollo" className="hairline-t bg-paper-dim">
+        <div className="container-editorial py-14">
+          <Kicker>Productos en desarrollo</Kicker>
+          <h2 id="en-desarrollo" className="sr-only">
+            Productos en desarrollo
+          </h2>
+          <p className="mb-8 max-w-(--container-prose) text-ink-mute">
+            Arquitectura y decisiones de producto existentes, todavía sin resultados de operación
+            pública. Se muestran como proceso, no como casos terminados.
+          </p>
+          <ul>
+            {productosEnDesarrollo.map((caso, i) => (
+              <li key={caso.slug} className={i > 0 ? 'hairline-t' : undefined}>
+                <Link
+                  href={`/casos/${caso.slug}`}
+                  className="group grid gap-3 py-10 md:grid-cols-[minmax(0,5fr)_minmax(0,4fr)_auto] md:gap-10"
+                >
+                  <div>
+                    <span className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+                      <span className="font-serif-display text-3xl leading-tight group-hover:text-clay md:text-4xl">
+                        {caso.nombre}
+                      </span>
+                      <EstadoBadge estado={caso.estado} />
+                    </span>
+                    <p className="label-mono mt-3">
+                      {ROL_LABEL[caso.rolPortfolio]} · {caso.sector}
+                    </p>
+                  </div>
+                  <p className="text-sm leading-relaxed text-ink-mute">{caso.resumen}</p>
+                  <p className="label-mono md:justify-self-end md:self-center">
+                    Ver proceso <span aria-hidden="true" className="nudge inline-block">→</span>
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section aria-labelledby="secundarios" className="hairline-t">
         <div className="container-editorial py-14">
           <Kicker>Colección secundaria</Kicker>
           <h2 id="secundarios" className="sr-only">

@@ -39,7 +39,7 @@ export function Header() {
   return (
     <header className="hairline-b sticky top-0 z-(--z-header) bg-paper/95 backdrop-blur-sm">
       <div className="container-editorial flex h-16 items-center justify-between">
-        <Link href="/" className="font-serif-display text-xl leading-none">
+        <Link href="/" className="tap-target font-serif-display text-xl leading-none">
           {site.nombre}
         </Link>
 
@@ -50,7 +50,7 @@ export function Header() {
               key={item.href}
               href={item.href}
               aria-current={esActiva(item.href) ? 'page' : undefined}
-              className={`text-sm ${
+              className={`tap-target text-sm ${
                 esActiva(item.href)
                   ? 'font-medium text-ink underline decoration-clay underline-offset-8'
                   : 'text-ink-soft hover:text-ink'
@@ -65,7 +65,7 @@ export function Header() {
         <button
           ref={botonRef}
           type="button"
-          className="label-mono !text-ink md:hidden"
+          className="tap-target label-mono min-w-11 justify-end !text-ink md:hidden"
           aria-expanded={abierto}
           aria-controls={menuId}
           onClick={() => setAbierto((v) => !v)}
@@ -78,7 +78,7 @@ export function Header() {
         <div
           ref={panelRef}
           id={menuId}
-          className="hairline-t fixed inset-x-0 top-16 bottom-0 z-(--z-menu) overflow-y-auto bg-paper md:hidden"
+          className="hairline-t absolute inset-x-0 top-full z-(--z-menu) h-[calc(100dvh-4rem)] overflow-y-auto bg-paper md:hidden"
         >
           <nav aria-label="Principal (móvil)" className="container-editorial flex flex-col py-8">
             {navegacion.map((item) => (

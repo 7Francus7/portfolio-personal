@@ -41,13 +41,20 @@ export function CasoCompletoVista({ caso }: { caso: CasoCompletoTipo }) {
           <div>
             <dt className="label-mono">Acceso</dt>
             <dd className="mt-1 text-ink-soft">
-              {caso.acceso.privado ? caso.acceso.privado.motivo : null}
+              {caso.acceso.privado ? (
+                <>
+                  <span className="block">{caso.acceso.privado.motivo}</span>
+                  <Link href="/contacto" className="tap-target link-editorial mt-2">
+                    Pedir recorrido privado
+                  </Link>
+                </>
+              ) : null}
               {caso.acceso.demo?.verificada ? (
                 <a
                   href={caso.acceso.demo.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link-editorial"
+                  className="tap-target link-editorial"
                 >
                   {caso.acceso.demo.etiqueta}
                 </a>
@@ -167,7 +174,14 @@ export function CasoCompletoVista({ caso }: { caso: CasoCompletoTipo }) {
           </p>
           <ol className="grid gap-px border border-line bg-line md:grid-cols-2">
             {caso.pantallas.map((p, i) => (
-              <li key={p.decision} className="space-y-4 bg-paper p-6 md:p-8">
+              <li
+                key={p.decision}
+                className={`space-y-4 bg-paper p-6 md:p-8 ${
+                  caso.pantallas.length % 2 === 1 && i === caso.pantallas.length - 1
+                    ? 'md:col-span-2'
+                    : ''
+                }`}
+              >
                 <p className="label-mono">{String(i + 1).padStart(2, '0')}</p>
                 {p.imagen ? (
                   <Image
@@ -237,6 +251,26 @@ export function CasoCompletoVista({ caso }: { caso: CasoCompletoTipo }) {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section aria-labelledby="caso-contacto" className="hairline-t bg-paper-dim">
+        <div className="container-editorial py-16 md:py-20">
+          <Kicker>¿Una operación parecida?</Kicker>
+          <h2
+            id="caso-contacto"
+            className="max-w-3xl font-serif-display text-(length:--text-title) leading-tight"
+          >
+            Mostrame dónde se pierde el control. Definimos qué conviene resolver primero.
+          </h2>
+          <p className="mt-8">
+            <Link
+              href="/contacto"
+              className="inline-flex min-h-11 items-center border border-ink bg-ink px-6 text-sm font-medium text-paper hover:border-clay-deep hover:bg-clay-deep"
+            >
+              Contame tu operación
+            </Link>
+          </p>
         </div>
       </section>
 

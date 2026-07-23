@@ -16,11 +16,11 @@ export function EstadoBadge({ estado }: { estado: EstadoProducto }) {
 }
 
 /**
- * Marcador de material pendiente. SOLO visible en desarrollo: en cualquier
- * build de producción (incluida una preview) no renderiza nada.
+ * Marcador editorial opt-in. No aparece en una revisión local salvo que se
+ * habilite explícitamente con NEXT_PUBLIC_SHOW_INTERNAL_NOTES=true.
  */
 export function NotaInterna({ pendiente }: { pendiente: MaterialPendiente }) {
-  if (process.env.NODE_ENV !== 'development') return null;
+  if (process.env.NEXT_PUBLIC_SHOW_INTERNAL_NOTES !== 'true') return null;
   return (
     <p className="label-mono border border-dashed border-clay p-3 !text-clay">
       [interno] {pendiente.notaInterna}

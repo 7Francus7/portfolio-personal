@@ -40,13 +40,20 @@ export function CasoReducidoVista({ caso }: { caso: CasoReducidoTipo }) {
           <div>
             <dt className="label-mono">Acceso</dt>
             <dd className="mt-1 text-ink-soft">
-              {caso.acceso.privado ? caso.acceso.privado.motivo : null}
+              {caso.acceso.privado ? (
+                <>
+                  <span className="block">{caso.acceso.privado.motivo}</span>
+                  <Link href="/contacto" className="tap-target link-editorial mt-2">
+                    Pedir recorrido privado
+                  </Link>
+                </>
+              ) : null}
               {caso.acceso.demo?.verificada ? (
                 <a
                   href={caso.acceso.demo.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="link-editorial"
+                  className="tap-target link-editorial"
                 >
                   {caso.acceso.demo.etiqueta}
                 </a>
@@ -151,6 +158,26 @@ export function CasoReducidoVista({ caso }: { caso: CasoReducidoTipo }) {
             Situación actual
           </h2>
           <p className="max-w-(--container-prose) leading-relaxed text-ink-soft">{caso.situacion}</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="caso-contacto" className="hairline-t bg-paper-dim">
+        <div className="container-editorial py-14 md:py-20">
+          <Kicker>¿Una operación parecida?</Kicker>
+          <h2
+            id="caso-contacto"
+            className="max-w-3xl font-serif-display text-(length:--text-title) leading-tight"
+          >
+            Mostrame dónde se pierde el control. Definimos qué conviene resolver primero.
+          </h2>
+          <p className="mt-8">
+            <Link
+              href="/contacto"
+              className="inline-flex min-h-11 items-center border border-ink bg-ink px-6 text-sm font-medium text-paper hover:border-clay-deep hover:bg-clay-deep"
+            >
+              Contame tu operación
+            </Link>
+          </p>
         </div>
       </section>
 

@@ -142,6 +142,21 @@ summary {
     transform var(--duration-base) var(--ease-editorial);
 }
 
+@media (pointer: coarse) {
+  a,
+  button,
+  summary {
+    min-height: 2.75rem;
+  }
+}
+
+/* Área táctil mínima para acciones independientes sin inflar el texto. */
+@utility tap-target {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+}
+
 /* Nudge: un elemento (típicamente una flecha) se corre apenas al hover del grupo. */
 @utility nudge {
   transition: transform var(--duration-base) var(--ease-editorial);
