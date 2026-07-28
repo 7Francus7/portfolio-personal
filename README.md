@@ -61,30 +61,54 @@ de qué está confirmado y qué no.
 
 ```bash
 npm install
-npm run dev         # servidor de desarrollo
-npm run build       # build de producción (incluye type-check)
-npm run start       # servir el build
+npm run dev                # servidor de desarrollo
+npm run build              # prebuild (guard) + build + postbuild (guard)
+npm run start              # servir el build
 npm run lint
 npm run typecheck
-npm run smoke       # smoke Playwright (BASE=<url> para apuntar a un deploy)
+npm run smoke              # smoke Playwright (194 checks)
+npm run verify             # lint + typecheck + build + smoke
+npm run check:demos        # revalida que las demos públicas sigan vivas
+npm run check:publicacion  # muestra la política de publicación del entorno
 ```
+
+## Política de publicación
+
+`lib/entorno.ts` es la única fuente de verdad. **El sitio solo es indexable
+cuando se cumplen las tres condiciones a la vez**: fase producción, dominio
+`https` real y opt-in explícito. En cualquier otro caso es `noindex` y no
+emite canonical, hreflang, `og:image` ni sitemap — porque apuntarlos a
+`localhost` es peor que omitirlos.
+
+Dos guards lo hacen cumplir automáticamente:
+
+- **`prebuild`** — falla el build si un deploy de producción no tiene dominio
+  válido, con instrucciones concretas.
+- **`postbuild`** — inspecciona el HTML generado y falla si quedó cualquier URL
+  local o si el `robots.txt` no coincide con la política.
 
 ## Variables de entorno
 
 | Variable | Efecto |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | Base para canonical, OG y sitemap. Sin definir cae a `http://localhost:3000`. |
-| `NEXT_PUBLIC_INDEXABLE` | Solo `'true'` habilita indexación. Con cualquier otro valor, `robots.txt` bloquea todo y cada página emite `noindex`. |
+| `NEXT_PUBLIC_SITE_URL` | URL pública. Debe ser `https`, con host real y sin barra final. Sin ella el sitio es noindex y omite toda metadata absoluta. |
+| `NEXT_PUBLIC_INDEXABLE` | Solo `'true'` habilita indexación, **y solo si además hay dominio y la fase es producción**. |
+| `NEXT_PUBLIC_ANALYTICS_DOMAIN` | Dominio en Plausible. Sin ella no se inyecta ningún script de analítica. |
+| `RESEND_API_KEY` | Entrega del formulario de contacto. Sin ella el formulario avisa que no está configurado en vez de fingir el envío. |
+| `CONTACTO_EMAIL_REMITENTE` | Remitente verificado en Resend. Requerido junto con la API key. |
+| `CONTACTO_EMAIL_DESTINO` | Destino de las consultas. Por defecto, el email de contacto del sitio. |
+| `NEXT_PUBLIC_SHOW_DRAFTS` | `'true'` muestra los borradores de `/notas`. Nunca en producción: sin ella la ruta devuelve 404. |
 | `NEXT_PUBLIC_SHOW_INTERNAL_NOTES` | `'true'` muestra los marcadores de material pendiente. Nunca en producción. |
 
-> ⚠️ **El sitio no es indexable hasta que `NEXT_PUBLIC_INDEXABLE=true` esté
-> configurada en Production.** Es intencional mientras no haya dominio
-> definitivo, pero significa que hoy no llega tráfico orgánico. Ver
+> ⚠️ **Hoy el sitio no es indexable: falta el dominio.** Es intencional, pero
+> significa que no llega tráfico orgánico. Ver
 > `docs/strategy/v2-auditoria-y-plan.md` §1.
 
 ## Documentación
 
 - `docs/strategy/v2-auditoria-y-plan.md` — auditoría crítica y plan por fases
+- `docs/strategy/checklist-campo-soderia.md` — material a relevar en el campo
+- `docs/strategy/analitica-y-conversion.md` — eventos medidos y cómo leerlos
 - `docs/implementation/` — migración, identidad, QA y plan de lanzamiento V1
 
 ---

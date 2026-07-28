@@ -13,9 +13,23 @@
 // informa INDETERMINADO y no falla — no se finge una verificación.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { casos } from '../content/cases/index.ts';
+// Se importan los archivos de caso directamente y con extensión explícita:
+// `content/cases/index.ts` usa imports sin extensión (resueltos por el bundler
+// de Next), que el resolver ESM de Node no acepta. Cada archivo de caso solo
+// tiene `import type`, que el type-stripping de Node elimina por completo.
+import { soderiaNico } from '../content/cases/soderia-nico.ts';
+import { courtops } from '../content/cases/courtops.ts';
+import { trackium } from '../content/cases/trackium.ts';
+import { zentro } from '../content/cases/zentro.ts';
+import { doleth } from '../content/cases/doleth.ts';
+
+const casos = [soderiaNico, courtops, trackium, zentro, doleth];
 
 const TIMEOUT_MS = 15_000;
+/** Salida a internet mediada por un proxy: cambia cómo se interpreta un 403. */
+const TRAS_PROXY = Boolean(
+  process.env.HTTPS_PROXY || process.env.https_proxy || process.env.HTTP_PROXY,
+);
 const HOY = new Date();
 /** Una verificación con más de 90 días se considera vencida. */
 const DIAS_VALIDEZ = 90;
@@ -42,8 +56,18 @@ for (const d of declaradas) {
     const t = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
     const res = await fetch(d.url, { signal: ctrl.signal, redirect: 'follow' });
     clearTimeout(t);
-    estado = res.ok ? `OK ${res.status}` : `CAÍDA ${res.status}`;
-    if (!res.ok) fallos++;
+
+    if (res.ok) {
+      estado = `OK ${res.status}`;
+    } else if (TRAS_PROXY && (res.status === 403 || res.status === 407)) {
+      // Un proxy de egress responde 403/407 ante una denegación de política.
+      // Es indistinguible de un 403 del sitio real: no se declara caída.
+      estado = `INDETERMINADO (${res.status} — probable denegación del proxy)`;
+      indeterminados++;
+    } else {
+      estado = `CAÍDA ${res.status}`;
+      fallos++;
+    }
   } catch (e) {
     estado = `INDETERMINADO (${e.cause?.code ?? e.name})`;
     indeterminados++;
