@@ -1,5 +1,7 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import { metadataRuta } from '@/lib/seo';
 import { casos, casosPorSlug } from '@/content/cases';
 import { coleccionSecundaria } from '@/content/projects';
 import { comoTrabajo, contacto, oferta, site } from '@/content/site';
@@ -15,6 +17,14 @@ import { ESTADO_LABEL } from '@/content/types';
 // Cómo trabajo → Sobre mí → Colección secundaria → Contacto.
 // Todo Server Component. Sin JS cliente en esta página.
 // ─────────────────────────────────────────────────────────────────────────────
+
+export const metadata: Metadata = metadataRuta({
+  titulo: `${site.nombre} — ${site.propuesta}`,
+  descripcion: site.descripcionMeta,
+  ruta: '/',
+  og: 'home',
+  alterna: { es: '/', en: '/en' },
+});
 
 const soderia = casosPorSlug['soderia-nico'];
 /**

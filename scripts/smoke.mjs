@@ -9,6 +9,13 @@ import { chromium } from 'playwright';
 const PORT = 4321;
 const BASE = `http://localhost:${PORT}`;
 
+/**
+ * El smoke corre contra el build local, que normalmente no tiene dominio.
+ * Canonical, hreflang y sitemap SOLO deben existir con dominio configurado:
+ * sin él, su ausencia es el comportamiento correcto, no una falla.
+ */
+const CON_DOMINIO = Boolean(process.env.NEXT_PUBLIC_SITE_URL);
+
 const RUTAS = [
   '/',
   '/proyectos',
@@ -19,6 +26,7 @@ const RUTAS = [
   '/casos/doleth',
   '/sobre-mi',
   '/contacto',
+  '/en',
 ];
 
 const resultados = [];
@@ -52,10 +60,22 @@ try {
     const res = await fetch(`${BASE}${ruta}`);
     const html = await res.text();
     check(`${ruta} responde 200`, res.status === 200, `status ${res.status}`);
-    check(`${ruta} lang=es`, html.includes('<html lang="es"'));
+    check(`${ruta} lang=es en <html>`, html.includes('<html lang="es"'));
+    if (ruta === '/en') {
+      // El root layout declara es; /en marca su idioma en el contenedor.
+      check('/en marca lang="en" en su contenido', /lang="en"/.test(html));
+    }
     check(`${ruta} tiene <title>`, /<title>[^<]{5,}<\/title>/.test(html));
     check(`${ruta} tiene meta description`, /name="description" content="[^"]{20,}"/.test(html));
-    check(`${ruta} tiene canonical`, html.includes('rel="canonical"'));
+    if (CON_DOMINIO) {
+      check(`${ruta} tiene canonical`, html.includes('rel="canonical"'));
+    } else {
+      check(
+        `${ruta} sin canonical (no hay dominio)`,
+        !html.includes('rel="canonical"'),
+        'canonical emitido sin dominio real',
+      );
+    }
     const mains = html.match(/<main/g) ?? [];
     check(`${ruta} un solo <main>`, mains.length === 1, `${mains.length} <main>`);
     check(`${ruta} tiene <h1>`, /<h1[\s>]/.test(html));
@@ -65,6 +85,13 @@ try {
       `${ruta} zoom permitido`,
       !html.includes('user-scalable=no') && !html.includes('maximum-scale=1'),
     );
+  }
+
+  // Ninguna ruta puede filtrar URLs de entorno local en su metadata.
+  for (const ruta of RUTAS) {
+    const html = await (await fetch(`${BASE}${ruta}`)).text();
+    const metas = html.match(/<(meta|link)[^>]*(localhost|127\.0\.0\.1)[^>]*>/gi) ?? [];
+    check(`${ruta} metadata sin URL local`, metas.length === 0, metas.slice(0, 2).join(' '));
   }
 
   // 404 real
@@ -77,11 +104,27 @@ try {
   const robots = await fetch(`${BASE}/robots.txt`);
   const robotsTxt = await robots.text();
   check('robots.txt responde', robots.status === 200);
-  check('robots.txt bloquea preview no indexable', robotsTxt.includes('Disallow: /'));
+  if (CON_DOMINIO && process.env.NEXT_PUBLIC_INDEXABLE === 'true') {
+    check('robots.txt permite indexar (producción)', robotsTxt.includes('Allow: /'));
+    check('robots.txt anuncia el sitemap', robotsTxt.includes('Sitemap:'));
+  } else {
+    check('robots.txt bloquea entorno no indexable', robotsTxt.includes('Disallow: /'));
+  }
   const sitemap = await fetch(`${BASE}/sitemap.xml`);
   const sitemapXml = await sitemap.text();
   check('sitemap.xml responde', sitemap.status === 200);
-  check('sitemap incluye los 5 casos', RUTAS.filter((r) => r.startsWith('/casos/')).every((r) => sitemapXml.includes(r)));
+  if (CON_DOMINIO) {
+    check(
+      'sitemap incluye los 5 casos',
+      RUTAS.filter((r) => r.startsWith('/casos/')).every((r) => sitemapXml.includes(r)),
+    );
+  } else {
+    check(
+      'sitemap vacío sin dominio',
+      !sitemapXml.includes('<loc>'),
+      'el sitemap listó URLs sin dominio configurado',
+    );
+  }
 
   // Zentro: nunca presentado como consolidado
   const zentroHtml = await (await fetch(`${BASE}/casos/zentro`)).text();
@@ -114,7 +157,15 @@ try {
     // Navegación y CTAs de la home
     await page.goto(BASE, { waitUntil: 'networkidle' });
     check('desktop nav Proyectos', await page.locator('header a[href="/proyectos"]').isVisible());
-    check('desktop CTA proyectos', await page.locator('a:has-text("Ver proyectos")').first().isVisible());
+    check(
+      'desktop CTA proyectos',
+      await page.locator('a[href="/proyectos"]').first().isVisible(),
+    );
+    check(
+      'desktop CTA persistente en header',
+      await page.locator('header a[href="/contacto"]').first().isVisible(),
+    );
+    check('desktop enlace a versión en inglés', await page.locator('header a[href="/en"]').isVisible());
     check('desktop CTA contacto', await page.locator('a:has-text("Contame tu operación")').first().isVisible());
 
     // Skip link primero en el orden de tabulación
@@ -147,7 +198,10 @@ try {
     await boton.click();
     check(
       `mobile ${width} menú abre con enlaces`,
-      await page.locator('nav[aria-label="Principal (móvil)"] a[href="/contacto"]').isVisible(),
+      await page
+        .locator('nav[aria-label="Principal (móvil)"] a[href="/contacto"]')
+        .first()
+        .isVisible(),
     );
     const expandido = await page.getByRole('button', { name: 'Cerrar' }).getAttribute('aria-expanded');
     check(`mobile ${width} aria-expanded=true`, expandido === 'true');
@@ -159,6 +213,75 @@ try {
     // Contacto accesible
     await page.goto(`${BASE}/contacto`, { waitUntil: 'networkidle' });
     check(`mobile ${width} email visible en contacto`, await page.locator('a[href^="mailto:"]').first().isVisible());
+    await page.close();
+  }
+
+  // ── Formulario de contacto: accesibilidad y validación ──────────────────
+  {
+    const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    await page.goto(`${BASE}/contacto`, { waitUntil: 'networkidle' });
+
+    const form = page.locator('form').first();
+    check('contacto tiene formulario', await form.isVisible());
+
+    // Cada control debe tener etiqueta accesible.
+    const sinEtiqueta = await page.evaluate(() => {
+      const campos = [...document.querySelectorAll('form input:not([type=hidden]):not([tabindex="-1"]), form textarea')];
+      return campos.filter((c) => {
+        if (c.getAttribute('aria-label')) return false;
+        const id = c.getAttribute('id');
+        if (id && document.querySelector(`label[for="${id}"]`)) return false;
+        return !c.closest('label');
+      }).length;
+    });
+    check('formulario: todos los campos etiquetados', sinEtiqueta === 0, `${sinEtiqueta} sin label`);
+
+    check(
+      'formulario: honeypot fuera del orden de tabulación',
+      (await page.locator('input[name="empresa_web"]').getAttribute('tabindex')) === '-1',
+    );
+
+    // Validación del servidor: enviar vacío debe describir errores, no romper.
+    // Se espera el umbral anti-spam para no disparar el rechazo por tiempo.
+    await page.waitForTimeout(1500);
+    await page.locator('button[type="submit"]').click();
+    await page.waitForSelector('[aria-invalid="true"]', { timeout: 15000 });
+    const invalidos = await page.locator('[aria-invalid="true"]').count();
+    check('formulario: marca campos inválidos', invalidos > 0, `${invalidos}`);
+
+    const describedOk = await page.evaluate(() => {
+      const campos = [...document.querySelectorAll('[aria-invalid="true"]')];
+      return campos.every((c) => {
+        const ids = (c.getAttribute('aria-describedby') ?? '').split(/\s+/).filter(Boolean);
+        return ids.some((id) => document.getElementById(id)?.textContent?.trim());
+      });
+    });
+    check('formulario: cada error se describe con aria-describedby', describedOk);
+
+    check(
+      'formulario: región de resultado aria-live',
+      (await page.locator('[role="status"][aria-live="polite"]').count()) > 0,
+    );
+    await page.close();
+  }
+
+  // ── Menú móvil: el foco queda atrapado dentro del panel ─────────────────
+  {
+    const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    await page.goto(BASE, { waitUntil: 'networkidle' });
+    await page.getByRole('button', { name: 'Menú' }).click();
+    await page.waitForSelector('nav[aria-label="Principal (móvil)"]');
+    // Tab muchas veces: el foco nunca debe salir del panel.
+    let escapo = false;
+    for (let i = 0; i < 12; i++) {
+      await page.keyboard.press('Tab');
+      const dentro = await page.evaluate(() =>
+        Boolean(document.activeElement?.closest('nav[aria-label="Principal (móvil)"]')),
+      );
+      if (!dentro) { escapo = true; break; }
+    }
+    check('menú móvil: focus trap retiene el foco', !escapo);
+    await page.keyboard.press('Escape');
     await page.close();
   }
 

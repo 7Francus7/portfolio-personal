@@ -28,6 +28,11 @@ export function Footer() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link href="/en" lang="en" hrefLang="en" className="link-editorial">
+                English
+              </Link>
+            </li>
           </ul>
           <ul className="space-y-2">
             {casos.map((caso) => (

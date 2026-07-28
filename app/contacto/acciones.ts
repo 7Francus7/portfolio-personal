@@ -33,8 +33,13 @@ const ASUNTO: Record<Perfil, string> = {
   otro: 'Consulta',
 };
 
-/** Tiempo mínimo plausible entre que se pinta el formulario y se envía. */
-const MS_MINIMO_HUMANO = 3000;
+/**
+ * Tiempo mínimo plausible entre que se pinta el formulario y se envía.
+ * Deliberadamente bajo: con autocompletado, una persona real puede enviar en
+ * pocos segundos, y perder una consulta legítima cuesta mucho más que dejar
+ * pasar un bot — que igual queda filtrado por el honeypot.
+ */
+const MS_MINIMO_HUMANO = 1200;
 
 const LIMITES = { nombre: 120, email: 200, mensaje: 5000, contexto: 2000 } as const;
 
@@ -62,9 +67,23 @@ export async function enviarConsulta(
   }
 
   // 2. Tiempo mínimo: los bots completan y envían de inmediato.
+  //    A diferencia del honeypot, acá NO se responde "ok": una persona real
+  //    puede disparar este umbral, y descartarle el mensaje en silencio sería
+  //    exactamente el fallo que este formulario vino a corregir. Se le pide
+  //    reintentar —trivial para un humano, costoso para un bot a escala.
   const pintadoEn = Number(datos.get('pintado_en'));
-  if (Number.isFinite(pintadoEn) && Date.now() - pintadoEn < MS_MINIMO_HUMANO) {
-    return { estado: 'ok' };
+  if (Number.isFinite(pintadoEn) && pintadoEn > 0 && Date.now() - pintadoEn < MS_MINIMO_HUMANO) {
+    return {
+      estado: 'error',
+      mensaje: 'Se envió demasiado rápido. Tocá enviar de nuevo, por favor.',
+      valores: {
+        nombre: limpio(datos.get('nombre'), LIMITES.nombre),
+        email: limpio(datos.get('email'), LIMITES.email),
+        mensaje: limpio(datos.get('mensaje'), LIMITES.mensaje),
+        contexto: limpio(datos.get('contexto'), LIMITES.contexto),
+        perfil: limpio(datos.get('perfil'), 20),
+      },
+    };
   }
 
   // ── Validación ───────────────────────────────────────────────────────────
