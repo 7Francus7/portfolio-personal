@@ -1,4 +1,4 @@
-import type { Caso, CasoSlug } from '../types';
+import type { Caso, CasoSlug, Tier } from '../types';
 import { soderiaNico } from './soderia-nico';
 import { trackium } from './trackium';
 import { zentro } from './zentro';
@@ -6,11 +6,26 @@ import { courtops } from './courtops';
 import { doleth } from './doleth';
 
 /**
- * Orden = jerarquía definitiva de proyectos (doc 04, Alternativa C).
- * Este orden gobierna toda superficie: home, /proyectos, navegación entre
- * casos y sitemap. No reordenar.
+ * Orden canónico: primero por tier, después por peso dentro del tier.
+ * Gobierna toda superficie —home, /proyectos, navegación entre casos y
+ * sitemap— para que la jerarquía sea una sola y no se contradiga entre
+ * páginas.
  */
-export const casos: Caso[] = [soderiaNico, trackium, zentro, courtops, doleth];
+export const casos: Caso[] = [soderiaNico, courtops, trackium, zentro, doleth];
+
+/** Casos de un tier, en el orden canónico. */
+export function casosPorTier(tier: Tier): Caso[] {
+  return casos.filter((c) => c.tier === tier);
+}
+
+/** Los tres tiers en orden de presentación, sin los que quedaron vacíos. */
+export const TIERS_ORDEN: Tier[] = ['principal', 'evolucion', 'exploracion'];
+
+export function tiersConCasos(): { tier: Tier; casos: Caso[] }[] {
+  return TIERS_ORDEN.map((tier) => ({ tier, casos: casosPorTier(tier) })).filter(
+    (g) => g.casos.length > 0,
+  );
+}
 
 export const casosPorSlug: Record<CasoSlug, Caso> = {
   'soderia-nico': soderiaNico,

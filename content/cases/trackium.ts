@@ -8,6 +8,7 @@ export const trackium: CasoReducido = {
   sector: 'Transporte y logística',
   rol: 'Producto, arquitectura y desarrollo full-stack',
   estado: 'en-desarrollo',
+  tier: 'evolucion',
   rolPortfolio: 'escala',
   acceso: {
     privado: { motivo: 'Producto en desarrollo — sin demo pública por ahora.' },

@@ -8,6 +8,7 @@ export const zentro: CasoReducido = {
   sector: 'Negocios pequeños que operan por WhatsApp',
   rol: 'Visión de producto, diseño y desarrollo',
   estado: 'en-desarrollo',
+  tier: 'exploracion',
   rolPortfolio: 'vision',
   acceso: {
     privado: { motivo: 'Producto en desarrollo — sin demo pública.' },

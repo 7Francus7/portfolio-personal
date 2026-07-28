@@ -50,7 +50,7 @@ export default function ContactoPage() {
                 key={item.paso}
                 className={`grid gap-3 py-7 md:grid-cols-[auto_1fr_2fr] md:gap-8 ${i > 0 ? 'hairline-t' : ''}`}
               >
-                <span aria-hidden="true" className="label-mono pt-1 !text-clay">
+                <span aria-hidden="true" className="label-mono pt-1 label-clay">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <h3 className="font-serif-display text-2xl">{item.paso}</h3>

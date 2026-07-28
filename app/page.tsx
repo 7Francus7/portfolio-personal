@@ -14,7 +14,14 @@ import { ESTADO_LABEL, ROL_LABEL } from '@/content/types';
 // ─────────────────────────────────────────────────────────────────────────────
 
 const soderia = casosPorSlug['soderia-nico'];
-const seleccionados = casos.filter((c) => ['trackium', 'courtops'].includes(c.slug));
+/**
+ * La home muestra el otro caso principal y los sistemas en evolución.
+ * Las exploraciones (Zentro, Doleth) viven en /proyectos: acá compiten con
+ * la evidencia y bajan el promedio de lo que se ve en los primeros scrolls.
+ */
+const seleccionados = casos.filter(
+  (c) => c.slug !== 'soderia-nico' && (c.tier === 'principal' || c.tier === 'evolucion'),
+);
 
 export default function HomePage() {
   return (
@@ -51,11 +58,14 @@ export default function HomePage() {
           </Link>
         </div>
 
-        {/* Prueba integrada: solo hechos respaldados por la documentación */}
+        {/* Prueba integrada: solo hechos respaldados por la documentación.
+            Se prioriza lo verificable por un desconocido. ELEEME salió de acá
+            —es una migración de catálogo— y quedó en la colección secundaria:
+            la prueba de arriba tiene que ser la más fuerte, no la más disponible. */}
         <ul className="hairline-t mt-14 flex max-w-3xl flex-col gap-2 pt-6 md:flex-row md:gap-8">
-          <li className="label-mono">Sodería Nico — sistema en uso real</li>
+          <li className="label-mono">Sodería Nico — en uso diario</li>
           <li className="label-mono">CourtOps — demo pública</li>
-          <li className="label-mono">ELEEME — trabajo para cliente</li>
+          <li className="label-mono">Trackium — sistema en evolución</li>
         </ul>
       </section>
 
@@ -146,7 +156,7 @@ export default function HomePage() {
           <ol className="mt-14 grid gap-x-14 gap-y-10 md:grid-cols-2">
             {comoTrabajo.map((etapa, i) => (
               <li key={etapa.paso} className="grid grid-cols-[auto_1fr] gap-5">
-                <span aria-hidden="true" className="label-mono pt-1.5 !text-clay">
+                <span aria-hidden="true" className="label-mono pt-1.5 label-clay">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>
@@ -174,7 +184,7 @@ export default function HomePage() {
                 key={servicio.nombre}
                 className={`grid gap-3 py-7 md:grid-cols-[auto_1fr_2fr] md:gap-8 ${i > 0 ? 'hairline-t' : ''}`}
               >
-                <span aria-hidden="true" className="label-mono pt-1 !text-clay">
+                <span aria-hidden="true" className="label-mono pt-1 label-clay">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <h3 className="font-serif-display text-2xl">{servicio.nombre}</h3>

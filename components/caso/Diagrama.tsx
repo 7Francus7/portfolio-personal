@@ -24,7 +24,7 @@ export function Diagrama({ antes, despues }: { antes: string[]; despues: string[
       </p>
       <span className="sr-only">se convierte en</span>
       <div className="border border-ink p-6">
-        <p className="label-mono mb-4 !text-ink">Después</p>
+        <p className="label-mono mb-4 label-ink">Después</p>
         <ul className="flex flex-wrap gap-2">
           {despues.map((nodo) => (
             <li key={nodo} className="border border-ink px-3 py-1.5 text-sm text-ink">

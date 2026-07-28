@@ -8,9 +8,16 @@ export const courtops: CasoReducido = {
   sector: 'Clubes deportivos',
   rol: 'Producto, diseño y desarrollo full-stack',
   estado: 'en-desarrollo',
+  tier: 'principal',
   rolPortfolio: 'saas-vertical',
+  verificablePor: 'Demo pública navegable, sin registro. Cualquiera puede abrirla y usarla.',
   acceso: {
-    demo: { url: 'https://www.courtops.net', etiqueta: 'Demo pública', verificada: true },
+    demo: {
+      url: 'https://www.courtops.net',
+      etiqueta: 'Demo pública',
+      verificada: true,
+      verificadaEl: '2026-07-17',
+    },
     repo: { url: 'https://github.com/7Francus7/CourtOps' },
   },
   stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Prisma'],

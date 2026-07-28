@@ -57,7 +57,7 @@ export default function SobreMiPage() {
           <ol className="grid gap-x-14 gap-y-10 md:grid-cols-2">
             {comoTrabajo.map((etapa, i) => (
               <li key={etapa.paso} className="grid grid-cols-[auto_1fr] gap-5">
-                <span aria-hidden="true" className="label-mono pt-1.5 !text-clay">
+                <span aria-hidden="true" className="label-mono pt-1.5 label-clay">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>

@@ -8,6 +8,7 @@ export const doleth: CasoReducido = {
   sector: 'Producto personal de finanzas',
   rol: 'Producto, lenguaje y diseño de información',
   estado: 'en-desarrollo',
+  tier: 'exploracion',
   rolPortfolio: 'diseno',
   acceso: {
     privado: { motivo: 'Producto en desarrollo — sin demo pública.' },

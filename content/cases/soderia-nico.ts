@@ -16,7 +16,10 @@ export const soderiaNico: CasoCompleto = {
   sector: 'Distribución de agua y soda',
   rol: 'Arquitectura, producto y desarrollo full-stack',
   estado: 'uso-real',
+  tier: 'principal',
   rolPortfolio: 'evidencia-real',
+  verificablePor:
+    'Sistema privado en uso diario. Recorrido guiado disponible a pedido; el repositorio es público.',
   acceso: {
     privado: { motivo: 'Sistema privado en uso real — sin demo pública.' },
     repo: { url: 'https://github.com/7Francus7/Soderia-Nico' },

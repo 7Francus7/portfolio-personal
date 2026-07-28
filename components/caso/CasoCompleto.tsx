@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { CasoCompleto as CasoCompletoTipo } from '@/content/types';
 import { casoSiguiente } from '@/content/cases';
-import { EstadoBadge, Kicker, NotaInterna } from '@/components/ui';
+import { EstadoBadge, Kicker, NotaInterna, TierBadge } from '@/components/ui';
 import { Diagrama } from './Diagrama';
 
 /**
@@ -24,11 +24,17 @@ export function CasoCompletoVista({ caso }: { caso: CasoCompletoTipo }) {
         </nav>
         <div className="mb-6 flex flex-wrap items-center gap-3">
           <EstadoBadge estado={caso.estado} />
+          <TierBadge tier={caso.tier} />
           <span className="label-mono">{caso.sector}</span>
         </div>
         <h1 className="max-w-4xl font-serif-display text-(length:--text-title) leading-[1.05]">
           {caso.titulo}
         </h1>
+        {caso.verificablePor ? (
+          <p className="mt-6 max-w-(--container-prose) border-l-2 border-clay pl-5 text-ink-soft">
+            {caso.verificablePor}
+          </p>
+        ) : null}
         <dl className="mt-10 grid max-w-2xl grid-cols-2 gap-6 text-sm md:grid-cols-3">
           <div>
             <dt className="label-mono">Rol</dt>

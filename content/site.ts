@@ -3,13 +3,8 @@
 // o en la documentación de estrategia. Nada inventado.
 // ─────────────────────────────────────────────────────────────────────────────
 
-/**
- * URL pública configurable. No fijar dominio definitivo hasta confirmarlo
- * (doc 10 §6). El fallback es localhost para que ninguna preview envenene
- * indexación: robots.ts solo permite indexar cuando INDEXABLE === 'true'.
- */
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
-export const INDEXABLE = process.env.NEXT_PUBLIC_INDEXABLE === 'true';
+// La URL pública y la política de indexación viven en `lib/entorno.ts`.
+// No se declaran acá para que exista una sola fuente de verdad.
 
 export const site = {
   nombre: 'Franco Dell’Orsi',
@@ -34,6 +29,42 @@ export const contacto = {
   whatsapp: 'https://wa.me/5493524421497',
   linkedin: 'https://www.linkedin.com/in/franco-dellorsi/',
   github: 'https://github.com/7Francus7',
+} as const;
+
+/**
+ * Enlace de agenda. Preparado, no inventado: mientras sea `null` la UI ofrece
+ * el formulario y el email en lugar de un botón que no lleva a ningún lado.
+ * Para activarlo: pegar la URL real de Cal.com / Calendly.
+ */
+export const agenda: { url: string; etiqueta: string } | null = null;
+
+/**
+ * Perfil profesional. **Solo datos confirmados por Franco (2026-07-28).**
+ *
+ * Los campos `null` están deliberadamente vacíos porque el dato no está
+ * confirmado: la UI los omite o muestra un estado explícito de "a confirmar".
+ * Nunca rellenar con estimaciones — la regla de honestidad del repositorio
+ * aplica igual al perfil que a los casos.
+ */
+export const perfilProfesional = {
+  ubicacion: 'Argentina',
+  zonaHoraria: 'UTC-3',
+  /** Solapamiento real con husos donde se contrata remoto. Derivado de UTC-3. */
+  solapamiento: [
+    { zona: 'US Eastern (UTC-5)', detalle: 'Overlap completo — 2 h de diferencia' },
+    { zona: 'US Pacific (UTC-8)', detalle: 'Overlap de mañana a media tarde' },
+    { zona: 'Europa central (UTC+1)', detalle: 'Overlap de mañana europea' },
+  ],
+  modalidad: 'Remoto',
+  disponible: true,
+
+  // ── Pendientes de confirmación ────────────────────────────────────────────
+  /** Sin confirmar. No inventar. */
+  nivelIngles: null,
+  /** Sin confirmar. No inventar. */
+  aniosExperiencia: null,
+  /** Ruta al PDF en /public cuando exista. `null` ⇒ la UI bloquea la descarga. */
+  cvPdf: null,
 } as const;
 
 export const navegacion = [

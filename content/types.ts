@@ -27,7 +27,17 @@ export const ESTADO_LABEL: Record<EstadoProducto, string> = {
  * "abrir": muestra su motivo como texto.
  */
 export interface Acceso {
-  demo?: { url: string; etiqueta: string; verificada: boolean };
+  demo?: {
+    url: string;
+    etiqueta: string;
+    verificada: boolean;
+    /**
+     * Fecha ISO de la última comprobación de que la URL responde.
+     * Existe para que "demo pública" sea una afirmación con fecha y no una
+     * creencia heredada. `scripts/check-demos.mjs` la revalida.
+     */
+    verificadaEl: string;
+  };
   repo?: { url: string };
   privado?: { motivo: string };
 }
@@ -47,6 +57,42 @@ export interface Imagen {
 export interface MaterialPendiente {
   notaInterna: string;
 }
+
+/**
+ * Nivel del proyecto en el portfolio (decisión Franco, 2026-07-28).
+ *
+ * Existe para resolver un problema de lectura, no de honestidad: mostrar
+ * cinco proyectos con el mismo peso visual —cuatro de ellos "En desarrollo"—
+ * comunicaba "empieza muchas cosas y termina una", que no es lo que ninguna
+ * ficha individual dice. El tier reencuadra sin ocultar: el estado real sigue
+ * visible en cada caso, pero deja de ser el titular.
+ */
+export type Tier = 'principal' | 'evolucion' | 'exploracion';
+
+export const TIER_LABEL: Record<Tier, string> = {
+  principal: 'Caso principal',
+  evolucion: 'Sistema en evolución',
+  exploracion: 'Exploración de producto',
+};
+
+/** Encabezado y bajada de cada nivel en las superficies de listado. */
+export const TIER_SECCION: Record<Tier, { titulo: string; bajada: string }> = {
+  principal: {
+    titulo: 'Trabajo comprobable',
+    bajada:
+      'Sistemas que se pueden verificar: uno en uso diario en una operación real, otro con demo pública navegable.',
+  },
+  evolucion: {
+    titulo: 'Sistemas en evolución',
+    bajada:
+      'Productos con arquitectura y módulos construidos, en camino a su primera operación real. Se muestran por sus decisiones, no como casos cerrados.',
+  },
+  exploracion: {
+    titulo: 'Exploraciones de producto',
+    bajada:
+      'Ejercicios deliberados de criterio: qué construir, qué callar, cómo nombrar las cosas. No pretenden ser productos terminados.',
+  },
+};
 
 /** Papel estratégico del proyecto dentro del portfolio (doc 04). */
 export type RolPortfolio =
@@ -75,11 +121,18 @@ export interface CasoBase {
   sector: string;
   rol: string;
   estado: EstadoProducto;
+  /** Nivel en la jerarquía del portfolio. Gobierna peso visual y orden. */
+  tier: Tier;
   rolPortfolio: RolPortfolio;
   acceso: Acceso;
   stack: string[];
   /** Resumen honesto: alimenta meta description y tarjetas. */
   resumen: string;
+  /**
+   * Qué hace verificable a este caso por un desconocido, en una línea.
+   * Es la prueba que sostiene el tier. Solo para `principal`.
+   */
+  verificablePor?: string;
 }
 
 export interface DolorConCosto {

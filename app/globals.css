@@ -84,13 +84,23 @@ body {
   letter-spacing: -0.02em;
 }
 
-/* Etiqueta mono: kickers, metadatos, labels */
+/* Etiqueta mono: kickers, metadatos, labels.
+   El color sale de una custom property para que las variantes lo cambien sin
+   `!important` — un `!important` dentro de un design system es deuda. */
 @utility label-mono {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-ink-mute);
+  color: var(--label-mono-color, var(--color-ink-mute));
+}
+
+/* Variantes de énfasis de la etiqueta mono. */
+@utility label-clay {
+  --label-mono-color: var(--color-clay);
+}
+@utility label-ink {
+  --label-mono-color: var(--color-ink);
 }
 
 @utility hairline-t {

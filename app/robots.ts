@@ -1,16 +1,23 @@
 import type { MetadataRoute } from 'next';
-import { INDEXABLE, SITE_URL } from '@/content/site';
+import { esIndexable, urlConfigurada } from '@/lib/entorno';
 
 /**
- * Mientras el dominio definitivo no esté confirmado (doc 10 §6), ninguna
- * preview es indexable: se bloquea todo salvo que NEXT_PUBLIC_INDEXABLE=true.
+ * Indexación gobernada por entorno (`lib/entorno.ts`): hacen falta las tres
+ * condiciones —fase producción, dominio real y opt-in explícito— para permitir
+ * crawling. Preview, localhost y producción mal configurada quedan bloqueados.
+ *
+ * El sitemap solo se anuncia si existe una URL absoluta real que anunciar.
  */
 export default function robots(): MetadataRoute.Robots {
-  if (!INDEXABLE) {
+  const base = urlConfigurada();
+
+  if (!esIndexable() || !base) {
     return { rules: { userAgent: '*', disallow: '/' } };
   }
+
   return {
     rules: { userAgent: '*', allow: '/' },
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    sitemap: `${base}/sitemap.xml`,
+    host: base,
   };
 }

@@ -65,7 +65,7 @@ export function Header() {
         <button
           ref={botonRef}
           type="button"
-          className="tap-target label-mono min-w-11 justify-end !text-ink md:hidden"
+          className="tap-target label-mono min-w-11 justify-end label-ink md:hidden"
           aria-expanded={abierto}
           aria-controls={menuId}
           onClick={() => setAbierto((v) => !v)}
