@@ -1,6 +1,10 @@
-import type { Metadata } from 'next';
-import { site } from '@/content/site';
-import { baseMetadata, emiteMetadataAbsoluta, esIndexable } from '@/lib/entorno';
+import type { Metadata } from "next";
+import { site } from "@/content/site";
+import {
+  baseMetadata,
+  emiteMetadataAbsoluta,
+  esIndexable,
+} from "@/lib/entorno";
 
 /**
  * Metadata compartida.
@@ -13,9 +17,9 @@ import { baseMetadata, emiteMetadataAbsoluta, esIndexable } from '@/lib/entorno'
  * La indexación la gobierna `lib/entorno.ts`: producción + dominio + opt-in.
  */
 
-export type Idioma = 'es' | 'en';
+export type Idioma = "es" | "en";
 
-const LOCALE: Record<Idioma, string> = { es: 'es_AR', en: 'en_US' };
+const LOCALE: Record<Idioma, string> = { es: "es_AR", en: "en_US" };
 
 export function metadataBase(): Metadata {
   const absoluta = emiteMetadataAbsoluta();
@@ -30,21 +34,30 @@ export function metadataBase(): Metadata {
     robots: esIndexable()
       ? { index: true, follow: true }
       : { index: false, follow: false, nocache: true },
-    ...(absoluta ? { alternates: { canonical: '/' } } : {}),
+    ...(absoluta ? { alternates: { canonical: "/" } } : {}),
     openGraph: {
-      type: 'website',
+      type: "website",
       siteName: site.nombre,
       locale: LOCALE.es,
       title: `${site.nombre} — ${site.propuesta}`,
       description: site.descripcionMeta,
-      ...(absoluta ? { url: '/' } : {}),
-      images: [{ url: '/og.png', width: 1200, height: 630, alt: site.nombre }],
+      ...(absoluta ? { url: "/" } : {}),
+      // og:image se resuelve contra metadataBase. Sin dominio real, esa
+      // resolución produciría http://localhost:3000/og.png — una URL que no
+      // existe para ningún validador social. Se omite la imagen entera.
+      ...(absoluta
+        ? {
+            images: [
+              { url: "/og.png", width: 1200, height: 630, alt: site.nombre },
+            ],
+          }
+        : {}),
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: `${site.nombre} — ${site.propuesta}`,
       description: site.descripcionMeta,
-      images: ['/og.png'],
+      ...(absoluta ? { images: ["/og.png"] } : {}),
     },
   };
 }
@@ -61,18 +74,20 @@ export function metadataRuta(opts: {
   alterna?: { es?: string; en?: string };
 }): Metadata {
   const absoluta = emiteMetadataAbsoluta();
-  const idioma = opts.idioma ?? 'es';
+  const idioma = opts.idioma ?? "es";
 
-  const imagen = opts.og
-    ? [
-        {
-          url: `/og/${opts.og}.png`,
-          width: 1200,
-          height: 630,
-          alt: `${opts.titulo} — ${site.nombre}`,
-        },
-      ]
-    : undefined;
+  // Misma regla que en metadataBase: sin dominio no hay imagen social.
+  const imagen =
+    absoluta && opts.og
+      ? [
+          {
+            url: `/og/${opts.og}.png`,
+            width: 1200,
+            height: 630,
+            alt: `${opts.titulo} — ${site.nombre}`,
+          },
+        ]
+      : undefined;
 
   // hreflang solo tiene sentido con URLs absolutas resolubles.
   const alternates = absoluta
@@ -83,7 +98,7 @@ export function metadataRuta(opts: {
               languages: {
                 ...(opts.alterna.es ? { es: opts.alterna.es } : {}),
                 ...(opts.alterna.en ? { en: opts.alterna.en } : {}),
-                'x-default': opts.alterna.es ?? opts.ruta,
+                "x-default": opts.alterna.es ?? opts.ruta,
               },
             }
           : {}),
@@ -102,7 +117,7 @@ export function metadataRuta(opts: {
       ...(imagen ? { images: imagen } : {}),
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: `${opts.titulo} — ${site.nombre}`,
       description: opts.descripcion,
       ...(imagen ? { images: imagen.map((i) => i.url) } : {}),

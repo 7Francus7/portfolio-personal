@@ -3,8 +3,11 @@ import Image from 'next/image';
 import { casos, casosPorSlug } from '@/content/cases';
 import { coleccionSecundaria } from '@/content/projects';
 import { comoTrabajo, contacto, oferta, site } from '@/content/site';
-import { EstadoBadge, Kicker } from '@/components/ui';
-import { ESTADO_LABEL, ROL_LABEL } from '@/content/types';
+import { Kicker } from '@/components/ui';
+import { FilaCaso } from '@/components/FilaCaso';
+import { EnlaceMedido } from '@/components/EnlaceMedido';
+import { EVENTOS } from '@/lib/analitica';
+import { ESTADO_LABEL } from '@/content/types';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Home — orden congelado (doc 06 / brief Fase 3A):
@@ -47,12 +50,14 @@ export default function HomePage() {
         <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-soft">{site.subtitulo}</p>
 
         <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-          <Link
+          <EnlaceMedido
             href="/contacto"
-            className="border border-ink bg-ink px-6 py-3 text-sm font-medium text-paper hover:bg-clay-deep hover:border-clay-deep"
+            evento={EVENTOS.ctaContacto}
+            props={{ origen: 'hero' }}
+            className="inline-flex min-h-11 items-center border border-ink bg-ink px-6 text-sm font-medium text-paper hover:border-clay-deep hover:bg-clay-deep"
           >
             Contame tu operación
-          </Link>
+          </EnlaceMedido>
           <Link href="/casos/soderia-nico" className="tap-target link-editorial text-sm">
             Ver caso en uso real →
           </Link>
@@ -115,29 +120,12 @@ export default function HomePage() {
           </h2>
           <ul>
             {seleccionados.map((caso, i) => (
-              <li key={caso.slug} className={i > 0 ? 'hairline-t' : undefined}>
-                <Link
-                  href={`/casos/${caso.slug}`}
-                  className="group grid gap-4 py-10 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)_auto] md:items-baseline md:gap-10"
-                >
-                  <span className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
-                    <span className="font-serif-display text-3xl leading-tight group-hover:text-clay md:text-4xl">
-                      {caso.nombre}
-                    </span>
-                    <EstadoBadge estado={caso.estado} />
-                  </span>
-                  <span className="text-sm leading-relaxed text-ink-mute">{caso.resumen}</span>
-                  <span className="label-mono md:justify-self-end">
-                    {caso.acceso.demo?.verificada ? 'Demo pública' : ROL_LABEL[caso.rolPortfolio]}{' '}
-                    <span aria-hidden="true" className="nudge inline-block">→</span>
-                  </span>
-                </Link>
-              </li>
+              <FilaCaso key={caso.slug} caso={caso} primera={i === 0} />
             ))}
           </ul>
           <p className="mt-6">
             <Link href="/proyectos" className="tap-target link-editorial text-sm">
-              Ver proyectos en desarrollo →
+              Ver todos los proyectos, por nivel →
             </Link>
           </p>
         </div>
@@ -277,20 +265,23 @@ export default function HomePage() {
             próximo paso concreto.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-            <a
-              href={`mailto:${contacto.email}`}
-              className="border border-ink bg-ink px-6 py-3 text-sm font-medium text-paper hover:bg-clay-deep hover:border-clay-deep"
+            <EnlaceMedido
+              href="/contacto"
+              evento={EVENTOS.ctaContacto}
+              props={{ origen: 'home-cierre' }}
+              className="inline-flex min-h-11 items-center border border-ink bg-ink px-6 text-sm font-medium text-paper hover:border-clay-deep hover:bg-clay-deep"
             >
               Contame cómo funciona
-            </a>
-            <a
+            </EnlaceMedido>
+            <EnlaceMedido
               href={contacto.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
+              externo
+              evento={EVENTOS.contactoDirecto}
+              props={{ medio: 'whatsapp' }}
               className="tap-target link-editorial text-sm"
             >
               Escribir por WhatsApp →
-            </a>
+            </EnlaceMedido>
           </div>
         </div>
       </section>

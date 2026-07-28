@@ -4,11 +4,16 @@
   "version": "2.0.0-foundation",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-publicacion.mjs",
     "build": "next build",
+    "postbuild": "node scripts/check-build-limpio.mjs",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "smoke": "node scripts/smoke.mjs"
+    "smoke": "node scripts/smoke.mjs",
+    "check:demos": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-demos.mjs",
+    "check:publicacion": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/check-publicacion.mjs",
+    "verify": "npm run lint && npm run typecheck && npm run build && npm run smoke"
   },
   "dependencies": {
     "next": "^16.2.10",

@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navegacion, site } from '@/content/site';
+import { EVENTOS, registrar } from '@/lib/analitica';
 
 /**
  * Header liviano: marca + tres enlaces. En mobile, menú overlay accesible
@@ -19,15 +20,40 @@ export function Header() {
 
   useEffect(() => {
     if (!abierto) return;
+
+    const panel = panelRef.current;
+    const foco = () =>
+      Array.from(
+        panel?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ?? [],
+      ).filter((el) => el.offsetParent !== null);
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setAbierto(false);
         botonRef.current?.focus();
+        return;
+      }
+      // Focus trap: sin esto, Tab se escapaba del panel hacia el contenido de
+      // atrás, que sigue visible para el lector de pantalla.
+      if (e.key !== 'Tab') return;
+      const items = foco();
+      if (items.length === 0) return;
+      const primero = items[0]!;
+      const ultimo = items[items.length - 1]!;
+      const activo = document.activeElement;
+      if (e.shiftKey && (activo === primero || activo === botonRef.current)) {
+        e.preventDefault();
+        ultimo.focus();
+      } else if (!e.shiftKey && activo === ultimo) {
+        e.preventDefault();
+        primero.focus();
       }
     };
+
     document.addEventListener('keydown', onKey);
     document.documentElement.style.overflow = 'hidden';
-    panelRef.current?.querySelector('a')?.focus();
+    foco()[0]?.focus();
+
     return () => {
       document.removeEventListener('keydown', onKey);
       document.documentElement.style.overflow = '';
@@ -59,6 +85,24 @@ export function Header() {
               {item.label}
             </Link>
           ))}
+          <Link
+            href="/en"
+            lang="en"
+            hrefLang="en"
+            aria-current={esActiva('/en') ? 'page' : undefined}
+            className="tap-target label-mono hover:label-ink"
+          >
+            EN
+          </Link>
+          {/* CTA persistente: el elemento más visto del sitio no puede ser
+              solo tres links de texto. Único destino de conversión del header. */}
+          <Link
+            href="/contacto"
+            onClick={() => registrar(EVENTOS.ctaContacto, { origen: 'header' })}
+            className="inline-flex min-h-9 items-center border border-ink px-4 text-sm font-medium hover:bg-ink hover:text-paper"
+          >
+            Trabajemos juntos
+          </Link>
         </nav>
 
         {/* Mobile */}
@@ -92,6 +136,24 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
+            <Link
+              href="/en"
+              lang="en"
+              onClick={() => setAbierto(false)}
+              className="hairline-b py-5 font-serif-display text-3xl text-ink"
+            >
+              English
+            </Link>
+            <Link
+              href="/contacto"
+              onClick={() => {
+                registrar(EVENTOS.ctaContacto, { origen: 'menu-movil' });
+                setAbierto(false);
+              }}
+              className="mt-8 inline-flex min-h-12 items-center justify-center border border-ink bg-ink px-6 text-sm font-medium text-paper"
+            >
+              Trabajemos juntos
+            </Link>
           </nav>
         </div>
       )}

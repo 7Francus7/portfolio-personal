@@ -3,6 +3,8 @@ import Image from 'next/image';
 import type { CasoCompleto as CasoCompletoTipo } from '@/content/types';
 import { casoSiguiente } from '@/content/cases';
 import { EstadoBadge, Kicker, NotaInterna, TierBadge } from '@/components/ui';
+import { EnlaceMedido } from '@/components/EnlaceMedido';
+import { EVENTOS } from '@/lib/analitica';
 import { Diagrama } from './Diagrama';
 
 /**
@@ -270,12 +272,14 @@ export function CasoCompletoVista({ caso }: { caso: CasoCompletoTipo }) {
             Mostrame dónde se pierde el control. Definimos qué conviene resolver primero.
           </h2>
           <p className="mt-8">
-            <Link
+            <EnlaceMedido
               href="/contacto"
+              evento={EVENTOS.ctaContacto}
+              props={{ origen: `caso-${caso.slug}` }}
               className="inline-flex min-h-11 items-center border border-ink bg-ink px-6 text-sm font-medium text-paper hover:border-clay-deep hover:bg-clay-deep"
             >
               Contame tu operación
-            </Link>
+            </EnlaceMedido>
           </p>
         </div>
       </section>
